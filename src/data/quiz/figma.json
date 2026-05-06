@@ -1,0 +1,60 @@
+{
+  "skill_id": "design_figma",
+  "pass_mark": 0.7,
+  "items": [
+    {
+      "id": "fg_001",
+      "type": "mcq_single",
+      "stem": "Responsive components are powered by\u2026",
+      "options": [
+        {
+          "k": "A",
+          "text": "Auto Layout",
+          "correct": true
+        },
+        {
+          "k": "B",
+          "text": "Outlines",
+          "correct": false
+        },
+        {
+          "k": "C",
+          "text": "Blend modes",
+          "correct": false
+        },
+        {
+          "k": "D",
+          "text": "Masks",
+          "correct": false
+        }
+      ],
+      "tags": [
+        "components"
+      ],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "fg_002",
+      "type": "true_false",
+      "stem": "Variants help manage component states.",
+      "options": [
+        {
+          "k": "T",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "k": "F",
+          "text": "False",
+          "correct": false
+        }
+      ],
+      "tags": [
+        "components"
+      ],
+      "difficulty": 1,
+      "weight": 1
+    }
+  ]
+}

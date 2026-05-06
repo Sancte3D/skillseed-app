@@ -1,0 +1,147 @@
+{
+  "skill_id": "lang_german",
+  "level": "expert",
+  "pass_mark": 0.7,
+  "items": [
+    {
+      "id": "de_exp_001",
+      "type": "mcq_single",
+      "stem": "Welche Präposition passt: 'Ich fahre ___ Bahn nach Berlin.'?",
+      "options": [
+        { "k": "A", "text": "mit der", "correct": true },
+        { "k": "B", "text": "bei der", "correct": false },
+        { "k": "C", "text": "von der", "correct": false },
+        { "k": "D", "text": "zu der", "correct": false }
+      ],
+      "tags": ["prepositions", "dative"],
+      "difficulty": 3,
+      "weight": 1
+    },
+    {
+      "id": "de_exp_002",
+      "type": "mcq_single",
+      "stem": "Welcher Satz ist grammatisch korrekt?",
+      "options": [
+        { "k": "A", "text": "Ich habe gestern ein Buch gelesen.", "correct": true },
+        { "k": "B", "text": "Ich habe gestern gelesen ein Buch.", "correct": false },
+        { "k": "C", "text": "Gestern ich habe ein Buch gelesen.", "correct": false },
+        { "k": "D", "text": "Ich gestern habe gelesen ein Buch.", "correct": false }
+      ],
+      "tags": ["word-order", "perfect-tense"],
+      "difficulty": 3,
+      "weight": 1
+    },
+    {
+      "id": "de_exp_003",
+      "type": "mcq_single",
+      "stem": "Wählen Sie die richtige Form: 'Die Studenten, ___ ich geholfen habe, ...'",
+      "options": [
+        { "k": "A", "text": "denen", "correct": true },
+        { "k": "B", "text": "die", "correct": false },
+        { "k": "C", "text": "deren", "correct": false },
+        { "k": "D", "text": "den", "correct": false }
+      ],
+      "tags": ["relative-clauses", "dative"],
+      "difficulty": 4,
+      "weight": 1
+    },
+    {
+      "id": "de_exp_004",
+      "type": "mcq_single",
+      "stem": "Was bedeutet 'sich etwas merken'?",
+      "options": [
+        { "k": "A", "text": "to remember something", "correct": true },
+        { "k": "B", "text": "to forget something", "correct": false },
+        { "k": "C", "text": "to mention something", "correct": false },
+        { "k": "D", "text": "to memorize something", "correct": false }
+      ],
+      "tags": ["reflexive-verbs", "vocabulary"],
+      "difficulty": 3,
+      "weight": 1
+    },
+    {
+      "id": "de_exp_005",
+      "type": "mcq_single",
+      "stem": "Welcher Konjunktiv ist korrekt: 'Wenn ich mehr Zeit ___, würde ich reisen.'?",
+      "options": [
+        { "k": "A", "text": "hätte", "correct": true },
+        { "k": "B", "text": "hatte", "correct": false },
+        { "k": "C", "text": "habe", "correct": false },
+        { "k": "D", "text": "haben", "correct": false }
+      ],
+      "tags": ["subjunctive", "conditional"],
+      "difficulty": 4,
+      "weight": 1
+    },
+    {
+      "id": "de_exp_006",
+      "type": "mcq_single",
+      "stem": "Vervollständigen Sie: 'Trotz ___ schlechten Wetters gingen wir spazieren.'",
+      "options": [
+        { "k": "A", "text": "des", "correct": true },
+        { "k": "B", "text": "dem", "correct": false },
+        { "k": "C", "text": "den", "correct": false },
+        { "k": "D", "text": "der", "correct": false }
+      ],
+      "tags": ["genitive", "prepositions"],
+      "difficulty": 4,
+      "weight": 1
+    },
+    {
+      "id": "de_exp_007",
+      "type": "mcq_single",
+      "stem": "Was ist die richtige Pluralform von 'das Auto'?",
+      "options": [
+        { "k": "A", "text": "die Autos", "correct": true },
+        { "k": "B", "text": "die Autose", "correct": false },
+        { "k": "C", "text": "die Autonen", "correct": false },
+        { "k": "D", "text": "die Auti", "correct": false }
+      ],
+      "tags": ["plural", "nouns"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "de_exp_008",
+      "type": "mcq_single",
+      "stem": "Welche Bedeutung hat 'sich auf etwas einstellen'?",
+      "options": [
+        { "k": "A", "text": "to adjust to something", "correct": true },
+        { "k": "B", "text": "to arrange something", "correct": false },
+        { "k": "C", "text": "to understand something", "correct": false },
+        { "k": "D", "text": "to explain something", "correct": false }
+      ],
+      "tags": ["separable-verbs", "vocabulary"],
+      "difficulty": 3,
+      "weight": 1
+    },
+    {
+      "id": "de_exp_009",
+      "type": "mcq_single",
+      "stem": "Korrigieren Sie: 'Ich warte schon seit drei Jahren ___ diese Antwort.'",
+      "options": [
+        { "k": "A", "text": "auf", "correct": true },
+        { "k": "B", "text": "für", "correct": false },
+        { "k": "C", "text": "über", "correct": false },
+        { "k": "D", "text": "bei", "correct": false }
+      ],
+      "tags": ["prepositions", "verbs"],
+      "difficulty": 3,
+      "weight": 1
+    },
+    {
+      "id": "de_exp_010",
+      "type": "mcq_single",
+      "stem": "Was ist die korrekte Passivform: 'Der Brief ___ gestern geschrieben.'?",
+      "options": [
+        { "k": "A", "text": "wurde", "correct": true },
+        { "k": "B", "text": "wird", "correct": false },
+        { "k": "C", "text": "wird sein", "correct": false },
+        { "k": "D", "text": "war geworden", "correct": false }
+      ],
+      "tags": ["passive-voice", "past-tense"],
+      "difficulty": 4,
+      "weight": 1
+    }
+  ]
+}

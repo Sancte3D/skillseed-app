@@ -1,0 +1,147 @@
+{
+  "skill_id": "lang_german",
+  "level": "intermediate",
+  "pass_mark": 0.7,
+  "items": [
+    {
+      "id": "de_int_001",
+      "type": "mcq_single",
+      "stem": "Which is the correct article for 'Haus' (house)?",
+      "options": [
+        { "k": "A", "text": "der Haus", "correct": false },
+        { "k": "B", "text": "das Haus", "correct": true },
+        { "k": "C", "text": "die Haus", "correct": false },
+        { "k": "D", "text": "den Haus", "correct": false }
+      ],
+      "tags": ["articles", "grammar"],
+      "difficulty": 1,
+      "weight": 1
+    },
+    {
+      "id": "de_int_002",
+      "type": "mcq_single",
+      "stem": "How do you say 'I am going' in German?",
+      "options": [
+        { "k": "A", "text": "Ich gehe", "correct": true },
+        { "k": "B", "text": "Ich bin gehen", "correct": false },
+        { "k": "C", "text": "Ich gehe sein", "correct": false },
+        { "k": "D", "text": "Ich habe gehen", "correct": false }
+      ],
+      "tags": ["present-tense", "verbs"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "de_int_003",
+      "type": "mcq_single",
+      "stem": "What is the past participle of 'essen' (to eat)?",
+      "options": [
+        { "k": "A", "text": "geesst", "correct": false },
+        { "k": "B", "text": "gegessen", "correct": true },
+        { "k": "C", "text": "essen", "correct": false },
+        { "k": "D", "text": "geessen", "correct": false }
+      ],
+      "tags": ["past-participle", "verbs"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "de_int_004",
+      "type": "mcq_single",
+      "stem": "Which preposition is used with accusative for 'going to'?",
+      "options": [
+        { "k": "A", "text": "von", "correct": false },
+        { "k": "B", "text": "zu", "correct": true },
+        { "k": "C", "text": "aus", "correct": false },
+        { "k": "D", "text": "bei", "correct": false }
+      ],
+      "tags": ["prepositions", "grammar"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "de_int_005",
+      "type": "mcq_single",
+      "stem": "What does 'Guten Morgen' mean?",
+      "options": [
+        { "k": "A", "text": "Good evening", "correct": false },
+        { "k": "B", "text": "Good morning", "correct": true },
+        { "k": "C", "text": "Good night", "correct": false },
+        { "k": "D", "text": "Good afternoon", "correct": false }
+      ],
+      "tags": ["vocabulary", "greetings"],
+      "difficulty": 1,
+      "weight": 1
+    },
+    {
+      "id": "de_int_006",
+      "type": "mcq_single",
+      "stem": "Which case is used after 'mit' (with)?",
+      "options": [
+        { "k": "A", "text": "Nominative", "correct": false },
+        { "k": "B", "text": "Accusative", "correct": false },
+        { "k": "C", "text": "Dative", "correct": true },
+        { "k": "D", "text": "Genitive", "correct": false }
+      ],
+      "tags": ["cases", "grammar"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "de_int_007",
+      "type": "mcq_single",
+      "stem": "How do you form 'du' (you, informal) verb conjugation for regular verbs?",
+      "options": [
+        { "k": "A", "text": "stem + -st", "correct": true },
+        { "k": "B", "text": "stem + -en", "correct": false },
+        { "k": "C", "text": "stem + -t", "correct": false },
+        { "k": "D", "text": "stem + -e", "correct": false }
+      ],
+      "tags": ["verb-conjugation", "grammar"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "de_int_008",
+      "type": "mcq_single",
+      "stem": "What is the correct word order in a German sentence with modal verb?",
+      "options": [
+        { "k": "A", "text": "Subject + modal + infinitive", "correct": true },
+        { "k": "B", "text": "Subject + infinitive + modal", "correct": false },
+        { "k": "C", "text": "Modal + subject + infinitive", "correct": false },
+        { "k": "D", "text": "Infinitive + subject + modal", "correct": false }
+      ],
+      "tags": ["word-order", "syntax"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "de_int_009",
+      "type": "mcq_single",
+      "stem": "Which article changes in accusative case?",
+      "options": [
+        { "k": "A", "text": "Only masculine articles", "correct": true },
+        { "k": "B", "text": "Only feminine articles", "correct": false },
+        { "k": "C", "text": "All articles", "correct": false },
+        { "k": "D", "text": "No articles change", "correct": false }
+      ],
+      "tags": ["cases", "articles"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "de_int_010",
+      "type": "mcq_single",
+      "stem": "What does 'Wie geht es Ihnen?' mean?",
+      "options": [
+        { "k": "A", "text": "Where are you going?", "correct": false },
+        { "k": "B", "text": "How are you? (formal)", "correct": true },
+        { "k": "C", "text": "What is your name?", "correct": false },
+        { "k": "D", "text": "When are you coming?", "correct": false }
+      ],
+      "tags": ["vocabulary", "phrases"],
+      "difficulty": 1,
+      "weight": 1
+    }
+  ]
+}

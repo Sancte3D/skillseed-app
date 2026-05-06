@@ -1,0 +1,147 @@
+{
+  "skill_id": "lang_italian",
+  "level": "intermediate",
+  "pass_mark": 0.7,
+  "items": [
+    {
+      "id": "it_int_001",
+      "type": "mcq_single",
+      "stem": "What is the correct article for 'casa' (house)?",
+      "options": [
+        { "k": "A", "text": "il casa", "correct": false },
+        { "k": "B", "text": "la casa", "correct": true },
+        { "k": "C", "text": "lo casa", "correct": false },
+        { "k": "D", "text": "l'casa", "correct": false }
+      ],
+      "tags": ["articles", "grammar"],
+      "difficulty": 1,
+      "weight": 1
+    },
+    {
+      "id": "it_int_002",
+      "type": "mcq_single",
+      "stem": "How do you say 'I am' in Italian?",
+      "options": [
+        { "k": "A", "text": "io sono", "correct": true },
+        { "k": "B", "text": "io è", "correct": false },
+        { "k": "C", "text": "io sei", "correct": false },
+        { "k": "D", "text": "io essere", "correct": false }
+      ],
+      "tags": ["verbs", "present-tense"],
+      "difficulty": 1,
+      "weight": 1
+    },
+    {
+      "id": "it_int_003",
+      "type": "mcq_single",
+      "stem": "What is the past tense of 'andare' (to go)?",
+      "options": [
+        { "k": "A", "text": "sono andato/a", "correct": true },
+        { "k": "B", "text": "vado", "correct": false },
+        { "k": "C", "text": "andai", "correct": false },
+        { "k": "D", "text": "andavo", "correct": false }
+      ],
+      "tags": ["past-tense", "verbs"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "it_int_004",
+      "type": "mcq_single",
+      "stem": "How do you say 'hello' formally in Italian?",
+      "options": [
+        { "k": "A", "text": "Ciao", "correct": false },
+        { "k": "B", "text": "Buongiorno", "correct": true },
+        { "k": "C", "text": "Salve", "correct": false },
+        { "k": "D", "text": "Ehi", "correct": false }
+      ],
+      "tags": ["vocabulary", "greetings"],
+      "difficulty": 1,
+      "weight": 1
+    },
+    {
+      "id": "it_int_005",
+      "type": "mcq_single",
+      "stem": "Which pronoun is used with 'piacere' (to like)?",
+      "options": [
+        { "k": "A", "text": "I like something", "correct": false },
+        { "k": "B", "text": "Something pleases me (mi piace)", "correct": true },
+        { "k": "C", "text": "I please something", "correct": false },
+        { "k": "D", "text": "Something likes me", "correct": false }
+      ],
+      "tags": ["verbs", "pronouns"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "it_int_006",
+      "type": "mcq_single",
+      "stem": "How do you say 'the' before a masculine noun starting with 'z'?",
+      "options": [
+        { "k": "A", "text": "il", "correct": false },
+        { "k": "B", "text": "lo", "correct": true },
+        { "k": "C", "text": "la", "correct": false },
+        { "k": "D", "text": "gli", "correct": false }
+      ],
+      "tags": ["articles", "grammar"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "it_int_007",
+      "type": "mcq_single",
+      "stem": "What is 'io' in the formal 'you' form?",
+      "options": [
+        { "k": "A", "text": "tu", "correct": false },
+        { "k": "B", "text": "Lei", "correct": true },
+        { "k": "C", "text": "lui", "correct": false },
+        { "k": "D", "text": "voi", "correct": false }
+      ],
+      "tags": ["pronouns", "formal"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "it_int_008",
+      "type": "mcq_single",
+      "stem": "How do you form the plural of 'ragazzo' (boy)?",
+      "options": [
+        { "k": "A", "text": "ragazzi", "correct": true },
+        { "k": "B", "text": "ragazzi", "correct": false },
+        { "k": "C", "text": "ragazze", "correct": false },
+        { "k": "D", "text": "ragazzos", "correct": false }
+      ],
+      "tags": ["plural", "nouns"],
+      "difficulty": 1,
+      "weight": 1
+    },
+    {
+      "id": "it_int_009",
+      "type": "mcq_single",
+      "stem": "What does 'vorrei' mean?",
+      "options": [
+        { "k": "A", "text": "I want", "correct": false },
+        { "k": "B", "text": "I would like", "correct": true },
+        { "k": "C", "text": "I need", "correct": false },
+        { "k": "D", "text": "I must", "correct": false }
+      ],
+      "tags": ["conditional", "verbs"],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "it_int_010",
+      "type": "mcq_single",
+      "stem": "How do you say 'with me' in Italian?",
+      "options": [
+        { "k": "A", "text": "con me", "correct": true },
+        { "k": "B", "text": "con io", "correct": false },
+        { "k": "C", "text": "con mi", "correct": false },
+        { "k": "D", "text": "con me stesso", "correct": false }
+      ],
+      "tags": ["prepositions", "pronouns"],
+      "difficulty": 1,
+      "weight": 1
+    }
+  ]
+}

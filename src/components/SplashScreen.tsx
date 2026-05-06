@@ -1,0 +1,183 @@
+import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect } from 'react';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import Animated, {
+    Easing,
+    runOnJS,
+    useAnimatedStyle,
+    useSharedValue,
+    withTiming,
+} from 'react-native-reanimated';
+
+const { width, height } = Dimensions.get('window');
+
+interface SplashScreenProps {
+  onComplete: () => void;
+}
+
+export default function SplashScreen({ onComplete }: SplashScreenProps) {
+  const logoScale = useSharedValue(0.85);
+  const logoOpacity = useSharedValue(0);
+  const logoTranslateY = useSharedValue(0);
+  const gradientOpacity = useSharedValue(0);
+  const textTranslateY = useSharedValue(60);
+  const textOpacity = useSharedValue(0);
+
+  useEffect(() => {
+    // Step 1: SkillSeed Logo fade in + scale up
+    logoOpacity.value = withTiming(1, {
+      duration: 800,
+      easing: Easing.out(Easing.ease),
+    });
+    
+    logoScale.value = withTiming(1, {
+      duration: 1000,
+      easing: Easing.bezier(0.34, 1.56, 0.64, 1),
+    });
+
+    // Gradient fade in (with delay)
+    setTimeout(() => {
+      gradientOpacity.value = withTiming(1, {
+        duration: 600,
+        easing: Easing.out(Easing.ease),
+      });
+    }, 300);
+
+    // Step 2: Text animation starts AFTER logo fade in is complete (at 800ms)
+    // Logo fade in duration is 800ms, so text starts exactly when logo is done
+    setTimeout(() => {
+      textOpacity.value = withTiming(1, {
+        duration: 800,
+        easing: Easing.out(Easing.ease),
+      });
+      textTranslateY.value = withTiming(0, {
+        duration: 1000,
+        easing: Easing.out(Easing.ease),
+      });
+    }, 800); // Start when logo fade in completes
+
+    // Step 3: Both fade out simultaneously after text has been visible
+    // Text appears at 800ms, fade in takes 800ms (complete at 1600ms)
+    // Keep both visible until 2800ms, then fade out together with identical animation
+    setTimeout(() => {
+      // Logo: same fade out animation as text
+      logoOpacity.value = withTiming(0, {
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+      });
+      logoTranslateY.value = withTiming(-40, {
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+      });
+      // Text: same fade out animation as logo
+      textOpacity.value = withTiming(0, {
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+      });
+      textTranslateY.value = withTiming(-40, {
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+      });
+    }, 2800); // Fade out both together with identical movement
+
+    // Complete after fade out completes (2800ms + 600ms = 3400ms, add buffer)
+    const timer = setTimeout(() => {
+      runOnJS(onComplete)();
+    }, 3600);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const logoAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { scale: logoScale.value },
+      { translateY: logoTranslateY.value },
+    ],
+    opacity: logoOpacity.value,
+  }));
+
+  const gradientAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: gradientOpacity.value,
+  }));
+
+  const textAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: textTranslateY.value }],
+    opacity: textOpacity.value,
+  }));
+
+  return (
+    <View style={styles.container}>
+      {/* Softer gradient background */}
+      <LinearGradient
+        colors={['#1a00cc', '#3A00FF', '#5C00FF']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.gradient}
+      >
+        {/* Additional soft overlay */}
+        <LinearGradient
+          colors={['rgba(26, 0, 204, 0.3)', 'rgba(58, 0, 255, 0.5)', 'rgba(92, 0, 255, 0.8)']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 1 }}
+          style={StyleSheet.absoluteFill}
+        />
+        <Animated.View style={[styles.logoContainer, logoAnimatedStyle]}>
+          <Text style={styles.logoText}>SkillSeed</Text>
+        </Animated.View>
+        <Animated.View style={[styles.textContainer, textAnimatedStyle]}>
+          <Text style={styles.animatedText}>Track Your Learning Journey</Text>
+        </Animated.View>
+        <Animated.View style={[styles.gradientOverlay, gradientAnimatedStyle]}>
+          <LinearGradient
+            colors={['transparent', 'rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.2)']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={StyleSheet.absoluteFill}
+          />
+        </Animated.View>
+      </LinearGradient>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width,
+    height,
+  },
+  gradient: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 40,
+  },
+  logoText: {
+    fontSize: 42,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    letterSpacing: -1,
+  },
+  textContainer: {
+    position: 'absolute',
+    bottom: height * 0.25,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  animatedText: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    letterSpacing: -0.5,
+  },
+  gradientOverlay: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});

@@ -1,0 +1,60 @@
+{
+  "skill_id": "lang_english_b2",
+  "pass_mark": 0.7,
+  "items": [
+    {
+      "id": "en_001",
+      "type": "mcq_single",
+      "stem": "By 2026, we ___ this feature.",
+      "options": [
+        {
+          "k": "A",
+          "text": "will launch",
+          "correct": false
+        },
+        {
+          "k": "B",
+          "text": "will have launched",
+          "correct": true
+        },
+        {
+          "k": "C",
+          "text": "launched",
+          "correct": false
+        },
+        {
+          "k": "D",
+          "text": "have launch",
+          "correct": false
+        }
+      ],
+      "tags": [
+        "future-perfect"
+      ],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "en_002",
+      "type": "true_false",
+      "stem": "B2 listening covers main ideas in complex speech.",
+      "options": [
+        {
+          "k": "T",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "k": "F",
+          "text": "False",
+          "correct": false
+        }
+      ],
+      "tags": [
+        "cefr"
+      ],
+      "difficulty": 1,
+      "weight": 1
+    }
+  ]
+}

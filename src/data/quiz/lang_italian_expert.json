@@ -1,0 +1,147 @@
+{
+  "skill_id": "lang_italian",
+  "level": "expert",
+  "pass_mark": 0.7,
+  "items": [
+    {
+      "id": "it_exp_001",
+      "type": "mcq_single",
+      "stem": "Scegli la forma corretta: 'Non so se ___ venire domani.'",
+      "options": [
+        { "k": "A", "text": "venga", "correct": false },
+        { "k": "B", "text": "viene", "correct": false },
+        { "k": "C", "text": "verrà", "correct": true },
+        { "k": "D", "text": "veniva", "correct": false }
+      ],
+      "tags": ["subjunctive", "future"],
+      "difficulty": 4,
+      "weight": 1
+    },
+    {
+      "id": "it_exp_002",
+      "type": "mcq_single",
+      "stem": "Quale forma è corretta: 'I libri che ___ letto sono interessanti.'",
+      "options": [
+        { "k": "A", "text": "ho", "correct": true },
+        { "k": "B", "text": "sono", "correct": false },
+        { "k": "C", "text": "avevo", "correct": false },
+        { "k": "D", "text": "erano", "correct": false }
+      ],
+      "tags": ["past-participle", "agreement"],
+      "difficulty": 3,
+      "weight": 1
+    },
+    {
+      "id": "it_exp_003",
+      "type": "mcq_single",
+      "stem": "Cosa significa 'mi sono reso conto'?",
+      "options": [
+        { "k": "A", "text": "I realized", "correct": true },
+        { "k": "B", "text": "I made myself", "correct": false },
+        { "k": "C", "text": "I was aware", "correct": false },
+        { "k": "D", "text": "I understood", "correct": false }
+      ],
+      "tags": ["reflexive-verbs", "vocabulary"],
+      "difficulty": 3,
+      "weight": 1
+    },
+    {
+      "id": "it_exp_004",
+      "type": "mcq_single",
+      "stem": "Completa: 'Se avessi più tempo, ___ in vacanza.'",
+      "options": [
+        { "k": "A", "text": "andrei", "correct": true },
+        { "k": "B", "text": "andrò", "correct": false },
+        { "k": "C", "text": "andavo", "correct": false },
+        { "k": "D", "text": "andrò stato", "correct": false }
+      ],
+      "tags": ["conditional", "hypothetical"],
+      "difficulty": 4,
+      "weight": 1
+    },
+    {
+      "id": "it_exp_005",
+      "type": "mcq_single",
+      "stem": "Quale preposizione è corretta: 'Dipende ___ te.'",
+      "options": [
+        { "k": "A", "text": "da", "correct": true },
+        { "k": "B", "text": "di", "correct": false },
+        { "k": "C", "text": "a", "correct": false },
+        { "k": "D", "text": "con", "correct": false }
+      ],
+      "tags": ["prepositions", "verbs"],
+      "difficulty": 3,
+      "weight": 1
+    },
+    {
+      "id": "it_exp_006",
+      "type": "mcq_single",
+      "stem": "Cosa significa 'fare in modo che'?",
+      "options": [
+        { "k": "A", "text": "to make sure that", "correct": true },
+        { "k": "B", "text": "to do it somehow", "correct": false },
+        { "k": "C", "text": "to try to", "correct": false },
+        { "k": "D", "text": "to make it so", "correct": false }
+      ],
+      "tags": ["expressions", "vocabulary"],
+      "difficulty": 3,
+      "weight": 1
+    },
+    {
+      "id": "it_exp_007",
+      "type": "mcq_single",
+      "stem": "Quale tempo verbale: 'Quando arrivò, ___ già partiti.'",
+      "options": [
+        { "k": "A", "text": "eravamo", "correct": false },
+        { "k": "B", "text": "siamo stati", "correct": false },
+        { "k": "C", "text": "eravamo stati", "correct": true },
+        { "k": "D", "text": "fummo", "correct": false }
+      ],
+      "tags": ["past-perfect", "tenses"],
+      "difficulty": 4,
+      "weight": 1
+    },
+    {
+      "id": "it_exp_008",
+      "type": "mcq_single",
+      "stem": "Correggi: 'Mi dispiace per quello che è successo.'",
+      "options": [
+        { "k": "A", "text": "è corretto", "correct": true },
+        { "k": "B", "text": "Mi dispiace quello che è successo", "correct": false },
+        { "k": "C", "text": "Mi dispiace di quello che è successo", "correct": false },
+        { "k": "D", "text": "Mi dispiace con quello che è successo", "correct": false }
+      ],
+      "tags": ["prepositions", "expressions"],
+      "difficulty": 3,
+      "weight": 1
+    },
+    {
+      "id": "it_exp_009",
+      "type": "mcq_single",
+      "stem": "Cosa significa 'dare del filo da torcere'?",
+      "options": [
+        { "k": "A", "text": "to give someone a hard time", "correct": true },
+        { "k": "B", "text": "to help someone", "correct": false },
+        { "k": "C", "text": "to give thread", "correct": false },
+        { "k": "D", "text": "to make something easier", "correct": false }
+      ],
+      "tags": ["idioms", "vocabulary"],
+      "difficulty": 4,
+      "weight": 1
+    },
+    {
+      "id": "it_exp_010",
+      "type": "mcq_single",
+      "stem": "Scegli il pronome relativo corretto: 'La città ___ sono nato è bellissima.'",
+      "options": [
+        { "k": "A", "text": "in cui", "correct": true },
+        { "k": "B", "text": "che", "correct": false },
+        { "k": "C", "text": "dove", "correct": false },
+        { "k": "D", "text": "quale", "correct": false }
+      ],
+      "tags": ["relative-pronouns", "prepositions"],
+      "difficulty": 4,
+      "weight": 1
+    }
+  ]
+}

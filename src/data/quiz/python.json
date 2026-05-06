@@ -1,0 +1,92 @@
+{
+  "skill_id": "coding_python",
+  "pass_mark": 0.7,
+  "items": [
+    {
+      "id": "py_001",
+      "type": "mcq_single",
+      "stem": "Which is immutable in Python?",
+      "options": [
+        {
+          "k": "A",
+          "text": "list",
+          "correct": false
+        },
+        {
+          "k": "B",
+          "text": "tuple",
+          "correct": true
+        },
+        {
+          "k": "C",
+          "text": "dict",
+          "correct": false
+        },
+        {
+          "k": "D",
+          "text": "set",
+          "correct": false
+        }
+      ],
+      "tags": [
+        "datatypes"
+      ],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "py_002",
+      "type": "mcq_single",
+      "stem": "Which module parses CLI args?",
+      "options": [
+        {
+          "k": "A",
+          "text": "json",
+          "correct": false
+        },
+        {
+          "k": "B",
+          "text": "argparse",
+          "correct": true
+        },
+        {
+          "k": "C",
+          "text": "pickle",
+          "correct": false
+        },
+        {
+          "k": "D",
+          "text": "re",
+          "correct": false
+        }
+      ],
+      "tags": [
+        "cli"
+      ],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "py_003",
+      "type": "true_false",
+      "stem": "List comprehensions can replace many simple loops.",
+      "options": [
+        {
+          "k": "T",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "k": "F",
+          "text": "False",
+          "correct": false
+        }
+      ],
+      "tags": [
+        "syntax"
+      ],
+      "difficulty": 1,
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "skill_id": "3d_blender",
+  "pass_mark": 0.7,
+  "items": [
+    {
+      "id": "bl_001",
+      "type": "mcq_single",
+      "stem": "Which panel manages scene collections?",
+      "options": [
+        {
+          "k": "A",
+          "text": "Outliner",
+          "correct": true
+        },
+        {
+          "k": "B",
+          "text": "Shader Editor",
+          "correct": false
+        },
+        {
+          "k": "C",
+          "text": "NLA",
+          "correct": false
+        },
+        {
+          "k": "D",
+          "text": "UV Editor",
+          "correct": false
+        }
+      ],
+      "tags": [
+        "scene"
+      ],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "bl_002",
+      "type": "true_false",
+      "stem": "Subdivision Surface requires manifold meshes.",
+      "options": [
+        {
+          "k": "T",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "k": "F",
+          "text": "False",
+          "correct": true
+        }
+      ],
+      "tags": [
+        "topology"
+      ],
+      "difficulty": 1,
+      "weight": 1
+    }
+  ]
+}

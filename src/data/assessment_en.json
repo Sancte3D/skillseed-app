@@ -1,0 +1,61 @@
+{
+  "language": "en",
+  "questions": [
+    {
+      "id": "q1",
+      "title": "How many things do you keep in mind at once?",
+      "help": "1 = one at a time; 5 = many layers in parallel",
+      "scale_min": 1,
+      "scale_max": 5
+    },
+    {
+      "id": "q2",
+      "title": "How much new appears per hour?",
+      "help": "1 = almost nothing new; 5 = many new terms/rules/tools",
+      "scale_min": 1,
+      "scale_max": 5
+    },
+    {
+      "id": "q3",
+      "title": "How quickly do you notice if it works (feedback)?",
+      "help": "1 = instantly; 5 = later/indirect",
+      "scale_min": 1,
+      "scale_max": 5
+    },
+    {
+      "id": "q4",
+      "title": "Does the approach change a lot with context?",
+      "help": "1 = almost never; 5 = very often (tools/clients/env)",
+      "scale_min": 1,
+      "scale_max": 5
+    },
+    {
+      "id": "q5",
+      "title": "How bad are mistakes?",
+      "help": "1 = easy fix; 5 = heavy loss of time/work/data",
+      "scale_min": 1,
+      "scale_max": 5
+    },
+    {
+      "id": "q6",
+      "title": "How many different abilities do you combine?",
+      "help": "1 = one; 5 = many (tech + logic + design + comms)",
+      "scale_min": 1,
+      "scale_max": 5
+    }
+  ],
+  "dont_know_mapping": "preset_or_3",
+  "level_claim": {
+    "label": "Your current level?",
+    "options": [
+      "A",
+      "F",
+      "E"
+    ],
+    "bias": {
+      "A": 1.05,
+      "F": 1.0,
+      "E": 0.95
+    }
+  }
+}

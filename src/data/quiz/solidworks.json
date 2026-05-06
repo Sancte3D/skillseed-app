@@ -1,0 +1,60 @@
+{
+  "skill_id": "cad_solidworks",
+  "pass_mark": 0.7,
+  "items": [
+    {
+      "id": "sw_001",
+      "type": "mcq_single",
+      "stem": "Which relation aligns two lines directionally?",
+      "options": [
+        {
+          "k": "A",
+          "text": "Parallel",
+          "correct": false
+        },
+        {
+          "k": "B",
+          "text": "Collinear",
+          "correct": true
+        },
+        {
+          "k": "C",
+          "text": "Perpendicular",
+          "correct": false
+        },
+        {
+          "k": "D",
+          "text": "Tangent",
+          "correct": false
+        }
+      ],
+      "tags": [
+        "sketch"
+      ],
+      "difficulty": 2,
+      "weight": 1
+    },
+    {
+      "id": "sw_002",
+      "type": "true_false",
+      "stem": "A fully defined sketch has no blue entities.",
+      "options": [
+        {
+          "k": "T",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "k": "F",
+          "text": "False",
+          "correct": false
+        }
+      ],
+      "tags": [
+        "sketch"
+      ],
+      "difficulty": 1,
+      "weight": 1
+    }
+  ]
+}

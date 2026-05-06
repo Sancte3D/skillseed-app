@@ -1,0 +1,4140 @@
+{
+  "version": "3.0",
+  "generated_at": "2025-10-29T20:29:42.589238Z",
+  "schema": {
+    "fields": [
+      "category",
+      "subcategory",
+      "skill",
+      "status",
+      "tags",
+      "k",
+      "expDomainKey",
+      "C_preset",
+      "F_preset",
+      "C_range"
+    ],
+    "notes": {
+      "status": [
+        "core",
+        "emerging",
+        "experimental"
+      ],
+      "expDomainKey": {
+        "language": 1.1,
+        "default": 1.2,
+        "ai": 1.3
+      },
+      "k_bands": {
+        "low": 8,
+        "medium": 10,
+        "high": 12,
+        "veryHigh": 13.5
+      },
+      "presets_explanation": "C_preset in [6,30], F_preset in [1,5], C_range guards plausibility"
+    }
+  },
+  "items": [
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Foundations",
+      "skill": "Machine Learning Fundamentals",
+      "status": "core",
+      "tags": [
+        "ml",
+        "supervised"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 4,
+      "C_range": [
+        16,
+        24
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Foundations",
+      "skill": "Deep Learning Fundamentals",
+      "status": "core",
+      "tags": [
+        "dl",
+        "basics"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        26
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Foundations",
+      "skill": "Neural Networks (MLP/CNN/RNN)",
+      "status": "core",
+      "tags": [
+        "nn",
+        "cnn",
+        "rnn"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        26
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Foundations",
+      "skill": "Transformers",
+      "status": "core",
+      "tags": [
+        "transformer",
+        "attention"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 24,
+      "F_preset": 4,
+      "C_range": [
+        20,
+        28
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Foundations",
+      "skill": "Reinforcement Learning Basics",
+      "status": "emerging",
+      "tags": [
+        "rl",
+        "policy"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 24,
+      "F_preset": 5,
+      "C_range": [
+        20,
+        28
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "LLMs / Prompting",
+      "skill": "Prompt Engineering",
+      "status": "core",
+      "tags": [
+        "prompting",
+        "patterns"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        22
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "LLMs / Prompting",
+      "skill": "System Prompt Design",
+      "status": "core",
+      "tags": [
+        "system",
+        "guardrails"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [
+        13,
+        23
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "LLMs / Prompting",
+      "skill": "Chain-of-Thought Optimization",
+      "status": "emerging",
+      "tags": [
+        "reasoning",
+        "cot"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [
+        15,
+        24
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "LLMs / Prompting",
+      "skill": "Multimodal Prompts (Image+Text)",
+      "status": "core",
+      "tags": [
+        "vision",
+        "audio"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [
+        15,
+        24
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "LLMs / Prompting",
+      "skill": "Function Calling / Tool Use",
+      "status": "core",
+      "tags": [
+        "tools",
+        "apis"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "LLMs / Prompting",
+      "skill": "Context Window Management",
+      "status": "core",
+      "tags": [
+        "memory",
+        "summarization"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "LLMs / Prompting",
+      "skill": "Retrieval-Augmented Generation (RAG)",
+      "status": "core",
+      "tags": [
+        "rag",
+        "retrieval"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [
+        17,
+        26
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "LLMs / Prompting",
+      "skill": "Vector Databases (FAISS/Pinecone/Weaviate/Qdrant)",
+      "status": "core",
+      "tags": [
+        "vectors",
+        "index"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 4,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "LLMs / Prompting",
+      "skill": "LLM Evaluation & Benchmarking",
+      "status": "core",
+      "tags": [
+        "eval",
+        "metrics"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [
+        17,
+        26
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Training & Fine-Tuning",
+      "skill": "Data Cleaning for Fine-Tuning",
+      "status": "core",
+      "tags": [
+        "jsonl",
+        "datasets"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Training & Fine-Tuning",
+      "skill": "Instruction Fine-Tuning",
+      "status": "core",
+      "tags": [
+        "sft",
+        "align"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 23,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        27
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Training & Fine-Tuning",
+      "skill": "LoRA / QLoRA",
+      "status": "core",
+      "tags": [
+        "adapters",
+        "efficient"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        26
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Training & Fine-Tuning",
+      "skill": "Synthetic Data Generation",
+      "status": "emerging",
+      "tags": [
+        "augmentation"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Training & Fine-Tuning",
+      "skill": "Model Quantization",
+      "status": "core",
+      "tags": [
+        "int8",
+        "gguf"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Training & Fine-Tuning",
+      "skill": "Dataset Curation (JSONL/YAML/Parquet)",
+      "status": "core",
+      "tags": [
+        "schema",
+        "etl"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Multimodal AI",
+      "skill": "Image Models (SDXL / Firefly / Midjourney / DALL·E)",
+      "status": "core",
+      "tags": [
+        "image-gen"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        22
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Multimodal AI",
+      "skill": "Video Models (Runway / Sora / Pika / Kaiber)",
+      "status": "emerging",
+      "tags": [
+        "video-gen"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 22,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Multimodal AI",
+      "skill": "Audio Models (ElevenLabs / Suno / Udio)",
+      "status": "core",
+      "tags": [
+        "voice",
+        "music"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Multimodal AI",
+      "skill": "3D Generation (Luma / Gaussian Splatting / TripoSR)",
+      "status": "emerging",
+      "tags": [
+        "3d",
+        "nerf"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 24,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        28
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Multimodal AI",
+      "skill": "Motion / Animation AI",
+      "status": "emerging",
+      "tags": [
+        "motion",
+        "animation"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Multimodal AI",
+      "skill": "Voice Agents / Realtime (GPT‑4o / Gemini Live)",
+      "status": "emerging",
+      "tags": [
+        "realtime",
+        "voice"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "AI Ops / Deployment",
+      "skill": "API Integration (OpenAI/Anthropic/Mistral)",
+      "status": "core",
+      "tags": [
+        "api"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        22
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "AI Ops / Deployment",
+      "skill": "Local Models (Ollama / LM Studio)",
+      "status": "core",
+      "tags": [
+        "local",
+        "offline"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        13,
+        23
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "AI Ops / Deployment",
+      "skill": "GPU Optimization (TensorRT / CUDA / ROCm)",
+      "status": "emerging",
+      "tags": [
+        "gpu"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 24,
+      "F_preset": 4,
+      "C_range": [
+        19,
+        28
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "AI Ops / Deployment",
+      "skill": "Model Serving (FastAPI / vLLM / Modal)",
+      "status": "core",
+      "tags": [
+        "serving"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "AI Ops / Deployment",
+      "skill": "LLMOps Monitoring / Safety",
+      "status": "core",
+      "tags": [
+        "logging",
+        "guard"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 4,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "AI Ops / Deployment",
+      "skill": "Prompt Injection & Jailbreak Defense",
+      "status": "core",
+      "tags": [
+        "security"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [
+        17,
+        26
+      ]
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "AI Ops / Deployment",
+      "skill": "AI Benchmarking (HELM/MMLU/Arena)",
+      "status": "core",
+      "tags": [
+        "bench"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "Automation / Agents",
+      "subcategory": "Workflow Automation",
+      "skill": "Zapier / Make / n8n",
+      "status": "core",
+      "tags": [
+        "automation",
+        "nocode"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        20
+      ]
+    },
+    {
+      "category": "Automation / Agents",
+      "subcategory": "Workflow Automation",
+      "skill": "Python Automation (Selenium / Playwright)",
+      "status": "core",
+      "tags": [
+        "automation",
+        "browser"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "Automation / Agents",
+      "subcategory": "Workflow Automation",
+      "skill": "API Automation (REST / Webhooks)",
+      "status": "core",
+      "tags": [
+        "rest",
+        "webhooks"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "Automation / Agents",
+      "subcategory": "Agent Frameworks",
+      "skill": "LangChain",
+      "status": "core",
+      "tags": [
+        "agents",
+        "chains"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "Automation / Agents",
+      "subcategory": "Agent Frameworks",
+      "skill": "CrewAI / Autogen / Swarm",
+      "status": "emerging",
+      "tags": [
+        "multi-agent"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 23,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        27
+      ]
+    },
+    {
+      "category": "Automation / Agents",
+      "subcategory": "Agent Frameworks",
+      "skill": "LangGraph (graph orchestration)",
+      "status": "emerging",
+      "tags": [
+        "graphs"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 23,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        27
+      ]
+    },
+    {
+      "category": "Automation / Agents",
+      "subcategory": "Agent Frameworks",
+      "skill": "Memory Architectures (MemGPT / GraphRAG)",
+      "status": "emerging",
+      "tags": [
+        "memory"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 24,
+      "F_preset": 4,
+      "C_range": [
+        19,
+        28
+      ]
+    },
+    {
+      "category": "Automation / Agents",
+      "subcategory": "Custom Bots",
+      "skill": "Chatbots (RAG + UI)",
+      "status": "core",
+      "tags": [
+        "chatbot",
+        "rag"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "Automation / Agents",
+      "subcategory": "Custom Bots",
+      "skill": "Browser Agents",
+      "status": "emerging",
+      "tags": [
+        "browser",
+        "agent"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "Image Generation",
+      "skill": "Midjourney",
+      "status": "core",
+      "tags": [
+        "image",
+        "style"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        20
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "Image Generation",
+      "skill": "Stable Diffusion (A1111 / ComfyUI)",
+      "status": "core",
+      "tags": [
+        "sdxl",
+        "comfyui"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        15,
+        25
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "Image Generation",
+      "skill": "Adobe Firefly 3 (Layer/Texture)",
+      "status": "emerging",
+      "tags": [
+        "firefly",
+        "texture"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        13,
+        22
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "Video Generation",
+      "skill": "Runway Gen‑3",
+      "status": "core",
+      "tags": [
+        "video"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "Video Generation",
+      "skill": "Sora",
+      "status": "experimental",
+      "tags": [
+        "video",
+        "sora"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 24,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        28
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "Video Generation",
+      "skill": "Pika / Kaiber",
+      "status": "core",
+      "tags": [
+        "video"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "Video Generation",
+      "skill": "AnimateDiff / Video LCM",
+      "status": "emerging",
+      "tags": [
+        "motion"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "3D & Motion",
+      "skill": "NeRF / Gaussian Splatting",
+      "status": "emerging",
+      "tags": [
+        "nerf",
+        "gaussian"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 24,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        28
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "3D & Motion",
+      "skill": "Luma / TripoSR",
+      "status": "emerging",
+      "tags": [
+        "3d"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 23,
+      "F_preset": 3,
+      "C_range": [
+        18,
+        27
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "3D & Motion",
+      "skill": "Motion Capture AI (Rokoko/Kinetix)",
+      "status": "emerging",
+      "tags": [
+        "mocap"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "Audio & Music",
+      "skill": "ElevenLabs / XTTS",
+      "status": "core",
+      "tags": [
+        "tts",
+        "voice"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        20
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "Audio & Music",
+      "skill": "Suno / Udio",
+      "status": "core",
+      "tags": [
+        "music"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "AI Content Generation",
+      "subcategory": "Audio & Music",
+      "skill": "AudioCraft / MusicGen",
+      "status": "emerging",
+      "tags": [
+        "musicgen"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        24
+      ]
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Visual & UI",
+      "skill": "Figma",
+      "status": "core",
+      "tags": [
+        "ui",
+        "components"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [
+        10,
+        20
+      ]
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Visual & UI",
+      "skill": "Design-System Engineering",
+      "status": "core",
+      "tags": [
+        "design-tokens"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 4,
+      "C_range": [
+        15,
+        24
+      ]
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Visual & UI",
+      "skill": "Motion Design (AE/Rive/Spline)",
+      "status": "core",
+      "tags": [
+        "motion"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        23
+      ]
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Visual & UI",
+      "skill": "Accessibility (WCAG)",
+      "status": "core",
+      "tags": [
+        "a11y"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [
+        12,
+        22
+      ]
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Product / UX",
+      "skill": "UX Research",
+      "status": "core",
+      "tags": [
+        "research"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 3,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Product / UX",
+      "skill": "Prototyping (Framer/ProtoPie)",
+      "status": "core",
+      "tags": [
+        "prototype"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "CAD",
+      "skill": "SolidWorks",
+      "status": "core",
+      "tags": [
+        "mechanical"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        24
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "CAD",
+      "skill": "Fusion 360",
+      "status": "core",
+      "tags": [
+        "cad",
+        "cam"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "CAD",
+      "skill": "CATIA",
+      "status": "core",
+      "tags": [
+        "aero-auto"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        26
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "CAD",
+      "skill": "Rhino / Grasshopper",
+      "status": "core",
+      "tags": [
+        "nurbs",
+        "parametric"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "CAD",
+      "skill": "Siemens NX",
+      "status": "emerging",
+      "tags": [
+        "enterprise"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        26
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "CAD",
+      "skill": "Plasticity",
+      "status": "emerging",
+      "tags": [
+        "nurbs"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "CAD",
+      "skill": "Shapr3D / MoI3D",
+      "status": "emerging",
+      "tags": [
+        "ipad",
+        "nurbs"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        20
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "3D Modeling",
+      "skill": "Blender",
+      "status": "core",
+      "tags": [
+        "modeling",
+        "nodes"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 23,
+      "F_preset": 2,
+      "C_range": [
+        18,
+        26
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "3D Modeling",
+      "skill": "Maya",
+      "status": "core",
+      "tags": [
+        "animation"
+      ],
+      "k": 13.5,
+      "expDomainKey": "default",
+      "C_preset": 24,
+      "F_preset": 3,
+      "C_range": [
+        20,
+        28
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "3D Modeling",
+      "skill": "ZBrush",
+      "status": "core",
+      "tags": [
+        "sculpt"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 21,
+      "F_preset": 2,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "3D Modeling",
+      "skill": "Cinema 4D",
+      "status": "core",
+      "tags": [
+        "mograph"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 2,
+      "C_range": [
+        16,
+        24
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "Rendering & Standards",
+      "skill": "KeyShot",
+      "status": "core",
+      "tags": [
+        "render"
+      ],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 12,
+      "F_preset": 1,
+      "C_range": [
+        8,
+        16
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "Rendering & Standards",
+      "skill": "V‑Ray / Redshift / Octane",
+      "status": "core",
+      "tags": [
+        "render"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "Rendering & Standards",
+      "skill": "Unreal Engine Visualization",
+      "status": "emerging",
+      "tags": [
+        "ue5",
+        "nanite"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "Rendering & Standards",
+      "skill": "Substance 3D (Designer/Painter)",
+      "status": "core",
+      "tags": [
+        "materials"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "Rendering & Standards",
+      "skill": "NVIDIA Omniverse / OpenUSD / MaterialX",
+      "status": "emerging",
+      "tags": [
+        "usd",
+        "interop"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 21,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Core Languages",
+      "skill": "Python",
+      "status": "core",
+      "tags": [
+        "general"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        22
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Core Languages",
+      "skill": "C++",
+      "status": "core",
+      "tags": [
+        "systems"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Core Languages",
+      "skill": "JavaScript / TypeScript",
+      "status": "core",
+      "tags": [
+        "web"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Core Languages",
+      "skill": "Rust",
+      "status": "emerging",
+      "tags": [
+        "safety"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 21,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Core Languages",
+      "skill": "Go",
+      "status": "core",
+      "tags": [
+        "infra"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        14,
+        23
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Core Languages",
+      "skill": "Swift / Kotlin",
+      "status": "core",
+      "tags": [
+        "mobile"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        23
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Frameworks",
+      "skill": "React / Next.js",
+      "status": "core",
+      "tags": [
+        "frontend"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        23
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Frameworks",
+      "skill": "Node / Express",
+      "status": "core",
+      "tags": [
+        "backend"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [
+        13,
+        22
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Frameworks",
+      "skill": "FastAPI / Flask / Django",
+      "status": "core",
+      "tags": [
+        "python-web"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Frameworks",
+      "skill": "Flutter / React Native",
+      "status": "core",
+      "tags": [
+        "mobile"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        14,
+        23
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "DevOps & Infra",
+      "skill": "Git / GitHub",
+      "status": "core",
+      "tags": [
+        "vcs"
+      ],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [
+        10,
+        20
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "DevOps & Infra",
+      "skill": "Docker / Compose",
+      "status": "core",
+      "tags": [
+        "containers"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        14,
+        23
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "DevOps & Infra",
+      "skill": "Kubernetes",
+      "status": "core",
+      "tags": [
+        "orchestration"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [
+        18,
+        26
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "DevOps & Infra",
+      "skill": "Linux / Bash",
+      "status": "core",
+      "tags": [
+        "cli"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "DevOps & Infra",
+      "skill": "CI/CD (GitHub Actions)",
+      "status": "core",
+      "tags": [
+        "cicd"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [
+        13,
+        22
+      ]
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Data & BI",
+      "skill": "SQL",
+      "status": "core",
+      "tags": [
+        "relational"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Data & BI",
+      "skill": "Power BI / Tableau",
+      "status": "core",
+      "tags": [
+        "bi"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Data & BI",
+      "skill": "Data Cleaning (pandas)",
+      "status": "core",
+      "tags": [
+        "cleaning"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        22
+      ]
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Data & BI",
+      "skill": "Dashboard Design",
+      "status": "core",
+      "tags": [
+        "viz"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Vectors & RAG",
+      "skill": "Vector DBs (Qdrant/Milvus/Weaviate)",
+      "status": "core",
+      "tags": [
+        "vector"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 4,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Vectors & RAG",
+      "skill": "RAG Pipelines",
+      "status": "core",
+      "tags": [
+        "retrieval"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [
+        17,
+        26
+      ]
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Cloud & ETL",
+      "skill": "BigQuery / Athena",
+      "status": "core",
+      "tags": [
+        "cloud-sql"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        23
+      ]
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Cloud & ETL",
+      "skill": "Airflow / Dagster (ETL)",
+      "status": "core",
+      "tags": [
+        "etl"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Cloud & ETL",
+      "skill": "Observability (Prometheus/Grafana)",
+      "status": "core",
+      "tags": [
+        "monitoring"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        23
+      ]
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "World Languages",
+      "skill": "English (B1–C2)",
+      "status": "core",
+      "tags": [
+        "cefr"
+      ],
+      "k": 10,
+      "expDomainKey": "language",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        24
+      ]
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "World Languages",
+      "skill": "Spanish",
+      "status": "core",
+      "tags": [
+        "cefr"
+      ],
+      "k": 10,
+      "expDomainKey": "language",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        24
+      ]
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "World Languages",
+      "skill": "French",
+      "status": "core",
+      "tags": [
+        "cefr"
+      ],
+      "k": 10,
+      "expDomainKey": "language",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        24
+      ]
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "World Languages",
+      "skill": "Japanese",
+      "status": "core",
+      "tags": [
+        "cefr"
+      ],
+      "k": 10,
+      "expDomainKey": "language",
+      "C_preset": 22,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        28
+      ]
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "Professional Communication",
+      "skill": "Public Speaking",
+      "status": "core",
+      "tags": [
+        "presentation"
+      ],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [
+        10,
+        19
+      ]
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "Professional Communication",
+      "skill": "Academic Writing",
+      "status": "core",
+      "tags": [
+        "research"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [
+        12,
+        22
+      ]
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "Professional Communication",
+      "skill": "Business Emailing",
+      "status": "core",
+      "tags": [
+        "email"
+      ],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 13,
+      "F_preset": 1,
+      "C_range": [
+        9,
+        18
+      ]
+    },
+    {
+      "category": "Marketing / Business / Strategy",
+      "subcategory": "Growth & Content",
+      "skill": "Copywriting",
+      "status": "core",
+      "tags": [
+        "writing"
+      ],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 15,
+      "F_preset": 4,
+      "C_range": [
+        11,
+        20
+      ]
+    },
+    {
+      "category": "Marketing / Business / Strategy",
+      "subcategory": "Growth & Content",
+      "skill": "SEO",
+      "status": "core",
+      "tags": [
+        "search"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 4,
+      "C_range": [
+        13,
+        22
+      ]
+    },
+    {
+      "category": "Marketing / Business / Strategy",
+      "subcategory": "Growth & Content",
+      "skill": "Content Strategy",
+      "status": "core",
+      "tags": [
+        "planning"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 3,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "Marketing / Business / Strategy",
+      "subcategory": "Growth & Content",
+      "skill": "Analytics & Conversion",
+      "status": "core",
+      "tags": [
+        "ga4"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 3,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "Marketing / Business / Strategy",
+      "subcategory": "Growth & Content",
+      "skill": "Personal Branding",
+      "status": "emerging",
+      "tags": [
+        "brand"
+      ],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [
+        10,
+        19
+      ]
+    },
+    {
+      "category": "Hardware / Edge AI / IoT",
+      "subcategory": "Prototyping",
+      "skill": "Arduino / ESP32",
+      "status": "core",
+      "tags": [
+        "embedded"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [
+        12,
+        22
+      ]
+    },
+    {
+      "category": "Hardware / Edge AI / IoT",
+      "subcategory": "Prototyping",
+      "skill": "Raspberry Pi 5 / Jetson Nano",
+      "status": "emerging",
+      "tags": [
+        "edge"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "Hardware / Edge AI / IoT",
+      "subcategory": "Prototyping",
+      "skill": "MicroPython",
+      "status": "core",
+      "tags": [
+        "micropython"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "Hardware / Edge AI / IoT",
+      "subcategory": "Prototyping",
+      "skill": "TinyML / TFLite",
+      "status": "emerging",
+      "tags": [
+        "tinyml"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "Hardware / Edge AI / IoT",
+      "subcategory": "Prototyping",
+      "skill": "Sensor Fusion (IMU/ToF/Camera)",
+      "status": "emerging",
+      "tags": [
+        "sensors"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 21,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "Hardware / Edge AI / IoT",
+      "subcategory": "Prototyping",
+      "skill": "Embedded UX / IoT Interface",
+      "status": "emerging",
+      "tags": [
+        "iot",
+        "ux"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        22
+      ]
+    },
+    {
+      "category": "Security / Ethics / Policy",
+      "subcategory": "AI & Data Governance",
+      "skill": "Cybersecurity Basics",
+      "status": "core",
+      "tags": [
+        "security"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [
+        12,
+        22
+      ]
+    },
+    {
+      "category": "Security / Ethics / Policy",
+      "subcategory": "AI & Data Governance",
+      "skill": "Privacy by Design (GDPR/AI Act)",
+      "status": "core",
+      "tags": [
+        "privacy"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        13,
+        23
+      ]
+    },
+    {
+      "category": "Security / Ethics / Policy",
+      "subcategory": "AI & Data Governance",
+      "skill": "Model Watermarking / Provenance",
+      "status": "emerging",
+      "tags": [
+        "provenance"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 20,
+      "F_preset": 4,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "Security / Ethics / Policy",
+      "subcategory": "AI & Data Governance",
+      "skill": "AI Safety & Red Teaming",
+      "status": "emerging",
+      "tags": [
+        "safety"
+      ],
+      "k": 12,
+      "expDomainKey": "ai",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [
+        16,
+        26
+      ]
+    },
+    {
+      "category": "Meta & Future Skills",
+      "subcategory": "Cognitive & Collaboration",
+      "skill": "AI Literacy",
+      "status": "core",
+      "tags": [
+        "meta"
+      ],
+      "k": 9,
+      "expDomainKey": "ai",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [
+        10,
+        19
+      ]
+    },
+    {
+      "category": "Meta & Future Skills",
+      "subcategory": "Cognitive & Collaboration",
+      "skill": "Automation Literacy",
+      "status": "core",
+      "tags": [
+        "meta"
+      ],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [
+        10,
+        19
+      ]
+    },
+    {
+      "category": "Meta & Future Skills",
+      "subcategory": "Cognitive & Collaboration",
+      "skill": "Human–AI Collaboration",
+      "status": "core",
+      "tags": [
+        "collab"
+      ],
+      "k": 10,
+      "expDomainKey": "ai",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        21
+      ]
+    },
+    {
+      "category": "Meta & Future Skills",
+      "subcategory": "Cognitive & Collaboration",
+      "skill": "Toolchain Integration",
+      "status": "core",
+      "tags": [
+        "integration"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "Meta & Future Skills",
+      "subcategory": "Cognitive & Collaboration",
+      "skill": "Multi-Agent System Design",
+      "status": "emerging",
+      "tags": [
+        "agents"
+      ],
+      "k": 13.5,
+      "expDomainKey": "ai",
+      "C_preset": 24,
+      "F_preset": 4,
+      "C_range": [
+        19,
+        28
+      ]
+    },
+    {
+      "category": "Meta & Future Skills",
+      "subcategory": "Cognitive & Collaboration",
+      "skill": "Knowledge Graph Literacy",
+      "status": "emerging",
+      "tags": [
+        "kg"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "Creative Technology / Hybrid",
+      "subcategory": "Interactive & Installations",
+      "skill": "TouchDesigner",
+      "status": "core",
+      "tags": [
+        "realtime"
+      ],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [
+        16,
+        25
+      ]
+    },
+    {
+      "category": "Creative Technology / Hybrid",
+      "subcategory": "Interactive & Installations",
+      "skill": "Processing / p5.js",
+      "status": "core",
+      "tags": [
+        "creative-coding"
+      ],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [
+        12,
+        22
+      ]
+    },
+    {
+      "category": "Creative Technology / Hybrid",
+      "subcategory": "Interactive & Installations",
+      "skill": "Arduino + WebUI + API",
+      "status": "core",
+      "tags": [
+        "iot",
+        "web"
+      ],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 18,
+      "F_preset": 3,
+      "C_range": [
+        14,
+        23
+      ]
+    },
+    {
+      "category": "Creative Technology / Hybrid",
+      "subcategory": "Interactive & Installations",
+      "skill": "Unreal Virtual Production",
+      "status": "emerging",
+      "tags": [
+        "vp",
+        "led"
+      ],
+      "k": 13.5,
+      "expDomainKey": "default",
+      "C_preset": 24,
+      "F_preset": 4,
+      "C_range": [
+        19,
+        28
+      ]
+    },
+    {
+      "category": "Health & Wellness",
+      "subcategory": "Fundamentals",
+      "skill": "Sleep Quality",
+      "status": "core",
+      "tags": ["sleep", "rest", "recovery"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 10,
+      "F_preset": 3,
+      "C_range": [8, 15],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Health & Wellness",
+      "subcategory": "Fundamentals",
+      "skill": "Nutrition & Cooking",
+      "status": "core",
+      "tags": ["cooking", "nutrition", "meal-prep"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 12,
+      "F_preset": 2,
+      "C_range": [8, 18],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Health & Wellness",
+      "subcategory": "Fundamentals",
+      "skill": "Physical Exercise",
+      "status": "core",
+      "tags": ["fitness", "exercise", "movement"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 12,
+      "F_preset": 3,
+      "C_range": [8, 18],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Health & Wellness",
+      "subcategory": "Fundamentals",
+      "skill": "Stress Management",
+      "status": "core",
+      "tags": ["mindfulness", "meditation", "relaxation"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 10,
+      "F_preset": 2,
+      "C_range": [8, 15],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Health & Wellness",
+      "subcategory": "Fundamentals",
+      "skill": "Hydration",
+      "status": "core",
+      "tags": ["water", "health"],
+      "k": 6,
+      "expDomainKey": "default",
+      "C_preset": 8,
+      "F_preset": 1,
+      "C_range": [6, 12],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Communication",
+      "status": "core",
+      "tags": ["communication", "interpersonal"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Time Management",
+      "status": "core",
+      "tags": ["productivity", "planning"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Critical Thinking",
+      "status": "core",
+      "tags": ["thinking", "analysis"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 4,
+      "C_range": [12, 21],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Emotional Intelligence",
+      "status": "core",
+      "tags": ["eq", "emotions", "relationships"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 4,
+      "C_range": [12, 21],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Leadership",
+      "status": "core",
+      "tags": ["leadership", "management"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 4,
+      "C_range": [13, 22],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Active Listening",
+      "status": "core",
+      "tags": ["listening", "communication"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Conflict Resolution",
+      "status": "core",
+      "tags": ["conflict", "negotiation"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 4,
+      "C_range": [12, 21],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Networking",
+      "status": "core",
+      "tags": ["networking", "relationships"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Fundamentals",
+      "skill": "Reading",
+      "status": "core",
+      "tags": ["reading", "learning"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 10,
+      "F_preset": 2,
+      "C_range": [8, 15],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Fundamentals",
+      "skill": "Journaling",
+      "status": "core",
+      "tags": ["writing", "reflection"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Fundamentals",
+      "skill": "Social Connection",
+      "status": "core",
+      "tags": ["social", "relationships"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 10,
+      "F_preset": 2,
+      "C_range": [8, 15],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Core Languages",
+      "skill": "Java",
+      "status": "core",
+      "tags": ["enterprise", "oop"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Core Languages",
+      "skill": "C#",
+      "status": "core",
+      "tags": ["dotnet", "enterprise"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Core Languages",
+      "skill": "PHP",
+      "status": "core",
+      "tags": ["web", "server"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [12, 21],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Core Languages",
+      "skill": "Ruby",
+      "status": "core",
+      "tags": ["web", "rails"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Frameworks",
+      "skill": "Vue.js / Nuxt",
+      "status": "core",
+      "tags": ["frontend", "vue"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Frameworks",
+      "skill": "Angular",
+      "status": "core",
+      "tags": ["frontend", "enterprise"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Frameworks",
+      "skill": "Svelte / SvelteKit",
+      "status": "emerging",
+      "tags": ["frontend", "compiler"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "DevOps & Infra",
+      "skill": "Terraform / Infrastructure as Code",
+      "status": "core",
+      "tags": ["iac", "terraform"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [17, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "DevOps & Infra",
+      "skill": "AWS / Cloud Services",
+      "status": "core",
+      "tags": ["cloud", "aws"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [18, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "DevOps & Infra",
+      "skill": "Azure / GCP",
+      "status": "core",
+      "tags": ["cloud", "azure"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [17, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "World Languages",
+      "skill": "German",
+      "status": "core",
+      "tags": ["cefr"],
+      "k": 10,
+      "expDomainKey": "language",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [14, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "World Languages",
+      "skill": "Italian",
+      "status": "core",
+      "tags": ["cefr"],
+      "k": 10,
+      "expDomainKey": "language",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [12, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "World Languages",
+      "skill": "Portuguese",
+      "status": "core",
+      "tags": ["cefr"],
+      "k": 10,
+      "expDomainKey": "language",
+      "C_preset": 18,
+      "F_preset": 2,
+      "C_range": [12, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "World Languages",
+      "skill": "Chinese (Mandarin)",
+      "status": "core",
+      "tags": ["cefr"],
+      "k": 10,
+      "expDomainKey": "language",
+      "C_preset": 24,
+      "F_preset": 4,
+      "C_range": [18, 30],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Communication / Language",
+      "subcategory": "World Languages",
+      "skill": "Korean",
+      "status": "core",
+      "tags": ["cefr"],
+      "k": 10,
+      "expDomainKey": "language",
+      "C_preset": 22,
+      "F_preset": 3,
+      "C_range": [16, 28],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Health & Wellness",
+      "subcategory": "Fundamentals",
+      "skill": "Mindfulness Meditation",
+      "status": "core",
+      "tags": ["meditation", "mindfulness"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Health & Wellness",
+      "subcategory": "Fundamentals",
+      "skill": "Yoga / Flexibility",
+      "status": "core",
+      "tags": ["yoga", "flexibility"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Health & Wellness",
+      "subcategory": "Fundamentals",
+      "skill": "Posture & Ergonomics",
+      "status": "core",
+      "tags": ["posture", "ergonomics"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 1,
+      "C_range": [7, 13],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Negotiation",
+      "status": "core",
+      "tags": ["negotiation", "business"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 4,
+      "C_range": [13, 22],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Problem Solving",
+      "status": "core",
+      "tags": ["problem-solving", "analysis"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 4,
+      "C_range": [12, 21],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Creativity & Innovation",
+      "status": "core",
+      "tags": ["creativity", "innovation"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 15,
+      "F_preset": 3,
+      "C_range": [11, 20],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Fundamentals",
+      "skill": "Gratitude Practice",
+      "status": "core",
+      "tags": ["gratitude", "mindfulness"],
+      "k": 6,
+      "expDomainKey": "default",
+      "C_preset": 8,
+      "F_preset": 1,
+      "C_range": [6, 12],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Fundamentals",
+      "skill": "Nature Connection",
+      "status": "core",
+      "tags": ["nature", "outdoors"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "fundamental",
+      "benchmarkType": "balance"
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Visual & UI",
+      "skill": "Adobe Photoshop",
+      "status": "core",
+      "tags": ["photo-editing", "adobe"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Visual & UI",
+      "skill": "Adobe Illustrator",
+      "status": "core",
+      "tags": ["vector", "illustration"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [16, 25],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Visual & UI",
+      "skill": "Sketch",
+      "status": "core",
+      "tags": ["ui", "design"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [12, 21],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Data & BI",
+      "skill": "Excel / Google Sheets (Advanced)",
+      "status": "core",
+      "tags": ["spreadsheet", "data"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [10, 19],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Data & BI",
+      "skill": "Python Data Analysis (pandas/numpy)",
+      "status": "core",
+      "tags": ["python", "data"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Data & BI",
+      "skill": "Data Visualization (matplotlib/seaborn/plotly)",
+      "status": "core",
+      "tags": ["visualization", "python"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Data & BI",
+      "skill": "SQL & Database Management",
+      "status": "core",
+      "tags": ["sql", "database", "rdbms"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "DevOps & Infra",
+      "skill": "DevOps (CI/CD, Docker, Kubernetes)",
+      "status": "core",
+      "tags": ["devops", "docker", "kubernetes"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [18, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Version Control",
+      "skill": "Version Control (Git, GitHub)",
+      "status": "core",
+      "tags": ["git", "version-control"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [10, 19],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Frameworks",
+      "skill": "React",
+      "status": "core",
+      "tags": ["frontend", "react"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Mobile",
+      "skill": "Mobile App Development (iOS / Android)",
+      "status": "core",
+      "tags": ["mobile", "ios", "android"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [16, 25],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Visual & UI",
+      "skill": "UI / UX Design",
+      "status": "core",
+      "tags": ["ui", "ux", "interface"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Visual & UI",
+      "skill": "Product Design",
+      "status": "core",
+      "tags": ["product", "design"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 3,
+      "C_range": [12, 21],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "CAD",
+      "skill": "Rhino",
+      "status": "core",
+      "tags": ["cad", "rhino"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [12, 21],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "Fabrication",
+      "skill": "Digital Fabrication (3D Printing, CNC, Laser)",
+      "status": "core",
+      "tags": ["fabrication", "3d-printing", "cnc"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 20,
+      "F_preset": 3,
+      "C_range": [16, 25],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Data & BI",
+      "skill": "Business Intelligence",
+      "status": "core",
+      "tags": ["bi", "analytics"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Visualization",
+      "skill": "Data Visualization (Tableau, Power BI, D3.js)",
+      "status": "core",
+      "tags": ["visualization", "tableau", "d3"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Project Management",
+      "skill": "Project Management (Agile, Scrum, Kanban)",
+      "status": "core",
+      "tags": ["agile", "scrum", "kanban"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 15,
+      "F_preset": 3,
+      "C_range": [11, 20],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Finance",
+      "skill": "Financial Analysis",
+      "status": "core",
+      "tags": ["finance", "analysis"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Finance",
+      "skill": "Accounting & Bookkeeping",
+      "status": "core",
+      "tags": ["accounting", "finance"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [10, 19],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Marketing / Communication",
+      "subcategory": "Digital Marketing",
+      "skill": "Marketing Analytics",
+      "status": "core",
+      "tags": ["marketing", "analytics"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 15,
+      "F_preset": 2,
+      "C_range": [11, 20],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Marketing / Communication",
+      "subcategory": "Digital Marketing",
+      "skill": "SEO (Search Engine Optimization)",
+      "status": "core",
+      "tags": ["seo", "marketing"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 15,
+      "F_preset": 2,
+      "C_range": [11, 20],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Marketing / Communication",
+      "subcategory": "Digital Marketing",
+      "skill": "Social Media Marketing",
+      "status": "core",
+      "tags": ["social-media", "marketing"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 13,
+      "F_preset": 2,
+      "C_range": [9, 18],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Creative Media / Production",
+      "subcategory": "Video",
+      "skill": "Video Editing (Premiere, DaVinci, After Effects)",
+      "status": "core",
+      "tags": ["video", "editing"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Creative Media / Production",
+      "subcategory": "Photography",
+      "skill": "Photography & Post-Processing (Lightroom, Photoshop)",
+      "status": "core",
+      "tags": ["photography", "photo-editing"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 2,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Automation",
+      "skill": "Automation (Zapier, n8n, Python Scripting)",
+      "status": "core",
+      "tags": ["automation", "scripting"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [12, 21],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Hardware / Embedded Systems",
+      "subcategory": "Robotics",
+      "skill": "Robotics & Embedded Systems",
+      "status": "core",
+      "tags": ["robotics", "embedded"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [18, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Hardware / Embedded Systems",
+      "subcategory": "Electrical",
+      "skill": "Electrical Circuit Design",
+      "status": "core",
+      "tags": ["electrical", "circuits"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [17, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Architecture",
+      "skill": "Cloud Architecture",
+      "status": "core",
+      "tags": ["cloud", "architecture"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [18, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Networking",
+      "skill": "Networking Fundamentals",
+      "status": "core",
+      "tags": ["networking", "infrastructure"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "APIs",
+      "skill": "API Design & Integration",
+      "status": "core",
+      "tags": ["api", "integration"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Engineering",
+      "skill": "Data Engineering (ETL Pipelines)",
+      "status": "core",
+      "tags": ["etl", "data-engineering"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [17, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "AI / Machine Intelligence",
+      "subcategory": "Foundations",
+      "skill": "Blockchain Fundamentals",
+      "status": "emerging",
+      "tags": ["blockchain", "crypto"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [18, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Operations",
+      "skill": "Product Lifecycle Management (PLM)",
+      "status": "core",
+      "tags": ["plm", "product-management"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Operations",
+      "skill": "Manufacturing Processes",
+      "status": "core",
+      "tags": ["manufacturing", "operations"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Operations",
+      "skill": "Supply Chain Management",
+      "status": "core",
+      "tags": ["supply-chain", "logistics"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Market Research",
+      "skill": "Market Research",
+      "status": "core",
+      "tags": ["research", "market"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 15,
+      "F_preset": 2,
+      "C_range": [11, 20],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Software Systems",
+      "skill": "CRM Systems (HubSpot, Salesforce)",
+      "status": "core",
+      "tags": ["crm", "sales"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [10, 19],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Software Systems",
+      "skill": "HR Software (Workday, BambooHR)",
+      "status": "core",
+      "tags": ["hr", "people-management"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [10, 19],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "E-Commerce",
+      "skill": "E-Commerce Management (Shopify, WooCommerce)",
+      "status": "core",
+      "tags": ["ecommerce", "shopify"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 15,
+      "F_preset": 2,
+      "C_range": [11, 20],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Design / Creative Direction",
+      "subcategory": "Prototyping",
+      "skill": "UI Prototyping (Figma, XD, ProtoPie)",
+      "status": "core",
+      "tags": ["prototyping", "ui"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 2,
+      "C_range": [12, 21],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Documentation",
+      "skill": "Technical Writing",
+      "status": "core",
+      "tags": ["writing", "documentation"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [10, 19],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Data / Analytics / Visualization",
+      "subcategory": "Analysis",
+      "skill": "Statistical Modeling",
+      "status": "core",
+      "tags": ["statistics", "modeling"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Business / Management",
+      "subcategory": "Compliance",
+      "skill": "Legal & Compliance Basics",
+      "status": "core",
+      "tags": ["legal", "compliance"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 17,
+      "F_preset": 3,
+      "C_range": [13, 22],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "VR/AR",
+      "skill": "AR / VR Development (Unity, Unreal Engine)",
+      "status": "core",
+      "tags": ["ar", "vr", "unity"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 22,
+      "F_preset": 4,
+      "C_range": [18, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Programming / Software Systems",
+      "subcategory": "Architecture",
+      "skill": "System Design",
+      "status": "core",
+      "tags": ["architecture", "system-design"],
+      "k": 12,
+      "expDomainKey": "default",
+      "C_preset": 21,
+      "F_preset": 4,
+      "C_range": [17, 26],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "3D / CAD / Fabrication",
+      "subcategory": "Simulation",
+      "skill": "Simulation & Prototyping",
+      "status": "core",
+      "tags": ["simulation", "prototyping"],
+      "k": 11,
+      "expDomainKey": "default",
+      "C_preset": 19,
+      "F_preset": 3,
+      "C_range": [15, 24],
+      "type": "hard",
+      "benchmarkType": "quantitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Active Listening",
+      "status": "core",
+      "tags": ["communication", "listening"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Empathy",
+      "status": "core",
+      "tags": ["emotional", "understanding"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Collaboration",
+      "status": "core",
+      "tags": ["teamwork", "cooperation"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 13,
+      "F_preset": 2,
+      "C_range": [9, 18],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Team Leadership",
+      "status": "core",
+      "tags": ["leadership", "team"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 4,
+      "C_range": [12, 21],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Emotional Intelligence",
+      "status": "core",
+      "tags": ["emotional", "intelligence"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Adaptability",
+      "status": "core",
+      "tags": ["flexibility", "change"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Strategic Thinking",
+      "status": "core",
+      "tags": ["strategy", "planning"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 3,
+      "C_range": [12, 21],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Decision-Making",
+      "status": "core",
+      "tags": ["decisions", "choice"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Self-Discipline",
+      "status": "core",
+      "tags": ["discipline", "self-control"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Accountability",
+      "status": "core",
+      "tags": ["responsibility", "ownership"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Initiative",
+      "status": "core",
+      "tags": ["proactive", "drive"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Conflict Resolution",
+      "status": "core",
+      "tags": ["conflict", "mediation"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Networking",
+      "status": "core",
+      "tags": ["relationships", "connections"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 12,
+      "F_preset": 2,
+      "C_range": [8, 17],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Presentation Skills",
+      "status": "core",
+      "tags": ["presentation", "speaking"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 2,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Public Speaking",
+      "status": "core",
+      "tags": ["speaking", "public"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 15,
+      "F_preset": 3,
+      "C_range": [11, 20],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Mentoring & Coaching",
+      "status": "core",
+      "tags": ["mentoring", "coaching"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 3,
+      "C_range": [12, 21],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Learning Agility",
+      "status": "core",
+      "tags": ["learning", "adaptability"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Focus & Attention",
+      "status": "core",
+      "tags": ["focus", "concentration"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Patience",
+      "status": "core",
+      "tags": ["patience", "endurance"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Resilience",
+      "status": "core",
+      "tags": ["resilience", "persistence"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Flexibility",
+      "status": "core",
+      "tags": ["flexibility", "adaptability"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Open-Mindedness",
+      "status": "core",
+      "tags": ["openness", "acceptance"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Growth Mindset",
+      "status": "core",
+      "tags": ["mindset", "growth"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Self-Reflection",
+      "status": "core",
+      "tags": ["reflection", "self-awareness"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Creativity Under Pressure",
+      "status": "core",
+      "tags": ["creativity", "pressure"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 15,
+      "F_preset": 3,
+      "C_range": [11, 20],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Motivation & Drive",
+      "status": "core",
+      "tags": ["motivation", "drive"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Cross-Cultural Communication",
+      "status": "core",
+      "tags": ["culture", "communication"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Reliability",
+      "status": "core",
+      "tags": ["reliability", "dependability"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Integrity",
+      "status": "core",
+      "tags": ["integrity", "ethics"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Analytical Thinking",
+      "status": "core",
+      "tags": ["analysis", "thinking"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Goal Orientation",
+      "status": "core",
+      "tags": ["goals", "focus"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Self-Organization",
+      "status": "core",
+      "tags": ["organization", "planning"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Resourcefulness",
+      "status": "core",
+      "tags": ["resourcefulness", "creativity"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Situational Awareness",
+      "status": "core",
+      "tags": ["awareness", "context"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Emotional Stability",
+      "status": "core",
+      "tags": ["emotional", "stability"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Curiosity",
+      "status": "core",
+      "tags": ["curiosity", "learning"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Innovation",
+      "status": "core",
+      "tags": ["innovation", "creativity"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 15,
+      "F_preset": 3,
+      "C_range": [11, 20],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Prioritization",
+      "status": "core",
+      "tags": ["priorities", "planning"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Empathic Leadership",
+      "status": "core",
+      "tags": ["leadership", "empathy"],
+      "k": 10,
+      "expDomainKey": "default",
+      "C_preset": 16,
+      "F_preset": 4,
+      "C_range": [12, 21],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Conflict Mediation",
+      "status": "core",
+      "tags": ["conflict", "mediation"],
+      "k": 9,
+      "expDomainKey": "default",
+      "C_preset": 14,
+      "F_preset": 3,
+      "C_range": [10, 19],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Composure",
+      "status": "core",
+      "tags": ["composure", "calm"],
+      "k": 7,
+      "expDomainKey": "default",
+      "C_preset": 9,
+      "F_preset": 2,
+      "C_range": [7, 13],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    },
+    {
+      "category": "Lifestyle / Personal Development",
+      "subcategory": "Soft Skills",
+      "skill": "Learning Endurance",
+      "status": "core",
+      "tags": ["learning", "persistence"],
+      "k": 8,
+      "expDomainKey": "default",
+      "C_preset": 11,
+      "F_preset": 2,
+      "C_range": [8, 16],
+      "type": "soft",
+      "benchmarkType": "qualitative"
+    }
+  ]
+}
