@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import Animated, {
     Easing,
     runOnJS,
@@ -9,13 +9,12 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated';
 
-const { width, height } = Dimensions.get('window');
-
 interface SplashScreenProps {
   onComplete: () => void;
 }
 
 export default function SplashScreen({ onComplete }: SplashScreenProps) {
+  const { height } = useWindowDimensions();
   const logoScale = useSharedValue(0.85);
   const logoOpacity = useSharedValue(0);
   const logoTranslateY = useSharedValue(0);
@@ -24,6 +23,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   const textOpacity = useSharedValue(0);
 
   useEffect(() => {
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
     // Step 1: SkillSeed Logo fade in + scale up
     logoOpacity.value = withTiming(1, {
       duration: 800,
@@ -36,16 +36,16 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     });
 
     // Gradient fade in (with delay)
-    setTimeout(() => {
+    timeouts.push(setTimeout(() => {
       gradientOpacity.value = withTiming(1, {
         duration: 600,
         easing: Easing.out(Easing.ease),
       });
-    }, 300);
+    }, 300));
 
     // Step 2: Text animation starts AFTER logo fade in is complete (at 800ms)
     // Logo fade in duration is 800ms, so text starts exactly when logo is done
-    setTimeout(() => {
+    timeouts.push(setTimeout(() => {
       textOpacity.value = withTiming(1, {
         duration: 800,
         easing: Easing.out(Easing.ease),
@@ -54,12 +54,12 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         duration: 1000,
         easing: Easing.out(Easing.ease),
       });
-    }, 800); // Start when logo fade in completes
+    }, 800)); // Start when logo fade in completes
 
     // Step 3: Both fade out simultaneously after text has been visible
     // Text appears at 800ms, fade in takes 800ms (complete at 1600ms)
     // Keep both visible until 2800ms, then fade out together with identical animation
-    setTimeout(() => {
+    timeouts.push(setTimeout(() => {
       // Logo: same fade out animation as text
       logoOpacity.value = withTiming(0, {
         duration: 600,
@@ -78,15 +78,18 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         duration: 600,
         easing: Easing.in(Easing.ease),
       });
-    }, 2800); // Fade out both together with identical movement
+    }, 2800)); // Fade out both together with identical movement
 
     // Complete after fade out completes (2800ms + 600ms = 3400ms, add buffer)
     const timer = setTimeout(() => {
       runOnJS(onComplete)();
     }, 3600);
+    timeouts.push(timer);
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      timeouts.forEach(clearTimeout);
+    };
+  }, [gradientOpacity, logoOpacity, logoScale, logoTranslateY, onComplete, textOpacity, textTranslateY]);
 
   const logoAnimatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -104,6 +107,10 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     transform: [{ translateY: textTranslateY.value }],
     opacity: textOpacity.value,
   }));
+
+  const dynamicTextContainer = {
+    bottom: height * 0.25,
+  } as const;
 
   return (
     <View style={styles.container}>
@@ -124,7 +131,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         <Animated.View style={[styles.logoContainer, logoAnimatedStyle]}>
           <Text style={styles.logoText}>SkillSeed</Text>
         </Animated.View>
-        <Animated.View style={[styles.textContainer, textAnimatedStyle]}>
+        <Animated.View style={[styles.textContainer, dynamicTextContainer, textAnimatedStyle]}>
           <Text style={styles.animatedText}>Track Your Learning Journey</Text>
         </Animated.View>
         <Animated.View style={[styles.gradientOverlay, gradientAnimatedStyle]}>
@@ -143,8 +150,6 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width,
-    height,
   },
   gradient: {
     flex: 1,
@@ -164,7 +169,6 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     position: 'absolute',
-    bottom: height * 0.25,
     left: 0,
     right: 0,
     alignItems: 'center',

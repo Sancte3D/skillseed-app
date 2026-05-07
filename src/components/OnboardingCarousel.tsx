@@ -3,7 +3,7 @@ import { BlurView } from 'expo-blur';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useRef, useState } from 'react';
-import { Dimensions, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View, useWindowDimensions } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import Animated, {
     Easing,
@@ -14,8 +14,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Spacing, Typography } from '../design/motion';
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 interface OnboardingSlide {
   title: string;
@@ -34,6 +32,7 @@ export default function OnboardingCarousel({
   onComplete,
   initialUsername = '',
 }: OnboardingCarouselProps) {
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [username, setUsername] = useState(initialUsername);
   const [hasConfirmedName, setHasConfirmedName] = useState(false);
@@ -65,15 +64,15 @@ export default function OnboardingCarousel({
     })
     .onUpdate((event) => {
       // Clamp translation to prevent overscroll
-      const minX = -(slidesCount - 1) * SCREEN_WIDTH;
+      const minX = -(slidesCount - 1) * screenWidth;
       const maxX = 0;
       const newX = startX.value + event.translationX;
       translateX.value = Math.max(minX, Math.min(maxX, newX));
     })
     .onEnd((event) => {
-      const threshold = SCREEN_WIDTH * 0.25;
+      const threshold = screenWidth * 0.25;
       const velocity = event.velocityX;
-      const currentOffset = -currentIndex * SCREEN_WIDTH;
+      const currentOffset = -currentIndex * screenWidth;
 
       if (event.translationX < -threshold || velocity < -800) {
         // Swipe left - next slide
@@ -82,7 +81,7 @@ export default function OnboardingCarousel({
           runOnJS(Haptics.selectionAsync)();
           runOnJS(setCurrentIndex)(nextIndex);
           // Apple-standard smooth timing: 350ms with cubic-bezier easing
-          translateX.value = withTiming(-SCREEN_WIDTH * nextIndex, {
+          translateX.value = withTiming(-screenWidth * nextIndex, {
             duration: 350,
             easing: appleEasing,
           });
@@ -100,7 +99,7 @@ export default function OnboardingCarousel({
           runOnJS(Haptics.selectionAsync)();
           runOnJS(setCurrentIndex)(prevIndex);
           // Apple-standard smooth timing: 350ms with cubic-bezier easing
-          translateX.value = withTiming(-SCREEN_WIDTH * prevIndex, {
+          translateX.value = withTiming(-screenWidth * prevIndex, {
             duration: 350,
             easing: appleEasing,
           });
@@ -124,9 +123,9 @@ export default function OnboardingCarousel({
     'worklet';
     return {
       transform: [{ translateX: translateX.value }],
-      width: SCREEN_WIDTH * slidesCount,
+      width: screenWidth * slidesCount,
     };
-  }, [slidesCount]);
+  }, [screenWidth, slidesCount]);
 
   const handleGetStarted = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -234,7 +233,7 @@ export default function OnboardingCarousel({
                       </Text>
                       {/* Body text area - flexible height */}
                       <View style={styles.bodyContainer}>
-                        <Text style={styles.body}>
+                        <Text style={[styles.body, { maxWidth: screenWidth * 0.85 }]}>
                           {slide.body}
                         </Text>
                       </View>
@@ -282,7 +281,16 @@ export default function OnboardingCarousel({
                 );
 
                 return (
-                  <View key={index} style={styles.slide}>
+                  <View
+                    key={index}
+                    style={[
+                      styles.slide,
+                      {
+                        width: screenWidth,
+                        paddingTop: Math.min(Math.max(screenHeight * 0.12, 72), 132),
+                      },
+                    ]}
+                  >
                     {isLastSlide ? (
                       <ScrollView
                         ref={scrollViewRef}
@@ -384,13 +392,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden', // Keep hidden for horizontal scrolling only
   },
   slide: {
-    width: SCREEN_WIDTH,
     flex: 1,
     alignItems: 'center',
     paddingBottom: 0,
     paddingHorizontal: Spacing.xl,
-    // Optical center: slightly above mathematical center for better visual balance
-    paddingTop: SCREEN_HEIGHT * 0.15, // Move content down by ~150pt
+    // Dynamic width/paddingTop are applied inline per viewport size.
     // Use flex column for layout
     flexDirection: 'column',
   },
@@ -464,7 +470,6 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
     width: '100%',
-    maxWidth: SCREEN_WIDTH * 0.85,
     lineHeight: 24,
   },
   usernameContainer: {

@@ -4,8 +4,8 @@ import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import Fuse from "fuse.js";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Alert, Animated, AppState, FlatList, Modal, Platform, ScrollView, StatusBar, StyleSheet, StyleProp, Switch, Text, TextInput, TouchableOpacity, View, ViewStyle } from "react-native";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Alert, Animated, AppState, FlatList, Modal, Platform, ScrollView, StatusBar, StyleSheet, StyleProp, Switch, Text, TextInput, TouchableOpacity, View, ViewStyle, useColorScheme, useWindowDimensions } from "react-native";
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import CategoryIcon from './src/components/CategoryIcon';
 import EnhancedProgressBar from './src/components/EnhancedProgressBar';
 import OnboardingCarousel from './src/components/OnboardingCarousel';
@@ -64,29 +64,38 @@ type Route =
   | { name: "GlobalAssessment" }
   | { name: "Search" };
 
-const Header = ({ title, onBack }: { title: string; onBack?: () => void }) => (
+const Header = ({ title, onBack }: { title: string; onBack?: () => void }) => {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+  const backgroundColor = isDark ? '#111827' : '#FFFFFF';
+  const textColor = isDark ? '#F9FAFB' : colors.text;
+  const backColor = isDark ? '#93C5FD' : colors.link;
+  const borderColor = isDark ? '#374151' : colors.border;
+
+  return (
   <View style={{
     paddingHorizontal: spacing.m,
     paddingTop: spacing.m,
     paddingBottom: spacing.m,
-    backgroundColor: '#FFFFFF',
+    backgroundColor,
     borderBottomWidth: 0.5,
-    borderColor: colors.border,
+    borderColor,
   }}>
-    <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+    <StatusBar barStyle={isDark ? "light-content" : "dark-content"} backgroundColor={backgroundColor} />
     {/* Pinned brand */}
     <View style={{ marginBottom: 6 }}>
-      <Text style={{ fontSize: 20, fontWeight: '800', color: colors.text, letterSpacing: -0.5 }}>SkillSeed</Text>
+      <Text style={{ fontSize: 20, fontWeight: '800', color: textColor, letterSpacing: -0.5 }}>SkillSeed</Text>
     </View>
     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
       <TouchableOpacity onPress={onBack} disabled={!onBack} style={{ opacity: onBack ? 1 : 0, minWidth: 60 }}>
-        <Text style={{ color: colors.link, fontSize: 17, fontWeight: '400' }}>{onBack ? '← Back' : ''}</Text>
+        <Text style={{ color: backColor, fontSize: 17, fontWeight: '400' }}>{onBack ? '← Back' : ''}</Text>
       </TouchableOpacity>
-      <Text style={{ fontSize: 17, fontWeight: "600", color: colors.text, letterSpacing: -0.4 }}>{title}</Text>
+      <Text style={{ fontSize: 17, fontWeight: "600", color: textColor, letterSpacing: -0.4 }}>{title}</Text>
       <View style={{ width: 60 }} />
     </View>
   </View>
-);
+  );
+};
 
 const Button = ({ title, onPress }: { title: string; onPress: () => void }) => {
   const scale = React.useRef(new Animated.Value(1)).current;
@@ -114,9 +123,26 @@ const Button = ({ title, onPress }: { title: string; onPress: () => void }) => {
   );
 };
 
-const Card = ({ children, style }: { children: React.ReactNode; style?: StyleProp<ViewStyle> }) => (
-  <View style={[{ backgroundColor: "white", borderRadius: 14, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: "#EEE" }, style]}>{children}</View>
-);
+const Card = ({ children, style }: { children: React.ReactNode; style?: StyleProp<ViewStyle> }) => {
+  const isDark = useColorScheme() === 'dark';
+  return (
+    <View
+      style={[
+        {
+          backgroundColor: isDark ? '#1F2937' : "#FFFFFF",
+          borderRadius: 14,
+          padding: 16,
+          marginBottom: 12,
+          borderWidth: 1,
+          borderColor: isDark ? '#374151' : "#EEE",
+        },
+        style,
+      ]}
+    >
+      {children}
+    </View>
+  );
+};
 
 // Helper for historic chip
 function HistoricBadge() {
@@ -128,6 +154,10 @@ function HistoricBadge() {
 }
 
 export default function App() {
+  const insets = useSafeAreaInsets();
+  const { width: screenWidth } = useWindowDimensions();
+  const isDarkMode = useColorScheme() === 'dark';
+  const modalWidth = Math.min(screenWidth - 24, 360);
   const [route, setRoute] = useState<Route>({ name: "Explore" });
   const [booted, setBooted] = useState(false);
   const [showSplash, setShowSplash] = useState(false);
@@ -424,7 +454,7 @@ export default function App() {
     // Use fixed height for consistency across all screens
     // iOS devices with home indicator need ~34pt bottom padding, older devices ~8pt
     // We use a fixed height that works on all devices for consistency
-    const fixedBottomPadding = Platform.OS === 'ios' ? 34 : 8; // Fixed value for consistency
+    const fixedBottomPadding = Math.max(insets.bottom, Platform.OS === 'ios' ? 8 : 8);
     const contentHeight = 60; // Fixed content height: paddingTop (8) + icon (24) + spacing (4) + text (~11) + margin
     const totalHeight = contentHeight + fixedBottomPadding;
     
@@ -438,7 +468,7 @@ export default function App() {
       }}>
         <BlurView
           intensity={90}
-          tint="light"
+          tint={isDarkMode ? "dark" : "light"}
           style={StyleSheet.absoluteFill}
         />
         {/* Subtle border at top - Apple Tab Bar style */}
@@ -448,7 +478,7 @@ export default function App() {
           left: 0,
           right: 0,
           height: 0.5,
-          backgroundColor: 'rgba(0, 0, 0, 0.08)',
+          backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.16)' : 'rgba(0, 0, 0, 0.08)',
         }} />
         <View style={{ 
           paddingTop: 8, 
@@ -2098,7 +2128,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
         </View>
         <Modal visible={afkModal.visible} transparent animationType="fade">
           <View style={{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:'rgba(0,0,0,0.2)'}}>
-            <View style={{backgroundColor:'white',borderRadius:14,padding:32,alignItems:'center',maxWidth:320}}>
+            <View style={{backgroundColor:'white',borderRadius:14,padding:24,alignItems:'center',width: modalWidth}}>
               <Text style={{fontWeight:'700',fontSize:18,marginBottom:16}}>Still there?</Text>
               <Text style={{color:colors.muted,marginBottom:22}}>No activity detected for 30 minutes.</Text>
               <View style={{flexDirection:'row',gap:16}}>
@@ -2351,7 +2381,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
         </View>
         <Modal visible={manualSession.open} transparent animationType="slide">
           <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'rgba(0,0,0,0.15)' }}>
-            <View style={{ backgroundColor:'white', borderRadius:12, padding:28, width:320 }}>
+            <View style={{ backgroundColor:'white', borderRadius:12, padding:24, width: modalWidth }}>
               <Text style={{fontWeight:'700', fontSize:18, marginBottom:12}}>Log Session</Text>
               <Text>Duration (minutes):</Text>
               <TextInput 
@@ -2393,7 +2423,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
       {/* Edit Session Modal */}
       <Modal visible={editSession.open} transparent animationType="slide">
         <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'rgba(0,0,0,0.15)' }}>
-          <View style={{ backgroundColor:'white', borderRadius:12, padding:28, width:320 }}>
+          <View style={{ backgroundColor:'white', borderRadius:12, padding:24, width: modalWidth }}>
             <Text style={{fontWeight:'700', fontSize:18, marginBottom:12}}>Edit Session</Text>
             <Text>Duration (minutes):</Text>
             <TextInput 
@@ -2438,7 +2468,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
       {/* Skip Level Modal */}
       <Modal visible={skipLevelModal.open} transparent animationType="slide">
         <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'rgba(0,0,0,0.15)' }}>
-          <View style={{ backgroundColor:'white', borderRadius:12, padding:28, width:320, maxHeight:'80%' }}>
+          <View style={{ backgroundColor:'white', borderRadius:12, padding:24, width: modalWidth, maxHeight:'80%' }}>
             {/* Quiz Mode */}
             {skipLevelModal.selectedLevel && skipLevelQuiz.questions.length > 0 ? (
               <ScrollView>
