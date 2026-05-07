@@ -64,6 +64,14 @@ type Route =
   | { name: "GlobalAssessment" }
   | { name: "Search" };
 
+type SessionFlowState =
+  | 'idle'
+  | 'ready'
+  | 'in_progress'
+  | 'step_completed'
+  | 'session_completed'
+  | 'next_recommended';
+
 const Header = ({ title, onBack }: { title: string; onBack?: () => void }) => {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
@@ -625,6 +633,48 @@ export default function App() {
   const [isManualSessionSaving, setIsManualSessionSaving] = useState(false);
   const [isEditSessionSaving, setIsEditSessionSaving] = useState(false);
   const timerActionRef = useRef(false);
+  const [sessionFlowState, setSessionFlowState] = useState<SessionFlowState>('idle');
+  const flowLabel: Record<SessionFlowState, string> = {
+    idle: 'Idle',
+    ready: 'Ready',
+    in_progress: 'In Progress',
+    step_completed: 'Step Completed',
+    session_completed: 'Session Completed',
+    next_recommended: 'Next Recommended',
+  };
+  const flowNextHint: Record<SessionFlowState, string> = {
+    idle: 'Pick a skill to begin.',
+    ready: 'Start a focused session.',
+    in_progress: 'Complete the current practice block.',
+    step_completed: 'Nice step. Keep momentum with the next action.',
+    session_completed: 'Session saved. Review progress and recovery.',
+    next_recommended: 'Best next move: continue, assess, or take quiz.',
+  };
+
+  const transitionSessionFlow = React.useCallback((next: SessionFlowState, reason: string) => {
+    const transitions: Record<SessionFlowState, SessionFlowState[]> = {
+      idle: ['ready'],
+      ready: ['in_progress', 'step_completed'],
+      in_progress: ['step_completed', 'session_completed'],
+      step_completed: ['in_progress', 'session_completed'],
+      session_completed: ['next_recommended', 'ready'],
+      next_recommended: ['ready', 'in_progress'],
+    };
+    setSessionFlowState((prev) => {
+      if (prev === next) return prev;
+      if (transitions[prev]?.includes(next)) {
+        console.log(`[Flow] ${prev} -> ${next} (${reason})`);
+        return next;
+      }
+      return prev;
+    });
+  }, []);
+
+  const completeSessionForSkill = React.useCallback((skillId: string | null | undefined, durMin: number, afkWarning: boolean, notes?: string, isHistoric?: boolean) => {
+    if (!skillId) return;
+    store.finishSession(skillId, durMin, afkWarning, notes, isHistoric);
+    transitionSessionFlow('session_completed', afkWarning ? 'afk-autostop' : 'session-finished');
+  }, [transitionSessionFlow]);
 
   // --- Handlers ---
   const onExport = () => {
@@ -772,7 +822,7 @@ export default function App() {
           setAfkModal({ visible: false, timeout: null });
           if (timerState.skillId) {
             const dur = Math.max(1, Math.round((Date.now() - (timerState.start||Date.now()))/60000));
-            store.finishSession(timerState.skillId, dur, true);
+            completeSessionForSkill(timerState.skillId, dur, true);
           }
           setTimerState({ running: false, paused: false, start: null, accumSec: 0, lastActivity: null, skillId: null });
         }, 60000) as any;
@@ -784,7 +834,7 @@ export default function App() {
       if (afkTimeoutRef.current) clearTimeout(afkTimeoutRef.current as any);
       subs.forEach(s => s && s.remove && s.remove());
     };
-  }, [route.name, timerState.running, timerState.start, timerState.skillId, afkModal.visible]);
+  }, [route.name, timerState.running, timerState.start, timerState.skillId, afkModal.visible, completeSessionForSkill]);
 
   // Ensure transient UI state doesn't leak across route changes.
   useEffect(() => {
@@ -800,6 +850,26 @@ export default function App() {
       setIsEditSessionSaving(false);
     }
   }, [route.name, afkModal.visible]);
+
+  useEffect(() => {
+    if (
+      route.name === 'SkillDetail' ||
+      route.name === 'SkillDashboard' ||
+      route.name === 'Assessment' ||
+      route.name === 'Quiz' ||
+      route.name === 'Timer'
+    ) {
+      if (sessionFlowState === 'idle' || sessionFlowState === 'next_recommended') {
+        transitionSessionFlow('ready', `route:${route.name}`);
+      }
+    }
+  }, [route.name, sessionFlowState, transitionSessionFlow]);
+
+  useEffect(() => {
+    if (sessionFlowState !== 'session_completed') return;
+    const timer = setTimeout(() => transitionSessionFlow('next_recommended', 'post-completion-guide'), 0);
+    return () => clearTimeout(timer);
+  }, [sessionFlowState, transitionSessionFlow]);
 
   // At the top level, after all other useState/useEffect calls:
   const [displayTime, setDisplayTime] = useState(0);
@@ -1216,6 +1286,7 @@ export default function App() {
             // Assessment complete - start timer
             const now = Date.now();
             setTimerState({ running:true, paused:false, start: now, accumSec: 0, lastActivity: now, skillId: sk.skill_id });
+            transitionSessionFlow('in_progress', 'skill-detail-start');
             Haptics.selectionAsync();
             setRoute({ name:'Timer', skillId: sk.skill_id });
           }} />
@@ -2076,7 +2147,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
             <Text style={{ color: colors.muted, marginTop: 6 }}>ETA: {eta1} days at 1h/day • {eta2} days at 2h/day</Text>
           </Card>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Button title="Start timer" onPress={()=>{ const now = Date.now(); setTimerState({ running: true, paused: false, start: now, accumSec: 0, lastActivity: now, skillId: us.skill_id }); Haptics.selectionAsync(); navigate({ name:"Timer", skillId: us.skill_id }); }} />
+            <Button title="Start timer" onPress={()=>{ const now = Date.now(); setTimerState({ running: true, paused: false, start: now, accumSec: 0, lastActivity: now, skillId: us.skill_id }); transitionSessionFlow('in_progress', 'estimate-start'); Haptics.selectionAsync(); navigate({ name:"Timer", skillId: us.skill_id }); }} />
             <Button title="Go to dashboard" onPress={()=>navigate({ name:"SkillDashboard", skillId: us.skill_id })} />
           </View>
         </View>
@@ -2117,7 +2188,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
         if (start) {
           const durMin = Math.max(1, Math.round((now - start)/60000));
           const sid2 = us?.skill_id || timerState.skillId || route.skillId;
-          if (sid2) store.finishSession(sid2, durMin, false);
+          completeSessionForSkill(sid2, durMin, false);
           Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         }
         const finalSkillId = us?.skill_id || timerState.skillId || route.skillId;
@@ -2150,6 +2221,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
         const sid2 = us?.skill_id || timerState.skillId || route.skillId;
         console.log('[Timer] Setting timerState to running with skill:', sid2);
         setTimerState({ running: true, paused: false, start: now, accumSec: timerState.accumSec, lastActivity: now, skillId: sid2 });
+        transitionSessionFlow('in_progress', 'timer-start');
         Haptics.selectionAsync();
         timerActionRef.current = false;
         setIsTimerActionBusy(false);
@@ -2177,7 +2249,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
             </Text>
           </View>
           <Button title={running ? "Stop" : "Start"} onPress={toggle} disabled={isTimerActionBusy} loading={isTimerActionBusy} />
-          <Button title="Dashboard" onPress={()=>{ const sid = us?.skill_id || timerState.skillId || route.skillId; if (sid) setRoute({ name:"SkillDashboard", skillId: sid }); }} />
+          <Button title="Dashboard" onPress={()=>{ const sid = us?.skill_id || timerState.skillId || route.skillId; if (sid) { transitionSessionFlow('next_recommended', 'timer-dashboard'); setRoute({ name:"SkillDashboard", skillId: sid }); } }} />
         </View>
         <Modal visible={afkModal.visible} transparent animationType="fade">
           <View style={{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:'rgba(0,0,0,0.2)'}}>
@@ -2204,6 +2276,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
 
     function selectOption(qid: string, kid: string) {
       setQuizState(s => ({ ...s, answers: { ...s.answers, [qid]: kid } }));
+      transitionSessionFlow('step_completed', 'quiz-option-selected');
     }
     function next() {
       if (current+1 < numItems) setQuizState(s => ({ ...s, current: s.current+1 }));
@@ -2338,6 +2411,11 @@ if (route.name === 'Explore' || route.name === 'Search') {
       <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
         <Header title={skills.find(s=>s.skill_id===us.skill_id)?.name || 'Dashboard'} onBack={()=>setRoute({name:"Explore"})} />
         <View style={{ padding: spacing.m, gap: 12 }}>
+          <Card style={{ backgroundColor: colors.surfaceSoft }}>
+            <Text style={{ fontWeight: "700" }}>Session State</Text>
+            <Text style={{ marginTop: 6, color: colors.text }}>{flowLabel[sessionFlowState]}</Text>
+            <Text style={{ marginTop: 4, color: colors.muted, fontSize: 12 }}>{flowNextHint[sessionFlowState]}</Text>
+          </Card>
           <Card>
             <Text style={{ fontWeight:"700" }}>Progress</Text>
             <View style={{ height: 12 }} />
@@ -2468,7 +2546,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
                   setIsManualSessionSaving(true);
                   const min = parseInt(manualSession.duration);
                   if (isNaN(min) || min <= 0) { Alert.alert('Please enter a valid duration'); setIsManualSessionSaving(false); return; }
-                  store.finishSession(route.skillId, min, false, manualSession.notes || '', manualSession.historic);
+                  completeSessionForSkill(route.skillId, min, false, manualSession.notes || '', manualSession.historic);
                   setManualSession({ open: false, duration: '', notes: '', historic: false });
                   setIsManualSessionSaving(false);
                 }} disabled={isManualSessionSaving} loading={isManualSessionSaving} />
