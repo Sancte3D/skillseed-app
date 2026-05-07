@@ -1,29 +1,35 @@
-// SkillSeed App Color Theme (based on 60-30-10 and accessibility best practices)
+// SkillSeed "Pistachio Dream" theme tokens (light first).
 export const colors = {
-  background: '#F5F5F5',
+  background: '#F7F8F1',
   card: '#FFFFFF',
-  text: '#000000',
-  muted: '#666666',
-  border: '#E5E5E5',
-  primary: '#1400F5',
-  accent: '#BF211E',
-  success: '#12F885',
-  link: '#1400F5',
-  lightGray: '#EEE5E9',
-  // Category colors
+  surfaceSoft: '#F2F5E8',
+  text: '#101713',
+  muted: 'rgba(16, 23, 19, 0.58)',
+  textSoft: 'rgba(16, 23, 19, 0.38)',
+  border: 'rgba(16, 23, 19, 0.10)',
+  borderStrong: 'rgba(16, 23, 19, 0.18)',
+  primary: '#42D674',
+  primarySoft: '#80EF80',
+  highlight: '#E3F0A3',
+  seedMuted: '#BADBA2',
+  accent: '#42D674',
+  success: '#80EF80',
+  link: '#101713',
+  lightGray: '#F2F5E8',
+  // Category colors stay in the same palette family to avoid a full redesign.
   categories: {
-    'Coding': '#1400F5',
-    'CAD/3D': '#BF211E',
-    'AI/Data': '#7C3AED',
-    'Design': '#12F885',
-    'Language': '#FF6B35',
-    'Automation': '#00B8D4',
-    'Communication': '#FF1744',
-    'Creative': '#00E676',
-    'Data': '#536DFE',
-    '3D': '#D32F2F',
+    'Coding': '#42D674',
+    'CAD/3D': '#BADBA2',
+    'AI/Data': '#80EF80',
+    'Design': '#E3F0A3',
+    'Language': '#BADBA2',
+    'Automation': '#80EF80',
+    'Communication': '#42D674',
+    'Creative': '#E3F0A3',
+    'Data': '#80EF80',
+    '3D': '#BADBA2',
   } as Record<string,string>,
-};
+} as const;
 // Usage:
 // - Use colors.background for major backgrounds
 // - Use colors.card for card/section surfaces

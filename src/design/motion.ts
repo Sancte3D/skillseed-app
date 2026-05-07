@@ -97,34 +97,34 @@ export const Typography = {
 
 // Colors (iOS System)
 export const Colors = {
-  primary: '#007AFF',
-  secondary: '#5856D6',
-  success: '#34C759',
+  primary: '#42D674',
+  secondary: '#80EF80',
+  success: '#80EF80',
   warning: '#FF9500',
   danger: '#FF3B30',
   
   label: {
-    primary: '#000000',
-    secondary: '#3C3C43',
-    tertiary: '#3C3C4399',
-    quaternary: '#3C3C4366',
+    primary: '#101713',
+    secondary: 'rgba(16, 23, 19, 0.70)',
+    tertiary: 'rgba(16, 23, 19, 0.58)',
+    quaternary: 'rgba(16, 23, 19, 0.38)',
   },
   
   fill: {
-    primary: '#78788033',
-    secondary: '#78788028',
-    tertiary: '#7676801E',
-    quaternary: '#74748014',
+    primary: '#BADBA2',
+    secondary: '#E3F0A3',
+    tertiary: '#F2F5E8',
+    quaternary: '#F7F8F1',
   },
   
   background: {
     primary: '#FFFFFF',
-    secondary: '#F2F2F7',
+    secondary: '#F7F8F1',
     tertiary: '#FFFFFF',
   },
   
   separator: {
-    opaque: '#C6C6C8',
-    nonOpaque: '#3C3C4349',
+    opaque: 'rgba(16, 23, 19, 0.18)',
+    nonOpaque: 'rgba(16, 23, 19, 0.10)',
   },
 } as const;

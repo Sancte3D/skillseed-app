@@ -117,7 +117,7 @@ const Button = ({ title, onPress }: { title: string; onPress: () => void }) => {
         onPress={handlePress}
         style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 16, alignItems: "center" }}
       >
-        <Text style={{ color: "white", fontWeight: "600" }}>{title}</Text>
+        <Text style={{ color: colors.text, fontWeight: "600" }}>{title}</Text>
       </TouchableOpacity>
     </Animated.View>
   );
@@ -331,9 +331,9 @@ export default function App() {
     
     // Main category colors - harmonious cool palette (NO PURPLE!)
     const mainCategoryHues = {
-      hard: 230,         // Electric Blue (for all Hard Skills)
-      soft: 195,         // Cyan/Teal (for all Soft Skills - harmonisch mit Blau)
-      fundamental: 170    // Mint/Seagreen (for all Fundamentals - zwischen Cyan und Grün)
+      hard: 135,         // Primary pistachio green
+      soft: 110,         // Softer green
+      fundamental: 85    // Muted olive green
     };
     
     const sat = 85; // Saturated
@@ -377,9 +377,9 @@ export default function App() {
     // If skill type is provided, calculate color based on type (not from map)
     if (skillType) {
       const mainCategoryHues = {
-        hard: 230,         // Electric Blue
-        soft: 195,         // Cyan/Teal
-        fundamental: 170   // Mint/Seagreen
+        hard: 135,
+        soft: 110,
+        fundamental: 85
       };
       const sat = 85;
       const lightBase = skillType === 'fundamental' ? 55 : skillType === 'soft' ? 50 : 48;
@@ -940,7 +940,7 @@ export default function App() {
             <Text style={{ fontWeight:'700', marginBottom: 8 }}>Achievements</Text>
             <View style={{ flexDirection:'row', gap: 8 }}>
               {achievements.map(a=> (
-                <View key={a.k} style={{ paddingVertical:6, paddingHorizontal:10, borderRadius:10, borderWidth:1, borderColor: a.ok? colors.success: colors.border, backgroundColor: a.ok? '#E9FFF3':'#FFF' }}>
+                <View key={a.k} style={{ paddingVertical:6, paddingHorizontal:10, borderRadius:10, borderWidth:1, borderColor: a.ok? colors.success: colors.border, backgroundColor: a.ok? colors.primarySoft: colors.card }}>
                   <Text style={{ color: a.ok? '#0B8F5A': colors.muted, fontWeight:'600' }}>{a.k}</Text>
                 </View>
               ))}
@@ -1747,7 +1747,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
             <Text style={{ color: colors.muted, marginTop:6 }}>{q.tip}</Text>
             <View style={{ flexDirection:'row', gap:8, marginTop:12 }}>
               {[1,2,3,4,5].map(v => (
-                <TouchableOpacity key={v} onPress={()=> setGAVal(q.k as any, v)} style={{ paddingVertical:10, paddingHorizontal:14, borderRadius:8, borderWidth:1, borderColor: (ga as any)[q.k]===v?colors.primary:colors.border, backgroundColor:(ga as any)[q.k]===v? '#EAF2FF': colors.card }}>
+                <TouchableOpacity key={v} onPress={()=> setGAVal(q.k as any, v)} style={{ paddingVertical:10, paddingHorizontal:14, borderRadius:8, borderWidth:1, borderColor: (ga as any)[q.k]===v?colors.primary:colors.border, backgroundColor:(ga as any)[q.k]===v? colors.highlight: colors.card }}>
                   <Text style={{ color:(ga as any)[q.k]===v? colors.primary: colors.text }}>{v}</Text>
                 </TouchableOpacity>
               ))}
@@ -1979,7 +1979,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
                     borderRadius:12,
                     borderWidth:2,
                     borderColor: currentValue===v ? colors.primary : colors.border,
-                    backgroundColor: currentValue===v ? '#EAF2FF' : colors.card,
+                    backgroundColor: currentValue===v ? colors.highlight : colors.card,
                     alignItems:'center',
                     minWidth: 50
                   }}
@@ -2201,7 +2201,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
             <Text style={{fontWeight:"700",marginBottom:6}}>{q.stem}</Text>
             {q.options.map((opt: QuizItemOption) => (
               <TouchableOpacity key={opt.k}
-                style={{borderWidth:1,borderColor:answers[q.id]===opt.k?colors.primary:"#DDD",borderRadius:8,padding:12,marginVertical:4,backgroundColor:answers[q.id]===opt.k?"#EAF2FF":"#FFF"}}
+                style={{borderWidth:1,borderColor:answers[q.id]===opt.k?colors.primary:colors.border,borderRadius:8,padding:12,marginVertical:4,backgroundColor:answers[q.id]===opt.k?colors.highlight:colors.card}}
                 onPress={()=>selectOption(q.id, opt.k)}>
                 <Text style={{color:answers[q.id]===opt.k?colors.primary:colors.text}}>{opt.text}</Text>
               </TouchableOpacity>
@@ -2391,7 +2391,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
                   setManualSession(s=>({...s, duration:v}));
                 }} 
                 keyboardType="numeric" 
-                style={{borderWidth:1,borderColor:'#DDD',borderRadius:8,padding:8,marginBottom:8}} 
+                style={{borderWidth:1,borderColor:colors.border,borderRadius:8,padding:8,marginBottom:8}} 
                 placeholder="e.g. 25" 
               />
               <Text>Notes (optional):</Text>
@@ -2401,7 +2401,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
                   console.log('[Input] Manual Session Notes - Changed:', v.length, 'chars');
                   setManualSession(s=>({...s, notes:v}));
                 }} 
-                style={{borderWidth:1,borderColor:'#DDD',borderRadius:8,padding:8,marginBottom:8}} 
+                style={{borderWidth:1,borderColor:colors.border,borderRadius:8,padding:8,marginBottom:8}} 
                 placeholder="Notes..." 
               />
               <View style={{flexDirection:'row', alignItems:'center', marginBottom:12}}>
@@ -2433,7 +2433,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
                 setEditSession(s=>({...s, duration:v}));
               }} 
               keyboardType="numeric" 
-              style={{borderWidth:1,borderColor:'#DDD',borderRadius:8,padding:8,marginBottom:8}} 
+              style={{borderWidth:1,borderColor:colors.border,borderRadius:8,padding:8,marginBottom:8}} 
               placeholder="e.g. 25" 
             />
             <Text>Notes (optional):</Text>
@@ -2443,7 +2443,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
                 console.log('[Input] Edit Session Notes - Changed:', v.length, 'chars');
                 setEditSession(s=>({...s, notes:v}));
               }} 
-              style={{borderWidth:1,borderColor:'#DDD',borderRadius:8,padding:8,marginBottom:8}} 
+              style={{borderWidth:1,borderColor:colors.border,borderRadius:8,padding:8,marginBottom:8}} 
               placeholder="Notes..." 
             />
             <View style={{flexDirection:'row', alignItems:'center', marginBottom:12}}>
@@ -2503,7 +2503,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
                                   borderRadius: 8,
                                   borderWidth: 1,
                                   borderColor: skipLevelQuiz.answers[skipLevelQuiz.current] === opt.k ? colors.primary : colors.border,
-                                  backgroundColor: skipLevelQuiz.answers[skipLevelQuiz.current] === opt.k ? '#EAF2FF' : colors.card
+                                  backgroundColor: skipLevelQuiz.answers[skipLevelQuiz.current] === opt.k ? colors.highlight : colors.card
                                 }}
                               >
                                 <Text style={{ color: skipLevelQuiz.answers[skipLevelQuiz.current] === opt.k ? colors.primary : colors.text }}>
