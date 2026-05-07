@@ -1,8 +1,9 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Platform } from 'react-native';
+import { Platform, useColorScheme } from 'react-native';
 import { ProfileStackParamList } from './types';
 import { ProfileScreen } from '../screens/ProfileScreen';
+import { resolveAppTheme } from '../theme';
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
 
@@ -11,6 +12,8 @@ const Stack = createNativeStackNavigator<ProfileStackParamList>();
  * Apple-grade transitions
  */
 export function ProfileStack() {
+  const isDark = useColorScheme() === 'dark';
+  const t = resolveAppTheme(isDark);
   const screenOptions = {
     headerShown: false,
     gestureEnabled: true,
@@ -18,11 +21,11 @@ export function ProfileStack() {
     animation: 'default' as const,
     animationDuration: 220,
     contentStyle: {
-      backgroundColor: '#FFFFFF',
+      backgroundColor: t.background,
     },
     ...(Platform.OS === 'ios' && {
       headerBackTitleVisible: false,
-      headerTintColor: '#007AFF',
+      headerTintColor: t.primary,
     }),
   };
 

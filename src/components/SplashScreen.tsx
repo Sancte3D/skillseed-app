@@ -1,6 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { immersiveBrandGradients } from '../theme';
 import Animated, {
     Easing,
     runOnJS,
@@ -116,14 +117,14 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     <View style={styles.container}>
       {/* Softer gradient background */}
       <LinearGradient
-        colors={['#1a00cc', '#3A00FF', '#5C00FF']}
+        colors={[...immersiveBrandGradients.base]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
       >
         {/* Additional soft overlay */}
         <LinearGradient
-          colors={['rgba(26, 0, 204, 0.3)', 'rgba(58, 0, 255, 0.5)', 'rgba(92, 0, 255, 0.8)']}
+          colors={[...immersiveBrandGradients.veil]}
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}
           style={StyleSheet.absoluteFill}
@@ -136,7 +137,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         </Animated.View>
         <Animated.View style={[styles.gradientOverlay, gradientAnimatedStyle]}>
           <LinearGradient
-            colors={['transparent', 'rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.2)']}
+            colors={[...immersiveBrandGradients.gloss]}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
             style={StyleSheet.absoluteFill}
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 42,
     fontWeight: '800',
-    color: '#FFFFFF',
+    color: '#F4F7EF',
     letterSpacing: -1,
   },
   textContainer: {
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
   animatedText: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#FFFFFF',
+    color: '#F4F7EF',
     textAlign: 'center',
     letterSpacing: -0.5,
   },

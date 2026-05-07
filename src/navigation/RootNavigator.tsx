@@ -1,4 +1,5 @@
 import React from 'react';
+import { useColorScheme } from 'react-native';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -10,7 +11,7 @@ import { ExploreStack } from './ExploreStack';
 import { DashboardStack } from './DashboardStack';
 import { TimerStack } from './TimerStack';
 import { ProfileStack } from './ProfileStack';
-import { colors } from '../theme';
+import { resolveAppTheme } from '../theme';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -21,6 +22,8 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
  */
 export function RootNavigator() {
   const navigationRef = useNavigationContainerRef<RootTabParamList>();
+  const isDark = useColorScheme() === 'dark';
+  const t = resolveAppTheme(isDark);
 
   return (
     <SafeAreaProvider>
@@ -35,19 +38,19 @@ export function RootNavigator() {
                 left: 0,
                 right: 0,
                 elevation: 0,
-                backgroundColor: 'rgba(255,255,255,0.82)',
+                backgroundColor: t.overlays.tabBarChrome,
                 borderTopWidth: 0.5,
-                borderTopColor: colors.border,
+                borderTopColor: t.border,
                 height: 88,
                 paddingBottom: 8,
                 paddingTop: 8,
-                shadowColor: '#000',
+                shadowColor: isDark ? '#000' : 'rgba(16,23,19,0.12)',
                 shadowOffset: { width: 0, height: -1 },
-                shadowOpacity: 0.1,
+                shadowOpacity: 0.08,
                 shadowRadius: 4,
               },
-              tabBarActiveTintColor: colors.text,
-              tabBarInactiveTintColor: colors.muted,
+              tabBarActiveTintColor: t.text,
+              tabBarInactiveTintColor: t.muted,
               tabBarLabelStyle: {
                 fontSize: 11,
                 fontWeight: '500',

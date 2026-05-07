@@ -14,6 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Spacing, Typography } from '../design/motion';
+import { immersiveBrandGradients, colors as seedColors } from '../theme';
 
 interface OnboardingSlide {
   title: string;
@@ -172,19 +173,19 @@ export default function OnboardingCarousel({
         {/* Background Gradient - identical to SplashScreen, extends beyond SafeArea */}
         <View style={styles.backgroundContainer} pointerEvents="none">
           <LinearGradient
-            colors={['#1a00cc', '#3A00FF', '#5C00FF']}
+            colors={[...immersiveBrandGradients.base]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={StyleSheet.absoluteFill}
           />
           <LinearGradient
-            colors={['rgba(26, 0, 204, 0.3)', 'rgba(58, 0, 255, 0.5)', 'rgba(92, 0, 255, 0.8)']}
+            colors={[...immersiveBrandGradients.veil]}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
             style={StyleSheet.absoluteFill}
           />
           <LinearGradient
-            colors={['transparent', 'rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.2)']}
+            colors={[...immersiveBrandGradients.gloss]}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
             style={StyleSheet.absoluteFill}
@@ -209,8 +210,8 @@ export default function OnboardingCarousel({
                       {slide.hero || (
                         <View style={styles.glassIconContainer}>
                           <BlurView
-                            intensity={80}
-                            tint="light"
+                            intensity={70}
+                            tint="dark"
                             style={StyleSheet.absoluteFill}
                           />
                           {/* Subtle gradient overlay for depth */}
@@ -221,7 +222,7 @@ export default function OnboardingCarousel({
                             style={StyleSheet.absoluteFill}
                             pointerEvents="none"
                           />
-                          <MaterialIcons name="trending-up" size={64} color="#FFFFFF" />
+                          <MaterialIcons name="trending-up" size={64} color="#F4F7EF" />
                         </View>
                       )}
                     </View>
@@ -243,8 +244,8 @@ export default function OnboardingCarousel({
                       <View style={styles.usernameContainer}>
                         <Pressable style={styles.glassInputContainer}>
                           <BlurView
-                            intensity={80}
-                            tint="light"
+                            intensity={70}
+                            tint="dark"
                             style={StyleSheet.absoluteFill}
                           />
                           {/* Subtle gradient overlay for depth */}
@@ -263,7 +264,7 @@ export default function OnboardingCarousel({
                               setHasConfirmedName(false); // Reset when typing
                             }}
                             placeholder="Dein Name"
-                            placeholderTextColor="rgba(255, 255, 255, 0.6)"
+                            placeholderTextColor="rgba(244, 247, 239, 0.55)"
                             style={styles.usernameInput}
                             autoFocus={false}
                             returnKeyType="done"
@@ -334,7 +335,8 @@ export default function OnboardingCarousel({
                     styles.indicator,
                     {
                       transform: [{ scale: isActive ? 1.2 : 1 }],
-                      opacity: isActive ? 1 : 0.6,
+                      opacity: isActive ? 1 : 0.55,
+                      backgroundColor: isActive ? seedColors.primary : 'rgba(244,247,239,0.35)',
                     },
                   ]}
                 />
@@ -346,28 +348,13 @@ export default function OnboardingCarousel({
           {currentIndex === slides.length - 1 && hasConfirmedName && username.trim().length > 0 && (
             <View style={styles.ctaContainer}>
               <Pressable
+                style={styles.glassButton}
                 onPress={() => {
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                   handleGetStarted();
                 }}
-                style={styles.glassButton}
               >
-                <BlurView
-                  intensity={80}
-                  tint="light"
-                  style={StyleSheet.absoluteFill}
-                />
-                {/* Subtle gradient overlay for depth - aligned with Apple Liquid Glass */}
-                <LinearGradient
-                  colors={['rgba(255, 255, 255, 0.25)', 'rgba(255, 255, 255, 0.08)']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 0, y: 1 }}
-                  style={StyleSheet.absoluteFill}
-                  pointerEvents="none"
-                />
-                <View style={styles.glassButtonContent}>
-                  <Text style={styles.glassButtonText}>Weiter</Text>
-                </View>
+                <Text style={styles.glassButtonText}>Weiter</Text>
               </Pressable>
             </View>
           )}
@@ -380,7 +367,7 @@ export default function OnboardingCarousel({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a00cc', // Match gradient start color
+    backgroundColor: '#1A2620',
   },
   backgroundContainer: {
     ...StyleSheet.absoluteFillObject,
@@ -450,7 +437,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...Typography.title1,
-    color: '#FFFFFF',
+    color: '#F4F7EF',
     textAlign: 'center',
     width: '100%',
     // Flexible height - no minHeight constraint
@@ -467,7 +454,7 @@ const styles = StyleSheet.create({
   },
   body: {
     ...Typography.body,
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: 'rgba(244, 247, 239, 0.88)',
     textAlign: 'center',
     width: '100%',
     lineHeight: 24,
@@ -497,7 +484,7 @@ const styles = StyleSheet.create({
   usernameInput: {
     paddingHorizontal: 20,
     paddingVertical: 16,
-    color: '#FFFFFF',
+    color: '#F4F7EF',
     fontSize: Typography.body.fontSize,
     textAlign: 'center',
     minHeight: 56,
@@ -518,7 +505,6 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#FFFFFF',
   },
   ctaContainer: {
     position: 'absolute',
@@ -534,30 +520,24 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: 200,
     minHeight: 56,
+    backgroundColor: seedColors.primary,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderColor: 'rgba(16, 23, 19, 0.12)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 32,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.12,
     shadowRadius: 24,
     elevation: 6,
   },
-  glassButtonContent: {
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 56,
-    zIndex: 1,
-  },
   glassButtonText: {
     ...Typography.headline,
-    color: '#FFFFFF',
+    color: '#101713',
     fontWeight: '700',
     fontSize: 17,
     letterSpacing: 0.5,
-    textShadowColor: 'rgba(0, 0, 0, 0.2)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
   },
 });

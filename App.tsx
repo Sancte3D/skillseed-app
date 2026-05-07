@@ -26,7 +26,7 @@ import { Session, SkillMaster } from "./src/models";
 import { estimator } from "./src/services/estimator";
 import { getFeedbackForSkill } from "./src/services/feedback";
 import { appState, exportBundle, importBundle, store, uid } from "./src/services/storage";
-import { colors, spacing } from "./src/theme";
+import { resolveAppTheme, spacing } from "./src/theme";
 import { uiDebug } from "./src/utils/debugUI";
 
 type QuizItemOption = { k: string; text: string; correct?: boolean };
@@ -67,12 +67,12 @@ type Route =
   | { name: "Search" };
 
 const Header = ({ title, onBack }: { title: string; onBack?: () => void }) => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const backgroundColor = isDark ? '#111827' : '#FFFFFF';
-  const textColor = isDark ? '#F9FAFB' : colors.text;
-  const backColor = isDark ? '#93C5FD' : colors.link;
-  const borderColor = isDark ? '#374151' : colors.border;
+  const isDark = useColorScheme() === 'dark';
+  const t = resolveAppTheme(isDark);
+  const backgroundColor = t.headerBg;
+  const textColor = t.headerText;
+  const backColor = t.headerBackLink;
+  const borderColor = t.headerBorder;
 
   return (
   <View style={{
@@ -110,6 +110,7 @@ const Button = ({
   disabled?: boolean;
   loading?: boolean;
 }) => {
+  const t = resolveAppTheme(useColorScheme() === 'dark');
   const scale = React.useRef(new Animated.Value(1)).current;
   const onPressIn = () => {
     Animated.spring(scale, { toValue: 0.96, useNativeDriver: true, friction: 6, tension: 120 }).start();
@@ -129,26 +130,26 @@ const Button = ({
         onPressOut={onPressOut}
         onPress={handlePress}
         disabled={disabled || loading}
-        style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 16, alignItems: "center" }}
+        style={{ backgroundColor: t.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 16, alignItems: "center" }}
       >
-        <Text style={{ color: colors.text, fontWeight: "600" }}>{loading ? "Loading..." : title}</Text>
+        <Text style={{ color: t.onPrimary, fontWeight: "600" }}>{loading ? "Loading..." : title}</Text>
       </TouchableOpacity>
     </Animated.View>
   );
 };
 
 const Card = ({ children, style }: { children: React.ReactNode; style?: StyleProp<ViewStyle> }) => {
-  const isDark = useColorScheme() === 'dark';
+  const t = resolveAppTheme(useColorScheme() === 'dark');
   return (
     <View
       style={[
         {
-          backgroundColor: isDark ? '#1F2937' : "#FFFFFF",
+          backgroundColor: t.card,
           borderRadius: 14,
           padding: 16,
           marginBottom: 12,
           borderWidth: 1,
-          borderColor: isDark ? '#374151' : "#EEE",
+          borderColor: t.cardBorder,
         },
         style,
       ]}
@@ -160,17 +161,19 @@ const Card = ({ children, style }: { children: React.ReactNode; style?: StylePro
 
 // Helper for historic chip
 function HistoricBadge() {
+  const h = resolveAppTheme(useColorScheme() === 'dark').semantic.historic;
   return (
-    <View style={{backgroundColor:'#FFF3CC',borderRadius:8,paddingHorizontal:8,paddingVertical:2,marginLeft:8,alignSelf:'center'}}>
-      <Text style={{color:'#8A6A00',fontSize:11,fontWeight:'700'}}>HISTORIC</Text>
+    <View style={{ backgroundColor: h.bg, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 2, marginLeft: 8, alignSelf: 'center' }}>
+      <Text style={{ color: h.text, fontSize: 11, fontWeight: '700' }}>HISTORIC</Text>
     </View>
-  )
+  );
 }
 
 export default function App() {
   const insets = useSafeAreaInsets();
   const { width: screenWidth } = useWindowDimensions();
   const isDarkMode = useColorScheme() === 'dark';
+  const palette = resolveAppTheme(isDarkMode);
   const modalWidth = Math.min(screenWidth - 24, 360);
   const [route, setRoute] = useState<Route>({ name: "Explore" });
   const [booted, setBooted] = useState(false);
@@ -289,15 +292,6 @@ export default function App() {
   // --- Expand App-level state for category drilldown (null = default all/overview) ---
   const [selectedCategory, setSelectedCategory] = useState<string|null>(null);
 
-  // --- Build skill grouping for display ---
-  const categoryConfig = [
-    { key: 'Coding', color: colors.primary },
-    { key: 'CAD/3D', color: colors.accent },
-    { key: 'AI/Data', color: '#A259FF' },
-    { key: 'Design', color: '#32D29F' },
-    { key: 'Language', color: '#FF7C51' },
-    // add more as desired
-  ];
   const categoryMap: Record<string, SkillMaster[]> = {};
   skills.forEach(skill => {
     const cat = skill.category || 'Other';
@@ -386,7 +380,7 @@ export default function App() {
   })();
   
   const getCategoryColor = (catRaw: string, skillType?: 'hard'|'soft'|'fundamental') => {
-    if (!catRaw) return colors.primary;
+    if (!catRaw) return palette.primary;
     
     // If skill type is provided, calculate color based on type (not from map)
     if (skillType) {
@@ -406,7 +400,7 @@ export default function App() {
     }
     
     // Fallback: use categoryColorMap
-    return categoryColorMap[catRaw] || colors.primary;
+    return categoryColorMap[catRaw] || palette.primary;
   };
 
   // evt weiterhin für Text-Bereiche verwenden; für UI-Komponenten CategoryIcon nutzen
@@ -492,7 +486,7 @@ export default function App() {
           left: 0,
           right: 0,
           height: 0.5,
-          backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.16)' : 'rgba(0, 0, 0, 0.08)',
+          backgroundColor: palette.switchIosTrack,
         }} />
         <View style={{ 
           paddingTop: 8, 
@@ -513,8 +507,8 @@ export default function App() {
             }}
             style={{ flex:1, alignItems:'center', paddingVertical:8, minWidth: 80 }}
           >
-            <MaterialIcons name="home" size={24} color={activeTab==='Home'?colors.primary:colors.muted} style={{ marginBottom: 4 }} />
-            <Text style={{ fontSize: 11, fontWeight: activeTab==='Home'?'600':'400', color: activeTab==='Home'?colors.primary:colors.muted }}>Home</Text>
+            <MaterialIcons name="home" size={24} color={activeTab==='Home'?palette.text:palette.muted} style={{ marginBottom: 4 }} />
+            <Text style={{ fontSize: 11, fontWeight: activeTab==='Home'?'600':'400', color: activeTab==='Home'?palette.text:palette.muted }}>Home</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -524,8 +518,8 @@ export default function App() {
             }}
             style={{ flex:1, alignItems:'center', paddingVertical:8, minWidth: 80 }}
           >
-            <MaterialIcons name="dashboard" size={24} color={activeTab==='Dashboard'?colors.primary:colors.muted} style={{ marginBottom: 4 }} />
-            <Text style={{ fontSize: 11, fontWeight: activeTab==='Dashboard'?'600':'400', color: activeTab==='Dashboard'?colors.primary:colors.muted }}>Dashboard</Text>
+            <MaterialIcons name="dashboard" size={24} color={activeTab==='Dashboard'?palette.text:palette.muted} style={{ marginBottom: 4 }} />
+            <Text style={{ fontSize: 11, fontWeight: activeTab==='Dashboard'?'600':'400', color: activeTab==='Dashboard'?palette.text:palette.muted }}>Dashboard</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -535,8 +529,8 @@ export default function App() {
             }}
             style={{ flex:1, alignItems:'center', paddingVertical:8, minWidth: 80 }}
           >
-            <MaterialIcons name="person" size={24} color={activeTab==='Profile'?colors.primary:colors.muted} style={{ marginBottom: 4 }} />
-            <Text style={{ fontSize: 11, fontWeight: activeTab==='Profile'?'600':'400', color: activeTab==='Profile'?colors.primary:colors.muted }}>Profile</Text>
+            <MaterialIcons name="person" size={24} color={activeTab==='Profile'?palette.text:palette.muted} style={{ marginBottom: 4 }} />
+            <Text style={{ fontSize: 11, fontWeight: activeTab==='Profile'?'600':'400', color: activeTab==='Profile'?palette.text:palette.muted }}>Profile</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -926,7 +920,7 @@ export default function App() {
     const goal = Math.max(0.5, weeklyGoal || 5);
     const goalPct = Math.min(100, Math.round((weekHours/goal)*100));
     return (
-      <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+      <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
         <Header title="Dashboard" />
         <View style={{ flex: 1, position: 'relative' }}>
         <ScrollView 
@@ -935,15 +929,15 @@ export default function App() {
           style={{ overflow: 'hidden' }}
         >
           <Card>
-            <Text style={{ fontSize: 20, fontWeight:'800', marginBottom: 16 }}>This Week</Text>
+            <Text style={{ fontSize: 20, fontWeight:'800', marginBottom: 16, color: palette.text }}>This Week</Text>
             <View style={{ flexDirection:'row', justifyContent:'space-between', marginBottom: 24 }}>
               <View>
-                <Text style={{ fontSize: 36, fontWeight:'800', color: colors.text }}>{weekHours}h</Text>
-                <Text style={{ color: colors.muted, marginTop: 4 }}>Total Time</Text>
+                <Text style={{ fontSize: 36, fontWeight:'800', color: palette.text }}>{weekHours}h</Text>
+                <Text style={{ color: palette.muted, marginTop: 4 }}>Total Time</Text>
               </View>
               <View style={{ alignItems:'flex-end' }}>
-                <Text style={{ fontSize: 36, fontWeight:'800', color: colors.primary }}>{totalSessions}</Text>
-                <Text style={{ color: colors.muted, marginTop: 4 }}>Sessions</Text>
+                <Text style={{ fontSize: 36, fontWeight:'800', color: palette.primary }}>{totalSessions}</Text>
+                <Text style={{ color: palette.muted, marginTop: 4 }}>Sessions</Text>
               </View>
             </View>
             {/* Weekly Bars */}
@@ -965,20 +959,20 @@ export default function App() {
                 return (
                   <View key={i} style={{ flex:1, alignItems:'center' }}>
                     <View style={{ flex:1, width:'100%', justifyContent:'flex-end', marginBottom: 6 }}>
-                      <View style={{ width:'100%', height: `${heightPercent}%`, backgroundColor: colors.primary, borderRadius: 6, minHeight: dayHours>0?8:0 }} />
+                      <View style={{ width:'100%', height: `${heightPercent}%`, backgroundColor: palette.primary, borderRadius: 6, minHeight: dayHours>0?8:0 }} />
                     </View>
-                    <Text style={{ fontSize: 11, color: colors.muted, fontWeight:'500' }}>{day}</Text>
+                    <Text style={{ fontSize: 11, color: palette.muted, fontWeight:'500' }}>{day}</Text>
                   </View>
                 );
               })}
             </View>
           </Card>
           <Card>
-            <Text style={{ fontWeight:'700', marginBottom: 8 }}>Weekly Goal</Text>
+            <Text style={{ fontWeight:'700', marginBottom: 8, color: palette.text }}>Weekly Goal</Text>
             <EnhancedProgressBar percent={goalPct} />
             <View style={{ flexDirection:'row', justifyContent:'space-between', marginTop: 8 }}>
-              <Text style={{ color: colors.muted }}>{weekHours}h / {goal}h</Text>
-              <Text style={{ fontWeight:'700', color: colors.primary }}>{goalPct}%</Text>
+              <Text style={{ color: palette.muted }}>{weekHours}h / {goal}h</Text>
+              <Text style={{ fontWeight:'700', color: palette.primary }}>{goalPct}%</Text>
             </View>
             <View style={{ flexDirection:'row', gap: 8, marginTop: 12 }}>
               <TextInput
@@ -1001,37 +995,37 @@ export default function App() {
                     console.log('[Input] Weekly Goal - ⚠️ Invalid value:', text);
                   }
                 }}
-                style={{ flex:1, borderWidth:1, borderColor: colors.border, borderRadius:10, padding:10, backgroundColor: colors.card }}
-                placeholderTextColor={colors.muted}
+                style={{ flex:1, borderWidth:1, borderColor: palette.border, borderRadius:10, padding:10, backgroundColor: palette.card, color: palette.text }}
+                placeholderTextColor={palette.muted}
               />
               <Button title="Update Goal" onPress={()=>{/* handled by onSubmitEditing */}} />
             </View>
           </Card>
           <Card>
-            <Text style={{ fontWeight:'700', marginBottom: 8 }}>Streaks</Text>
-            <Text style={{ fontSize: 28, fontWeight:'800' }}>{currentStreak}🔥</Text>
-            <Text style={{ color: colors.muted, marginTop: 4 }}>Longest: {longestStreak} days</Text>
+            <Text style={{ fontWeight:'700', marginBottom: 8, color: palette.text }}>Streaks</Text>
+            <Text style={{ fontSize: 28, fontWeight:'800', color: palette.text }}>{currentStreak}🔥</Text>
+            <Text style={{ color: palette.muted, marginTop: 4 }}>Longest: {longestStreak} days</Text>
           </Card>
           <Card>
-            <Text style={{ fontWeight:'700', marginBottom: 8 }}>Achievements</Text>
+            <Text style={{ fontWeight:'700', marginBottom: 8, color: palette.text }}>Achievements</Text>
             <View style={{ flexDirection:'row', gap: 8 }}>
               {achievements.map(a=> (
-                <View key={a.k} style={{ paddingVertical:6, paddingHorizontal:10, borderRadius:10, borderWidth:1, borderColor: a.ok? colors.success: colors.border, backgroundColor: a.ok? colors.primarySoft: colors.card }}>
-                  <Text style={{ color: a.ok? '#0B8F5A': colors.muted, fontWeight:'600' }}>{a.k}</Text>
+                <View key={a.k} style={{ paddingVertical:6, paddingHorizontal:10, borderRadius:10, borderWidth:1, borderColor: a.ok? palette.primary: palette.border, backgroundColor: a.ok? palette.primary: palette.card }}>
+                  <Text style={{ color: a.ok ? palette.onPrimary : palette.muted, fontWeight:'600' }}>{a.k}</Text>
                 </View>
               ))}
             </View>
           </Card>
           {allUserSkills.length === 0 && (
             <Card>
-              <Text style={{ fontWeight:'700', marginBottom: 8 }}>No skills yet</Text>
-              <Text style={{ color: colors.muted, marginBottom: 16 }}>Start tracking a skill to see your progress here.</Text>
+              <Text style={{ fontWeight:'700', marginBottom: 8, color: palette.text }}>No skills yet</Text>
+              <Text style={{ color: palette.muted, marginBottom: 16 }}>Start tracking a skill to see your progress here.</Text>
               <Button title="Browse Skills" onPress={()=> setRoute({ name:'Explore' })} />
             </Card>
           )}
           {topSkills.length > 0 && (
             <>
-              <Text style={{ fontSize: 18, fontWeight:'800', marginTop: 8, marginBottom: 12 }}>Your Active Skills</Text>
+              <Text style={{ fontSize: 18, fontWeight:'800', marginTop: 8, marginBottom: 12, color: palette.text }}>Your Active Skills</Text>
               {topSkills.map((us:any)=> {
                 const skill = skills.find(s=>s.skill_id===us.skill_id);
                 console.log('[Dashboard] Active Skill - us.skill_id:', us.skill_id, 'found skill:', skill?.name || 'NOT FOUND');
@@ -1054,15 +1048,15 @@ export default function App() {
                     <Card>
                       <View style={{ flexDirection:'row', justifyContent:'space-between', marginBottom: 8 }}>
                         <View style={{ flexDirection:'row', alignItems:'center', gap: 6 }}>
-                          <CategoryIcon category={skill?.category||''} size={18} color={colors.text} />
-                          <Text style={{ fontSize: 17, fontWeight:'700' }}>{displayName}</Text>
+                          <CategoryIcon category={skill?.category||''} size={18} color={palette.text} />
+                          <Text style={{ fontSize: 17, fontWeight:'700', color: palette.text }}>{displayName}</Text>
                         </View>
                         <Text style={{ fontSize: 20, fontWeight:'800', color: categoryColor }}>{pct}%</Text>
                       </View>
                       <EnhancedProgressBar percent={pct} />
                       <View style={{ flexDirection:'row', justifyContent:'space-between' }}>
-                        <Text style={{ color: colors.muted, fontSize: 13 }}>{(us.weeklyHours||0).toFixed(1)}h this week</Text>
-                        <Text style={{ color: colors.muted, fontSize: 13 }}>{us.progress.logged_hours}h / {Math.round(us.estimates.L_hours)}h</Text>
+                        <Text style={{ color: palette.muted, fontSize: 13 }}>{(us.weeklyHours||0).toFixed(1)}h this week</Text>
+                        <Text style={{ color: palette.muted, fontSize: 13 }}>{us.progress.logged_hours}h / {Math.round(us.estimates.L_hours)}h</Text>
                       </View>
                     </Card>
                   </TouchableOpacity>
@@ -1074,7 +1068,7 @@ export default function App() {
         {/* Bottom fade mask - fades content under tab bar with smooth transition */}
         <LinearGradient
           pointerEvents="none"
-          colors={['transparent', 'rgba(245,245,245,0.3)', 'rgba(245,245,245,0.6)', 'rgba(245,245,245,0.85)', 'rgba(245,245,245,1)']}
+          colors={palette.gradients.dashBottom}
           start={{ x:0, y:0 }} end={{ x:0, y:1 }}
           style={{ 
             position: 'absolute', 
@@ -1142,30 +1136,30 @@ export default function App() {
     }
     
     return (
-      <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+      <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
         <Header title={sk.name} onBack={()=>setRoute({ name:'Explore' })} />
         <View style={{ padding: spacing.m, gap: 12 }}>
           <Card>
             {isFundamental ? (
               <>
                 {/* Fundamentals: Show Balance Tracking */}
-                <Text style={{ fontSize: 16, fontWeight: '700' }}>Track Balance</Text>
+                <Text style={{ fontSize: 16, fontWeight: '700', color: palette.text }}>Track Balance</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 6 }}>
-                  <Text style={{ fontSize: 28, fontWeight: '800', marginRight: 8 }}>∞</Text>
-                  <Text style={{ fontSize: 16, color: colors.muted }}>Continuous Practice</Text>
+                  <Text style={{ fontSize: 28, fontWeight: '800', marginRight: 8, color: palette.text }}>∞</Text>
+                  <Text style={{ fontSize: 16, color: palette.muted }}>Continuous Practice</Text>
                 </View>
                 
                 {existingUserSkill && (
-                  <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: colors.border }}>
+                  <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: palette.border }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <Text style={{ color: colors.muted, fontSize: 14 }}>
+                      <Text style={{ color: palette.muted, fontSize: 14 }}>
                         {loggedHours.toFixed(1)}h total
                       </Text>
-                      <Text style={{ color: colors.muted, fontSize: 14 }}>
+                      <Text style={{ color: palette.muted, fontSize: 14 }}>
                         {weeklySessions} sessions this week
                       </Text>
                     </View>
-                    <Text style={{ color: colors.muted, fontSize: 13 }}>
+                    <Text style={{ color: palette.muted, fontSize: 13 }}>
                       Focus on consistency and sustainability
                     </Text>
                   </View>
@@ -1174,8 +1168,8 @@ export default function App() {
             ) : (
               <>
                 {/* Hard/Soft Skills: Show Estimated Hours */}
-                <Text style={{ fontSize: 16, fontWeight: '700' }}>Estimated hours to Independent Level</Text>
-                <Text style={{ marginTop: 6, fontSize: 28, fontWeight: '800' }}>{Math.round(estimatedTotal)} h</Text>
+                <Text style={{ fontSize: 16, fontWeight: '700', color: palette.text }}>Estimated hours to Independent Level</Text>
+                <Text style={{ marginTop: 6, fontSize: 28, fontWeight: '800', color: palette.text }}>{Math.round(estimatedTotal)} h</Text>
                 
                 {/* Progress Bar - between hours and category */}
                 {existingUserSkill && (
@@ -1183,7 +1177,7 @@ export default function App() {
                     <EnhancedProgressBar 
                       percent={progressPercent} 
                       height={12}
-                      color={colors.success}
+                      color={palette.success}
                       showLabel={false}
                     />
                   </View>
@@ -1191,17 +1185,17 @@ export default function App() {
                 
                 {/* Additional info - below category */}
                 {existingUserSkill && (
-                  <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: colors.border }}>
+                  <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: palette.border }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                      <Text style={{ color: colors.muted, fontSize: 14 }}>
+                      <Text style={{ color: palette.muted, fontSize: 14 }}>
                         {loggedHours.toFixed(1)}h logged
                       </Text>
-                      <Text style={{ color: colors.muted, fontSize: 14 }}>
+                      <Text style={{ color: palette.muted, fontSize: 14 }}>
                         {hoursLeft.toFixed(1)}h remaining
                       </Text>
                     </View>
                     {weeklyRate > 0 && (
-                      <Text style={{ color: colors.muted, fontSize: 13, marginTop: 6 }}>
+                      <Text style={{ color: palette.muted, fontSize: 13, marginTop: 6 }}>
                         At current pace ({weeklyRate.toFixed(1)}h/week), ~{Math.ceil(hoursLeft / weeklyRate)} weeks left
                       </Text>
                     )}
@@ -1210,17 +1204,17 @@ export default function App() {
               </>
             )}
             
-            <Text style={{ color: colors.muted, marginTop: existingUserSkill ? 12 : 6 }}>
+            <Text style={{ color: palette.muted, marginTop: existingUserSkill ? 12 : 6 }}>
               {sk.category} • {sk.subcategory}
             </Text>
             
             {/* Professional Benchmark Description */}
             {!isFundamental && (
-              <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: colors.border }}>
-                <Text style={{ fontSize: 12, fontWeight: '600', color: colors.text, marginBottom: 4 }}>
+              <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: palette.border }}>
+                <Text style={{ fontSize: 12, fontWeight: '600', color: palette.text, marginBottom: 4 }}>
                   Target Level: Independent Proficiency
                 </Text>
-                <Text style={{ fontSize: 11, color: colors.muted, lineHeight: 16 }}>
+                <Text style={{ fontSize: 11, color: palette.muted, lineHeight: 16 }}>
                   {sk.benchmarkType === 'quantitative' 
                     ? `Heuristic time estimate based on skill complexity factors (cognitive load, feedback speed, error cost, context dependency). Calibrated using your self-assessment to personalize the approximation. Estimates update as you track practice time.`
                     : sk.benchmarkType === 'qualitative'
@@ -1233,11 +1227,18 @@ export default function App() {
             
             {/* Warning for unmeasurable skills */}
             {isUnmeasurable && (
-              <View style={{ marginTop: 12, padding: 12, backgroundColor: '#FFF4E6', borderRadius: 8, borderLeftWidth: 3, borderLeftColor: '#FF9800' }}>
-                <Text style={{ fontSize: 13, color: '#E65100', fontWeight: '600' }}>
+              <View style={{
+                marginTop: 12,
+                padding: 12,
+                backgroundColor: palette.semantic.warning.bg,
+                borderRadius: 8,
+                borderLeftWidth: 3,
+                borderLeftColor: palette.semantic.warning.border,
+              }}>
+                <Text style={{ fontSize: 13, color: palette.semantic.warning.text, fontWeight: '600' }}>
                   ⚠️ Don't be silly, you can't be an "expert" in {sk.name.toLowerCase()}.
                 </Text>
-                <Text style={{ fontSize: 12, color: '#E65100', marginTop: 4, opacity: 0.8 }}>
+                <Text style={{ fontSize: 12, color: palette.semantic.warning.textMuted ?? palette.muted, marginTop: 4, opacity: 0.92 }}>
                   This is about balance and consistency, not mastery.
                 </Text>
               </View>
@@ -1312,7 +1313,7 @@ export default function App() {
   // --- RENDER ---
   // --- Main Explore screen (when selectedCategory == null) ---
   if (!booted) {
-    return <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}><Header title="" /><View style={{ padding: spacing.m }}><Text>Loading…</Text></View></SafeAreaView>;
+    return <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}><Header title="" /><View style={{ padding: spacing.m }}><Text style={{ color: palette.text }}>Loading…</Text></View></SafeAreaView>;
   }
 
   if (route.name === 'Explore' || route.name === 'Search') {
@@ -1365,21 +1366,11 @@ export default function App() {
       categorizedSkills[skill.category].push(skill);
     });
 
-    // --- Category color map (customize as desired, uses known names and theme colors) ---
-    const categoryPalette: Record<string, string> = {
-      'Coding': colors.primary,
-      'CAD/3D': colors.accent,
-      'AI/Data': '#A259FF',
-      'Design': '#32D29F',
-      'Language': '#FF7C51',
-    };
-
-    // --- In Explore/Home view, place search bar on top, then categories, then search results or category drilldown ---
 if (route.name === 'Explore' || route.name === 'Search') {
   // If a search is entered, show matching skills, else show category cards
   const searchResults = q ? fuse.search(q).map(r => r.item) : null;
       return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: palette.background }}>
       <Header title="" />
       <View style={{ flex: 1, position: 'relative' }}>
       <ScrollView 
@@ -1389,11 +1380,11 @@ if (route.name === 'Explore' || route.name === 'Search') {
       >
             {appState.getUsername() && (
               <Card>
-                <Text style={{ fontWeight:'700' }}>Welcome back, {appState.getUsername()}.</Text>
+                <Text style={{ fontWeight:'700', color: palette.text }}>Welcome back, {appState.getUsername()}.</Text>
               </Card>
             )}
             {/* Featured skills carousel */}
-            <Text style={{ fontWeight:'700', fontSize:18, marginTop: 8, marginBottom: 8 }}>Featured</Text>
+            <Text style={{ fontWeight:'700', fontSize:18, marginTop: 8, marginBottom: 8, color: palette.text }}>Featured</Text>
             <View style={{ position:'relative', marginBottom: 12 }}>
               <FlatList
                 horizontal
@@ -1441,18 +1432,18 @@ if (route.name === 'Explore' || route.name === 'Search') {
                       }} 
                       activeOpacity={0.7}
                     >
-                      <View style={{ width: 240, height: 100, backgroundColor: colors.card, borderRadius:14, padding:12, borderWidth:1, borderColor: colors.border, justifyContent:'space-between' }}>
+                      <View style={{ width: 240, height: 100, backgroundColor: palette.card, borderRadius:14, padding:12, borderWidth:1, borderColor: palette.border, justifyContent:'space-between' }}>
                         <View style={{ flex: 1, justifyContent: 'flex-start', paddingRight: 4 }}>
                           <View style={{ flexDirection:'row', alignItems:'flex-start', gap: 8 }}>
                             <View style={{ marginTop: 1 }}>
-                              <CategoryIcon category={item.category} size={18} color={colors.text} />
+                              <CategoryIcon category={item.category} size={18} color={palette.text} />
                             </View>
-                            <Text style={{ fontWeight:'700', fontSize: 14, lineHeight: 18, flex: 1, flexWrap: 'wrap' }} numberOfLines={2} ellipsizeMode="tail">
+                            <Text style={{ fontWeight:'700', fontSize: 14, lineHeight: 18, flex: 1, flexWrap: 'wrap', color: palette.text }} numberOfLines={2} ellipsizeMode="tail">
                               {smartTruncate(item.name, 32)}
                             </Text>
                           </View>
                         </View>
-                        <Text style={{ color: colors.muted, fontSize: 11, lineHeight: 14, marginTop: 8 }} numberOfLines={1} ellipsizeMode="tail">
+                        <Text style={{ color: palette.muted, fontSize: 11, lineHeight: 14, marginTop: 8 }} numberOfLines={1} ellipsizeMode="tail">
                           {smartTruncate(`${item.category} • ${item.subcategory}`, 34)}
                         </Text>
                       </View>
@@ -1465,22 +1456,22 @@ if (route.name === 'Explore' || route.name === 'Search') {
               {/* Horizontal edge fade masks - left and right with smooth fade transition */}
               <LinearGradient
                 pointerEvents="none"
-                colors={['rgba(245,245,245,1)', 'rgba(245,245,245,0.95)', 'rgba(245,245,245,0.7)', 'rgba(245,245,245,0.3)', 'transparent']}
+                colors={[...palette.gradients.edgeHFadeLeft]}
                 start={{ x:0, y:0.5 }} end={{ x:1, y:0.5 }}
                 style={{ position:'absolute', left:0, top:0, bottom:0, width:40, zIndex: 2 }}
               />
               <LinearGradient
                 pointerEvents="none"
-                colors={['transparent', 'rgba(245,245,245,0.3)', 'rgba(245,245,245,0.7)', 'rgba(245,245,245,0.95)', 'rgba(245,245,245,1)']}
+                colors={[...palette.gradients.edgeHFadeRight]}
                 start={{ x:0, y:0.5 }} end={{ x:1, y:0.5 }}
                 style={{ position:'absolute', right:0, top:0, bottom:0, width:40, zIndex: 2 }}
               />
             </View>
             {/* SEARCH BAR */}
             <View style={{
-              backgroundColor: colors.card,
+              backgroundColor: palette.card,
               borderRadius: 12,
-              borderColor: colors.border,
+              borderColor: palette.border,
               borderWidth: 1,
               paddingHorizontal: 14,
               paddingVertical: 8,
@@ -1489,7 +1480,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
               alignItems: 'center',
               gap: 10
             }}>
-              <MaterialIcons name="search" size={20} color={colors.muted} />
+              <MaterialIcons name="search" size={20} color={palette.muted} />
               <TextInput
                 value={q}
                 onChangeText={(text)=>{
@@ -1505,9 +1496,9 @@ if (route.name === 'Explore' || route.name === 'Search') {
                 style={{
                   flex: 1,
                   fontSize: 16,
-                  color: colors.text
+                  color: palette.text
                 }}
-                placeholderTextColor={colors.muted}
+                placeholderTextColor={palette.muted}
               />
             </View>
             {/* If there's a search, show results, otherwise show categories */}
@@ -1516,12 +1507,12 @@ if (route.name === 'Explore' || route.name === 'Search') {
                 <View>{searchResults.map(skill => (
                   <TouchableOpacity key={skill.skill_id} onPress={() => setRoute({ name: 'SkillDetail', skill })}>
                     <Card>
-                      <Text style={{ fontSize: 16, fontWeight: '600', color: colors.text }}>{skill.name}</Text>
-                      <Text style={{ color: colors.muted, marginTop: 4 }}>{skill.category} • {skill.subcategory}</Text>
+                      <Text style={{ fontSize: 16, fontWeight: '600', color: palette.text }}>{skill.name}</Text>
+                      <Text style={{ color: palette.muted, marginTop: 4 }}>{skill.category} • {skill.subcategory}</Text>
                     </Card>
                   </TouchableOpacity>
                 ))}</View>
-              ) : <Card><Text>No skills found.</Text></Card>
+              ) : <Card><Text style={{ color: palette.text }}>No skills found.</Text></Card>
             )}
         {!q && !selectedCategory && (
           <View style={{ gap: 12 }}>
@@ -1529,14 +1520,14 @@ if (route.name === 'Explore' || route.name === 'Search') {
              {categoriesHard.length > 0 && (
                <View>
                  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-                   <MaterialIcons name="code" size={20} color={colors.text} />
-                   <Text style={{ fontSize: 20, fontWeight: '800', marginLeft: 8 }}>Hard Skills</Text>
-                   <Text style={{ fontSize: 14, color: colors.muted, marginLeft: 8 }}>
+                   <MaterialIcons name="code" size={20} color={palette.text} />
+                   <Text style={{ fontSize: 20, fontWeight: '800', marginLeft: 8, color: palette.text }}>Hard Skills</Text>
+                   <Text style={{ fontSize: 14, color: palette.muted, marginLeft: 8 }}>
                      ({skillsByType.hard.length})
                    </Text>
                  </View>
-                 <Card style={{ marginBottom: 12, padding: 10, backgroundColor: colors.card, opacity: 0.95 }}>
-                   <Text style={{ fontSize: 11, color: colors.muted, fontStyle: 'italic' }}>
+                 <Card style={{ marginBottom: 12, padding: 10, backgroundColor: palette.card, opacity: 0.95 }}>
+                   <Text style={{ fontSize: 11, color: palette.muted, fontStyle: 'italic' }}>
                      Estimates based on measurable milestones and proficiency benchmarks
                    </Text>
                  </Card>
@@ -1561,12 +1552,12 @@ if (route.name === 'Explore' || route.name === 'Search') {
                       >
                         <AnimatedCategoryTile color={getCategoryColor(cat, 'hard')}>
                           <View style={{ flexDirection:'row', alignItems:'center', gap: 8 }}>
-                            <CategoryIcon category={cat} size={20} color="#fff" />
-                            <Text style={{ color: '#fff', fontWeight: '800', fontSize: 18 }} numberOfLines={1}>
+                            <CategoryIcon category={cat} size={20} color={palette.inkOnPastel} />
+                            <Text style={{ color: palette.inkOnPastel, fontWeight: '800', fontSize: 18 }} numberOfLines={1}>
                               {display}
                             </Text>
                           </View>
-                          <Text style={{ color: '#fff', opacity:0.85, fontSize: 13 }}>
+                          <Text style={{ color: palette.mutedOnPastel, fontSize: 13 }}>
                             {categorizedByType.hard[cat]?.length || 0} skills
                           </Text>
                         </AnimatedCategoryTile>
@@ -1581,14 +1572,14 @@ if (route.name === 'Explore' || route.name === 'Search') {
              {categoriesSoft.length > 0 && (
                <View>
                  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-                   <MaterialIcons name="psychology" size={20} color={colors.text} />
-                   <Text style={{ fontSize: 20, fontWeight: '800', marginLeft: 8 }}>Soft Skills</Text>
-                   <Text style={{ fontSize: 14, color: colors.muted, marginLeft: 8 }}>
+                   <MaterialIcons name="psychology" size={20} color={palette.text} />
+                   <Text style={{ fontSize: 20, fontWeight: '800', marginLeft: 8, color: palette.text }}>Soft Skills</Text>
+                   <Text style={{ fontSize: 14, color: palette.muted, marginLeft: 8 }}>
                      ({skillsByType.soft.length})
                    </Text>
                  </View>
-                 <Card style={{ marginBottom: 12, padding: 10, backgroundColor: colors.card, opacity: 0.95 }}>
-                   <Text style={{ fontSize: 11, color: colors.muted, fontStyle: 'italic' }}>
+                 <Card style={{ marginBottom: 12, padding: 10, backgroundColor: palette.card, opacity: 0.95 }}>
+                   <Text style={{ fontSize: 11, color: palette.muted, fontStyle: 'italic' }}>
                      Estimates based on qualitative growth and engagement patterns
                    </Text>
                  </Card>
@@ -1613,12 +1604,12 @@ if (route.name === 'Explore' || route.name === 'Search') {
                       >
                         <AnimatedCategoryTile color={getCategoryColor(cat, 'soft')}>
                           <View style={{ flexDirection:'row', alignItems:'center', gap: 8 }}>
-                            <CategoryIcon category={cat} size={20} color="#fff" />
-                            <Text style={{ color: '#fff', fontWeight: '800', fontSize: 18 }} numberOfLines={1}>
+                            <CategoryIcon category={cat} size={20} color={palette.inkOnPastel} />
+                            <Text style={{ color: palette.inkOnPastel, fontWeight: '800', fontSize: 18 }} numberOfLines={1}>
                               {display}
                             </Text>
                           </View>
-                          <Text style={{ color: '#fff', opacity:0.85, fontSize: 13 }}>
+                          <Text style={{ color: palette.mutedOnPastel, fontSize: 13 }}>
                             {categorizedByType.soft[cat]?.length || 0} skills
                           </Text>
                         </AnimatedCategoryTile>
@@ -1633,14 +1624,14 @@ if (route.name === 'Explore' || route.name === 'Search') {
              {categoriesFundamental.length > 0 && (
                <View>
                  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-                   <Text style={{ fontSize: 20, fontWeight: '800', marginRight: 8 }}>∞</Text>
-                   <Text style={{ fontSize: 20, fontWeight: '800' }}>Fundamentals</Text>
-                   <Text style={{ fontSize: 14, color: colors.muted, marginLeft: 8 }}>
+                   <Text style={{ fontSize: 20, fontWeight: '800', marginRight: 8, color: palette.text }}>∞</Text>
+                   <Text style={{ fontSize: 20, fontWeight: '800', color: palette.text }}>Fundamentals</Text>
+                   <Text style={{ fontSize: 14, color: palette.muted, marginLeft: 8 }}>
                      ({skillsByType.fundamental.length})
                    </Text>
                  </View>
-                 <Card style={{ marginBottom: 12, padding: 10, backgroundColor: colors.card, opacity: 0.95 }}>
-                   <Text style={{ fontSize: 11, color: colors.muted, fontStyle: 'italic' }}>
+                 <Card style={{ marginBottom: 12, padding: 10, backgroundColor: palette.card, opacity: 0.95 }}>
+                   <Text style={{ fontSize: 11, color: palette.muted, fontStyle: 'italic' }}>
                      Focus on balance and consistency, not mastery
                    </Text>
                  </Card>
@@ -1665,12 +1656,12 @@ if (route.name === 'Explore' || route.name === 'Search') {
                       >
                         <AnimatedCategoryTile color={getCategoryColor(cat, 'fundamental')}>
                           <View style={{ flexDirection:'row', alignItems:'center', gap: 8 }}>
-                            <CategoryIcon category={cat} size={20} color="#fff" />
-                            <Text style={{ color: '#fff', fontWeight: '800', fontSize: 18 }} numberOfLines={1}>
+                            <CategoryIcon category={cat} size={20} color={palette.inkOnPastel} />
+                            <Text style={{ color: palette.inkOnPastel, fontWeight: '800', fontSize: 18 }} numberOfLines={1}>
                               {display}
                             </Text>
                           </View>
-                          <Text style={{ color: '#fff', opacity:0.85, fontSize: 13 }}>
+                          <Text style={{ color: palette.mutedOnPastel, fontSize: 13 }}>
                             {categorizedByType.fundamental[cat]?.length || 0} skills
                           </Text>
                         </AnimatedCategoryTile>
@@ -1686,22 +1677,22 @@ if (route.name === 'Explore' || route.name === 'Search') {
             {!q && selectedCategory && (
               <View>
                 <TouchableOpacity onPress={() => setSelectedCategory(null)} style={{marginBottom:14}}>
-                  <Text style={{ color: colors.primary, fontWeight:'700' }}>{'< Back to categories'}</Text>
+                  <Text style={{ color: palette.primary, fontWeight:'700' }}>{'< Back to categories'}</Text>
                 </TouchableOpacity>
                 {/* Category Benchmark Info */}
-                <Card style={{ marginBottom: 12, padding: 10, backgroundColor: colors.card, opacity: 0.95 }}>
-                  <Text style={{ fontSize: 11, color: colors.muted, fontStyle: 'italic' }}>
+                <Card style={{ marginBottom: 12, padding: 10, backgroundColor: palette.card, opacity: 0.95 }}>
+                  <Text style={{ fontSize: 11, color: palette.muted, fontStyle: 'italic' }}>
                     Based on multiple learning curves and skill complexity analysis
                   </Text>
-                  <Text style={{ fontSize: 11, color: colors.muted, marginTop: 4 }}>
+                  <Text style={{ fontSize: 11, color: palette.muted, marginTop: 4 }}>
                     Estimates reflect typical time to reach independent proficiency level
                   </Text>
                 </Card>
                 {categorizedSkills[selectedCategory]?.map(skill => (
                   <TouchableOpacity key={skill.skill_id} onPress={() => setRoute({ name: 'SkillDetail', skill })}>
                     <Card>
-                      <Text style={{ fontSize: 16, fontWeight: '600', color: colors.text }}>{skill.name}</Text>
-                      <Text style={{ color: colors.muted, marginTop: 4 }}>{skill.category} • {skill.subcategory}</Text>
+                      <Text style={{ fontSize: 16, fontWeight: '600', color: palette.text }}>{skill.name}</Text>
+                      <Text style={{ color: palette.muted, marginTop: 4 }}>{skill.category} • {skill.subcategory}</Text>
                     </Card>
                   </TouchableOpacity>
                 ))}
@@ -1711,7 +1702,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
       {/* Bottom fade mask - fades content under tab bar */}
       <LinearGradient
         pointerEvents="none"
-        colors={['transparent', 'rgba(248,249,250,0.4)', 'rgba(248,249,250,0.85)', 'rgba(248,249,250,1)']}
+        colors={[...palette.gradients.exploreBottomFade]}
         start={{ x:0, y:0 }} end={{ x:0, y:1 }}
         style={{ 
           position: 'absolute', 
@@ -1762,22 +1753,22 @@ if (route.name === 'Explore' || route.name === 'Search') {
 
   if (route.name === 'Profile') {
     return (
-      <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+      <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
         <Header title="Profile" />
         <View style={{ padding: spacing.m }}>
           <Card>
-            <Text style={{ fontWeight:'700' }}>Username</Text>
-            <Text style={{ color: colors.muted, marginTop:6 }}>{(appState as any).getUsername ? (appState as any).getUsername() : 'Guest'}</Text>
+            <Text style={{ fontWeight:'700', color: palette.text }}>Username</Text>
+            <Text style={{ color: palette.muted, marginTop:6 }}>{(appState as any).getUsername ? (appState as any).getUsername() : 'Guest'}</Text>
           </Card>
           <Card>
-            <Text style={{ fontWeight:'700' }}>Export / Import</Text>
+            <Text style={{ fontWeight:'700', color: palette.text }}>Export / Import</Text>
             <View style={{ height: 8 }} />
             <Button title="Export" onPress={onExport} />
             <View style={{ height: 8 }} />
             <Button title="Import" onPress={onImport} />
           </Card>
           <Card>
-            <Text style={{ fontWeight:'700' }}>Developer Options</Text>
+            <Text style={{ fontWeight:'700', color: palette.text }}>Developer Options</Text>
             <View style={{ height: 8 }} />
             <Button 
               title="Reset Onboarding" 
@@ -1816,16 +1807,16 @@ if (route.name === 'Explore' || route.name === 'Search') {
       setRoute({ name: 'Explore' });
     };
     return (
-      <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+      <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
       <Header title={`Assessment (${clampedIndex+1}/6)`} />
         <View style={{ padding: spacing.m }}>
           <Card>
-            <Text style={{ fontWeight:'700', fontSize:18 }}>{q.label}</Text>
-            <Text style={{ color: colors.muted, marginTop:6 }}>{q.tip}</Text>
+            <Text style={{ fontWeight:'700', fontSize:18, color: palette.text }}>{q.label}</Text>
+            <Text style={{ color: palette.muted, marginTop:6 }}>{q.tip}</Text>
             <View style={{ flexDirection:'row', gap:8, marginTop:12 }}>
               {[1,2,3,4,5].map(v => (
-                <TouchableOpacity key={v} onPress={()=> setGAVal(q.k as any, v)} style={{ paddingVertical:10, paddingHorizontal:14, borderRadius:8, borderWidth:1, borderColor: (ga as any)[q.k]===v?colors.primary:colors.border, backgroundColor:(ga as any)[q.k]===v? colors.highlight: colors.card }}>
-                  <Text style={{ color:(ga as any)[q.k]===v? colors.primary: colors.text }}>{v}</Text>
+                <TouchableOpacity key={v} onPress={()=> setGAVal(q.k as any, v)} style={{ paddingVertical:10, paddingHorizontal:14, borderRadius:8, borderWidth:1, borderColor: (ga as any)[q.k]===v?palette.primary:palette.border, backgroundColor:(ga as any)[q.k]===v? palette.highlight: palette.card }}>
+                  <Text style={{ color: palette.text, fontWeight:(ga as any)[q.k]===v? '700' : '500' }}>{v}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -1850,7 +1841,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
   if (selectedCategory) {
     const categorySkills = categoryMap[selectedCategory] || [];
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: palette.background }}>
         <Header title={selectedCategory} onBack={()=>setSelectedCategory(null)} />
         <View style={{ flex: 1, position: 'relative' }}>
         <ScrollView 
@@ -1858,15 +1849,15 @@ if (route.name === 'Explore' || route.name === 'Search') {
           removeClippedSubviews={false}
           style={{ overflow: 'hidden' }}
         >
-          <Text style={{ fontWeight:'600', fontSize:18, marginBottom: 12 }}>{selectedCategory} Skills</Text>
+          <Text style={{ fontWeight:'600', fontSize:18, marginBottom: 12, color: palette.text }}>{selectedCategory} Skills</Text>
           {categorySkills.length === 0 && (
-            <Card><Text>No skills in this category yet.</Text></Card>
+            <Card><Text style={{ color: palette.text }}>No skills in this category yet.</Text></Card>
           )}
           {categorySkills.map(skill => (
             <TouchableOpacity key={skill.skill_id} onPress={()=>setRoute({ name: 'SkillDetail', skill })}>
               <Card>
-                <Text style={{ fontSize: 16, fontWeight: '600', color: colors.text }}>{skill.name}</Text>
-                <Text style={{ color: colors.muted, marginTop: 4 }}>{skill.category} • {skill.subcategory}</Text>
+                <Text style={{ fontSize: 16, fontWeight: '600', color: palette.text }}>{skill.name}</Text>
+                <Text style={{ color: palette.muted, marginTop: 4 }}>{skill.category} • {skill.subcategory}</Text>
                 {/* badges or tags can go here */}
               </Card>
             </TouchableOpacity>
@@ -1875,7 +1866,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
         {/* Bottom fade mask - fades content under tab bar with smooth transition */}
         <LinearGradient
           pointerEvents="none"
-          colors={['transparent', 'rgba(245,245,245,0.3)', 'rgba(245,245,245,0.6)', 'rgba(245,245,245,0.85)', 'rgba(245,245,245,1)']}
+          colors={palette.gradients.dashBottom}
           start={{ x:0, y:0 }} end={{ x:0, y:1 }}
           style={{ 
             position: 'absolute', 
@@ -1896,11 +1887,11 @@ if (route.name === 'Explore' || route.name === 'Search') {
     const skill = route.skill || assessmentState.skill;
     if (!skill) {
       return (
-        <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+        <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
           <Header title="Assessment" onBack={()=>setRoute({ name: 'Explore' })} />
           <View style={{ padding: spacing.m }}>
             <Card>
-              <Text style={{ color: colors.muted }}>No skill selected. Please choose a skill first.</Text>
+              <Text style={{ color: palette.muted }}>No skill selected. Please choose a skill first.</Text>
             </Card>
             <Button title="Back to Explore" onPress={() => setRoute({ name: 'Explore' })} />
           </View>
@@ -2029,7 +2020,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
     const currentValue = (a as any)[currentQ.k] || 3;
     
     return (
-      <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+      <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
         <Header title={`${skill.name} Assessment (${questionIndex + 1}/6)`} onBack={()=>{
           if (questionIndex > 0) {
             setAssessmentState(prev => ({ ...prev, questionIndex: prev.questionIndex - 1 }));
@@ -2044,13 +2035,13 @@ if (route.name === 'Explore' || route.name === 'Search') {
           style={{ overflow: 'hidden' }}
         >
           <Card>
-            <Text style={{ fontWeight:'700', fontSize:18, marginBottom:8 }}>{currentQ.label}</Text>
+            <Text style={{ fontWeight:'700', fontSize:18, marginBottom:8, color: palette.text }}>{currentQ.label}</Text>
             {currentQ.context && (
-              <Text style={{ color: colors.primary, fontSize:13, fontStyle:'italic', marginBottom:8 }}>
+              <Text style={{ color: palette.primary, fontSize:13, fontStyle:'italic', marginBottom:8 }}>
                 {currentQ.context}
               </Text>
             )}
-            <Text style={{ color: colors.muted, marginTop:8, marginBottom:16, lineHeight:20 }}>{currentQ.tip}</Text>
+            <Text style={{ color: palette.muted, marginTop:8, marginBottom:16, lineHeight:20 }}>{currentQ.tip}</Text>
             
             {/* Options with larger spacing */}
             <View style={{ flexDirection:'row', justifyContent:'space-between', gap:12, marginTop:12 }}>
@@ -2064,13 +2055,13 @@ if (route.name === 'Explore' || route.name === 'Search') {
                     paddingHorizontal:8,
                     borderRadius:12,
                     borderWidth:2,
-                    borderColor: currentValue===v ? colors.primary : colors.border,
-                    backgroundColor: currentValue===v ? colors.highlight : colors.card,
+                    borderColor: currentValue===v ? palette.primary : palette.border,
+                    backgroundColor: currentValue===v ? palette.highlight : palette.card,
                     alignItems:'center',
                     minWidth: 50
                   }}
                 >
-                  <Text style={{ color:currentValue===v ? colors.primary : colors.text, fontWeight: currentValue===v ? '700' : '600', fontSize:18 }}>{v}</Text>
+                  <Text style={{ color: palette.text, fontWeight: currentValue===v ? '700' : '600', fontSize:18 }}>{v}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -2108,18 +2099,18 @@ if (route.name === 'Explore' || route.name === 'Search') {
   if (route.name === "Result") {
     const usId = route.userSkillId;
     const us = store.getUserSkill(usId);
-    if (!us) return <SafeAreaView><Text>Not found.</Text></SafeAreaView>;
+    if (!us) return <SafeAreaView style={{ flex: 1, backgroundColor: palette.background }}><Header title="Result" onBack={() => setRoute({ name: 'Explore' })}/><Text style={{ color: palette.text, padding: spacing.m }}>Not found.</Text></SafeAreaView>;
     const remaining = Math.max(us.estimates.L_hours - us.progress.logged_hours, 0);
     const eta1 = estimator.etaDays(remaining, 1);
     const eta2 = estimator.etaDays(remaining, 2);
     return (
-      <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+      <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
         <Header title="Estimate" onBack={()=>setRoute({name:"Search"})} />
         <View style={{ padding: spacing.m }}>
           <Card>
-            <Text style={{ fontSize: 16, fontWeight: "700" }}>Estimated hours to Independent Level</Text>
-            <Text style={{ marginTop: 6, fontSize: 28, fontWeight: "800" }}>{Math.round(us.estimates.L_hours)} h</Text>
-            <Text style={{ color: colors.muted, marginTop: 6 }}>ETA: {eta1} days at 1h/day • {eta2} days at 2h/day</Text>
+            <Text style={{ fontSize: 16, fontWeight: "700", color: palette.text }}>Estimated hours to Independent Level</Text>
+            <Text style={{ marginTop: 6, fontSize: 28, fontWeight: "800", color: palette.text }}>{Math.round(us.estimates.L_hours)} h</Text>
+            <Text style={{ color: palette.muted, marginTop: 6 }}>ETA: {eta1} days at 1h/day • {eta2} days at 2h/day</Text>
           </Card>
           <View style={{ flexDirection: "row", gap: 10 }}>
             <Button title="Start today's session" onPress={()=>{ const sessionStart = startSessionUseCase(us.skill_id, 0); setTimerState(sessionStart.timerState); transitionSessionFlow('SESSION_STARTED', 'estimate-start'); Haptics.selectionAsync(); navigate({ name:"Timer", skillId: us.skill_id }); }} />
@@ -2134,10 +2125,10 @@ if (route.name === 'Explore' || route.name === 'Search') {
     if (!route.skillId) {
       // Hard-guard: Timer must always be opened with a skill
       return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: palette.background }}>
           <Header title="Loading..." onBack={() => navigate({ name: 'Explore' })} />
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ color: colors.muted }}>Redirecting...</Text>
+            <Text style={{ color: palette.muted }}>Redirecting...</Text>
           </View>
         </SafeAreaView>
       );
@@ -2210,7 +2201,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
       }
     };
     return (
-      <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+      <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
         <Header title="Timer" onBack={()=>{
           if (timerState.running) {
             Alert.alert('Timer Running','Stop the timer before going back?',[
@@ -2222,9 +2213,9 @@ if (route.name === 'Explore' || route.name === 'Search') {
           }
         }} />
         <View style={{ padding: spacing.m, gap: 12 }}>
-          <Card><Text style={{ fontWeight:"600" }} numberOfLines={1} ellipsizeMode="tail">{titleText}</Text></Card>
+          <Card><Text style={{ fontWeight:"600", color: palette.text }} numberOfLines={1} ellipsizeMode="tail">{titleText}</Text></Card>
           <View style={{ alignItems: 'center', marginVertical: 12 }}>
-            <Text style={{ fontSize: 32, fontWeight: 'bold', letterSpacing: 1 }}>
+            <Text style={{ fontSize: 32, fontWeight: 'bold', letterSpacing: 1, color: palette.text }}>
               {formatTime(displayTime)}
             </Text>
           </View>
@@ -2241,10 +2232,10 @@ if (route.name === 'Explore' || route.name === 'Search') {
           <Button title="Dashboard" onPress={()=>{ const sid = us?.skill_id || timerState.skillId || route.skillId; if (sid) { transitionSessionFlow('RECOMMEND_NEXT', 'timer-dashboard'); setRoute({ name:"SkillDashboard", skillId: sid }); } }} />
         </View>
         <Modal visible={afkModal.visible} transparent animationType="fade">
-          <View style={{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:'rgba(0,0,0,0.2)'}}>
-            <View style={{backgroundColor:'white',borderRadius:14,padding:24,alignItems:'center',width: modalWidth}}>
-              <Text style={{fontWeight:'700',fontSize:18,marginBottom:16}}>Still there?</Text>
-              <Text style={{color:colors.muted,marginBottom:22}}>No activity detected for 30 minutes.</Text>
+          <View style={{flex:1,justifyContent:'center',alignItems:'center',backgroundColor: palette.overlays.modalScrim}}>
+            <View style={{backgroundColor: palette.card,borderRadius:14,padding:24,alignItems:'center',width: modalWidth,borderWidth:1,borderColor:palette.border}}>
+              <Text style={{fontWeight:'700',fontSize:18,marginBottom:16, color:palette.text}}>Still there?</Text>
+              <Text style={{color:palette.muted,marginBottom:22}}>No activity detected for 30 minutes.</Text>
               <View style={{flexDirection:'row',gap:16}}>
                 <Button title="Keep Session Active" onPress={()=>{lastUserActivityRef.current = Date.now();setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;Haptics.selectionAsync();}}/>
                 <Button title="Finish session" onPress={()=>{setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;stopAndPersistTimer(true);}} disabled={isTimerActionBusy} loading={isTimerActionBusy}/>
@@ -2258,7 +2249,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
 
   if (route.name === "Quiz") {
     const { quiz, answers, current, finished } = quizState;
-    if (!quiz) return <SafeAreaView><Header title="Quiz" onBack={()=>setRoute({name:"SkillDashboard",skillId:route.skillId})}/><Text>Quiz not found.</Text></SafeAreaView>;
+    if (!quiz) return <SafeAreaView style={{ flex: 1, backgroundColor: palette.background }}><Header title="Quiz" onBack={()=>setRoute({name:"SkillDashboard",skillId:route.skillId})}/><View style={{ padding: spacing.m }}><Text style={{ color: palette.text }}>Quiz not found.</Text></View></SafeAreaView>;
     const quizData = quiz;
     const numItems = quizData.items.length;
     const passMark = quizData.pass_mark || 0.7;
@@ -2293,12 +2284,12 @@ if (route.name === 'Explore' || route.name === 'Search') {
       const { correct, total, percent } = computeScore();
       const passed = percent >= passMark;
       return (
-        <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+        <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
           <Header title="Quiz Result" onBack={()=>setRoute({name:"SkillDashboard", skillId: quizData.skill_id})}/>
           <View style={{ padding: spacing.m }}>
             <Card>
-              <Text style={{fontWeight:"700",fontSize:18}}>{passed ? "Passed F-Level!" : "Not passed"}</Text>
-              <Text style={{marginTop:8}}>{correct} out of {total} correct ({Math.round(percent*100)}%)</Text>
+              <Text style={{fontWeight:"700",fontSize:18, color: palette.text}}>{passed ? "Passed F-Level!" : "Not passed"}</Text>
+              <Text style={{marginTop:8, color: palette.text}}>{correct} out of {total} correct ({Math.round(percent*100)}%)</Text>
             </Card>
             <Button title="Retry Quiz" onPress={restartQuiz}/>
             <Button title="View progress" onPress={()=>setRoute({name:"SkillDashboard", skillId: quizData.skill_id})} />
@@ -2309,16 +2300,16 @@ if (route.name === 'Explore' || route.name === 'Search') {
     // Show current question
     const q = quizData.items[current];
     return (
-      <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+      <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
         <Header title={`Quiz (${current+1} of ${numItems})`} onBack={()=>setRoute({name:"SkillDashboard", skillId: quizData.skill_id})} />
         <View style={{padding:spacing.m}}>
           <Card>
-            <Text style={{fontWeight:"700",marginBottom:6}}>{q.stem}</Text>
+            <Text style={{fontWeight:"700",marginBottom:6, color: palette.text}}>{q.stem}</Text>
             {q.options.map((opt: QuizItemOption) => (
               <TouchableOpacity key={opt.k}
-                style={{borderWidth:1,borderColor:answers[q.id]===opt.k?colors.primary:colors.border,borderRadius:8,padding:12,marginVertical:4,backgroundColor:answers[q.id]===opt.k?colors.highlight:colors.card}}
+                style={{borderWidth:1,borderColor:answers[q.id]===opt.k?palette.primary:palette.border,borderRadius:8,padding:12,marginVertical:4,backgroundColor:answers[q.id]===opt.k?palette.highlight:palette.card}}
                 onPress={()=>selectOption(q.id, opt.k)}>
-                <Text style={{color:answers[q.id]===opt.k?colors.primary:colors.text}}>{opt.text}</Text>
+                <Text style={{color:palette.text, fontWeight: answers[q.id]===opt.k ? '700' : '500'}}>{opt.text}</Text>
               </TouchableOpacity>
             ))}
           </Card>
@@ -2332,12 +2323,12 @@ if (route.name === 'Explore' || route.name === 'Search') {
     const us = store.getUserSkillBySkillId(route.skillId);
     if (!us) {
       return (
-        <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+        <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
           <Header title="Dashboard" />
           <View style={{ padding: spacing.m, gap: 12 }}>
             <Card>
-              <Text style={{ fontWeight:'700' }}>No data yet</Text>
-              <Text style={{ color: colors.muted, marginTop:6 }}>Start a timer from any skill to see your progress here.</Text>
+              <Text style={{ fontWeight:'700', color: palette.text }}>No data yet</Text>
+              <Text style={{ color: palette.muted, marginTop:6 }}>Start a timer from any skill to see your progress here.</Text>
             </Card>
             <Button title="Next skill" onPress={()=>setRoute({ name:'Explore' })} />
           </View>
@@ -2397,89 +2388,89 @@ if (route.name === 'Explore' || route.name === 'Search') {
     };
     
     return (
-      <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+      <SafeAreaView style={{ flex:1, backgroundColor: palette.background }}>
         <Header title={skills.find(s=>s.skill_id===us.skill_id)?.name || 'Dashboard'} onBack={()=>setRoute({name:"Explore"})} />
         <View style={{ padding: spacing.m, gap: 12 }}>
-          <Card style={{ backgroundColor: colors.surfaceSoft }}>
-            <Text style={{ fontWeight: "700" }}>Session State</Text>
-            <Text style={{ marginTop: 6, color: colors.text }}>{sessionFlowLabel[sessionFlowState]}</Text>
-            <Text style={{ marginTop: 4, color: colors.muted, fontSize: 12 }}>{sessionFlowHint[sessionFlowState]}</Text>
+          <Card style={{ backgroundColor: palette.surfaceSoft }}>
+            <Text style={{ fontWeight: "700", color: palette.text }}>Session State</Text>
+            <Text style={{ marginTop: 6, color: palette.text }}>{sessionFlowLabel[sessionFlowState]}</Text>
+            <Text style={{ marginTop: 4, color: palette.muted, fontSize: 12 }}>{sessionFlowHint[sessionFlowState]}</Text>
           </Card>
           <Card>
-            <Text style={{ fontWeight:"700" }}>Progress</Text>
+            <Text style={{ fontWeight:"700", color: palette.text }}>Progress</Text>
             <View style={{ height: 12 }} />
             <EnhancedProgressBar percent={pct} />
-            <Text style={{ marginTop: 8, color: colors.muted }}>{us.progress.logged_hours.toFixed(1)} h / {Math.round(us.estimates.L_hours)} h • {pct}%</Text>
+            <Text style={{ marginTop: 8, color: palette.muted }}>{us.progress.logged_hours.toFixed(1)} h / {Math.round(us.estimates.L_hours)} h • {pct}%</Text>
           </Card>
           {shortSessionCount > 0 && (
             <Card>
-              <Text style={{ fontWeight: "700" }}>Short Sessions</Text>
+              <Text style={{ fontWeight: "700", color: palette.text }}>Short Sessions</Text>
               <View style={{marginTop:6}}>
                 {shortSessions.map((s, i) => (
                   <View key={i} style={{flexDirection:'row',alignItems:'center',marginBottom:4}}>
-                    <Text style={{fontSize:14}}>{Math.round(s.duration_min)} min</Text>
+                    <Text style={{ fontSize: 14, color: palette.text }}>{Math.round(s.duration_min)} min</Text>
                     {s.is_historic && <HistoricBadge />}
-                    {s.notes ? <Text style={{color:colors.muted,fontSize:12,marginLeft:8}}>{s.notes}</Text> : null}
+                    {s.notes ? <Text style={{color:palette.muted,fontSize:12,marginLeft:8}}>{s.notes}</Text> : null}
                   </View>
                 ))}
-                <Text style={{marginTop:6,color:colors.muted,fontSize:13}}>
+                <Text style={{marginTop:6,color:palette.muted,fontSize:13}}>
                   {shortSessionCount} short sessions, {shortSessionTotal} min
                 </Text>
               </View>
             </Card>
           )}
           <Card>
-            <Text style={{ fontWeight: "700" }}>This Week</Text>
-            <Text style={{ marginTop:6, fontSize: 20, fontWeight:'800' }}>{weekHours} h</Text>
-            <Text style={{ color: colors.muted, marginTop: 4 }}>Total practice time in the last 7 days</Text>
+            <Text style={{ fontWeight: "700", color: palette.text }}>This Week</Text>
+            <Text style={{ marginTop:6, fontSize: 20, fontWeight:'800', color: palette.text }}>{weekHours} h</Text>
+            <Text style={{ color: palette.muted, marginTop: 4 }}>Total practice time in the last 7 days</Text>
             {feedbackScore && (
-              <View style={{ marginTop: 8, paddingTop: 8, borderTopWidth: 1, borderTopColor: colors.border }}>
+              <View style={{ marginTop: 8, paddingTop: 8, borderTopWidth: 1, borderTopColor: palette.border }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                  <Text style={{ color: colors.muted, fontSize: 13 }}>Practice Quality</Text>
-                  <Text style={{ fontSize: 16, fontWeight: '700', color: feedbackScore.feedback_score >= 0.7 ? colors.success : feedbackScore.feedback_score >= 0.5 ? colors.primary : colors.accent }}>
+                  <Text style={{ color: palette.muted, fontSize: 13 }}>Practice Quality</Text>
+                  <Text style={{ fontSize: 16, fontWeight: '700', color: feedbackScore.feedback_score >= 0.7 ? palette.feedbackGood : feedbackScore.feedback_score >= 0.5 ? palette.feedbackMid : palette.feedbackPoor }}>
                     {Math.round(feedbackScore.feedback_score * 100)}%
                   </Text>
                 </View>
-                <Text style={{ color: colors.muted, fontSize: 12, fontStyle: 'italic' }}>
+                <Text style={{ color: palette.muted, fontSize: 12, fontStyle: 'italic' }}>
                   {feedbackScore.comment}
                 </Text>
                 <View style={{ marginTop: 6, flexDirection: 'row', gap: 12 }}>
-                  <Text style={{ color: colors.muted, fontSize: 11 }}>{feedbackScore.metrics.frequency} sessions</Text>
-                  <Text style={{ color: colors.muted, fontSize: 11 }}>Focus: {feedbackScore.metrics.focus_score.toFixed(1)}/5</Text>
-                  <Text style={{ color: colors.muted, fontSize: 11 }}>Satisfaction: {feedbackScore.metrics.satisfaction.toFixed(1)}/5</Text>
+                  <Text style={{ color: palette.muted, fontSize: 11 }}>{feedbackScore.metrics.frequency} sessions</Text>
+                  <Text style={{ color: palette.muted, fontSize: 11 }}>Focus: {feedbackScore.metrics.focus_score.toFixed(1)}/5</Text>
+                  <Text style={{ color: palette.muted, fontSize: 11 }}>Satisfaction: {feedbackScore.metrics.satisfaction.toFixed(1)}/5</Text>
                 </View>
               </View>
             )}
           </Card>
           {allSessions.length === 0 && (
             <Card>
-              <Text style={{color:colors.muted}}>No sessions yet! Start a timer or log your first session.</Text>
+              <Text style={{color:palette.muted}}>No sessions yet! Start a timer or log your first session.</Text>
             </Card>
           )}
           <Card>
-            <Text style={{ fontWeight:"700" }}>What speeds you up?</Text>
-            <Text style={{ marginTop: 6, color: colors.muted }}>{getPersonalizedTips()}</Text>
+            <Text style={{ fontWeight:"700", color: palette.text }}>What speeds you up?</Text>
+            <Text style={{ marginTop: 6, color: palette.muted }}>{getPersonalizedTips()}</Text>
           </Card>
           {quizMod && !fLevelPassed && (
             <Button title="Take F-Level Quiz" onPress={()=>{ setQuizState({ skillId, quiz: quizMod, answers: {}, current: 0, finished: false }); setRoute({ name: "Quiz", skillId }); }} />
           )}
           <Card>
-            <Text style={{ fontWeight: '700', marginBottom: 8 }}>Session History</Text>
+            <Text style={{ fontWeight: '700', marginBottom: 8, color: palette.text }}>Session History</Text>
             {allSessions.length === 0 ? (
-              <Text style={{ color: colors.muted }}>No sessions yet. Start the timer!</Text>
+              <Text style={{ color: palette.muted }}>No sessions yet. Start the timer!</Text>
             ) : (
               allSessions.slice(0, 10).map((s, i) => (
-                <View key={i} style={{ paddingVertical: 8, borderBottomWidth: i < Math.min(9, allSessions.length-1) ? 1 : 0, borderColor: colors.border }}>
+                <View key={i} style={{ paddingVertical: 8, borderBottomWidth: i < Math.min(9, allSessions.length-1) ? 1 : 0, borderColor: palette.border }}>
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems:'center' }}>
                     <View>
-                      <Text style={{ fontWeight: '600' }}>{Math.round(s.duration_min)} min</Text>
-                      <Text style={{ color: colors.muted, fontSize: 12 }}>{new Date(s.start_ts).toLocaleDateString()}</Text>
+                      <Text style={{ fontWeight: '600', color: palette.text }}>{Math.round(s.duration_min)} min</Text>
+                      <Text style={{ color: palette.muted, fontSize: 12 }}>{new Date(s.start_ts).toLocaleDateString()}</Text>
                     </View>
                     <View style={{ flexDirection:'row', gap: 8 }}>
                       <TouchableOpacity onPress={()=>{
                         setEditSession({ open:true, sessionId: s.session_id, duration: String(Math.round(s.duration_min)), notes: s.notes || '', historic: !!s.is_historic });
                       }}>
-                        <Text style={{ color: colors.link }}>Edit</Text>
+                        <Text style={{ color: palette.linkInteractive }}>Edit</Text>
                       </TouchableOpacity>
                       <TouchableOpacity onPress={()=>{
                         Alert.alert('Delete session?','This cannot be undone.',[
@@ -2487,12 +2478,12 @@ if (route.name === 'Explore' || route.name === 'Search') {
                           { text:'Delete', style:'destructive', onPress:()=>{ (store as any).deleteSession?.(s.session_id); setRoute({ name:'SkillDashboard', skillId }); } }
                         ]);
                       }}>
-                        <Text style={{ color: colors.accent }}>Delete</Text>
+                        <Text style={{ color: palette.destructive }}>Delete</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
                   {s.is_historic && <HistoricBadge />}
-                  {s.notes ? <Text style={{ color: colors.muted, fontSize: 13, marginTop: 2 }}>{s.notes}</Text> : null}
+                  {s.notes ? <Text style={{ color: palette.muted, fontSize: 13, marginTop: 2 }}>{s.notes}</Text> : null}
                 </View>
               ))
             )}
@@ -2500,10 +2491,10 @@ if (route.name === 'Explore' || route.name === 'Search') {
           <Button title="Log Session Manually" onPress={() => setManualSession({ open: true, duration: '', notes: '', historic: false })} />
         </View>
         <Modal visible={manualSession.open} transparent animationType="slide">
-          <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'rgba(0,0,0,0.15)' }}>
-            <View style={{ backgroundColor:'white', borderRadius:12, padding:24, width: modalWidth }}>
-              <Text style={{fontWeight:'700', fontSize:18, marginBottom:12}}>Log Session</Text>
-              <Text>Duration (minutes):</Text>
+          <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor: palette.overlays.modalScrim }}>
+            <View style={{ backgroundColor:palette.card, borderRadius:12, padding:24, width: modalWidth,borderWidth:1,borderColor:palette.border }}>
+              <Text style={{fontWeight:'700', fontSize:18, marginBottom:12, color:palette.text}}>Log Session</Text>
+              <Text style={{ color: palette.text }}>Duration (minutes):</Text>
               <TextInput 
                 value={manualSession.duration} 
                 onChangeText={v=>{
@@ -2511,22 +2502,24 @@ if (route.name === 'Explore' || route.name === 'Search') {
                   setManualSession(s=>({...s, duration:v}));
                 }} 
                 keyboardType="numeric" 
-                style={{borderWidth:1,borderColor:colors.border,borderRadius:8,padding:8,marginBottom:8}} 
-                placeholder="e.g. 25" 
+                style={{borderWidth:1,borderColor:palette.border,borderRadius:8,padding:8,marginBottom:8, color:palette.text}} 
+                placeholder="e.g. 25"
+                placeholderTextColor={palette.muted}
               />
-              <Text>Notes (optional):</Text>
+              <Text style={{ color: palette.text }}>Notes (optional):</Text>
               <TextInput 
                 value={manualSession.notes} 
                 onChangeText={v=>{
                   console.log('[Input] Manual Session Notes - Changed:', v.length, 'chars');
                   setManualSession(s=>({...s, notes:v}));
                 }} 
-                style={{borderWidth:1,borderColor:colors.border,borderRadius:8,padding:8,marginBottom:8}} 
-                placeholder="Notes..." 
+                style={{borderWidth:1,borderColor:palette.border,borderRadius:8,padding:8,marginBottom:8, color:palette.text}} 
+                placeholder="Notes..."
+                placeholderTextColor={palette.muted}
               />
               <View style={{flexDirection:'row', alignItems:'center', marginBottom:12}}>
                 <Switch value={manualSession.historic} onValueChange={v=>setManualSession(s=>({...s, historic:v}))}/>
-                <Text>  Historic session?</Text>
+                <Text style={{ color: palette.text }}>  Historic session?</Text>
               </View>
               <View style={{flexDirection:'row', gap:16, justifyContent:'flex-end'}}>
                 <Button title="Cancel" onPress={()=>setManualSession({ open: false, duration: '', notes: '', historic: false })} disabled={isManualSessionSaving} />
@@ -2545,10 +2538,10 @@ if (route.name === 'Explore' || route.name === 'Search') {
         </Modal>
       {/* Edit Session Modal */}
       <Modal visible={editSession.open} transparent animationType="slide">
-        <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'rgba(0,0,0,0.15)' }}>
-          <View style={{ backgroundColor:'white', borderRadius:12, padding:24, width: modalWidth }}>
-            <Text style={{fontWeight:'700', fontSize:18, marginBottom:12}}>Edit Session</Text>
-            <Text>Duration (minutes):</Text>
+        <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor: palette.overlays.modalScrim }}>
+          <View style={{ backgroundColor:palette.card, borderRadius:12, padding:24, width: modalWidth,borderWidth:1,borderColor:palette.border }}>
+            <Text style={{fontWeight:'700', fontSize:18, marginBottom:12, color:palette.text}}>Edit Session</Text>
+            <Text style={{ color: palette.text }}>Duration (minutes):</Text>
             <TextInput 
               value={editSession.duration} 
               onChangeText={v=>{
@@ -2556,22 +2549,24 @@ if (route.name === 'Explore' || route.name === 'Search') {
                 setEditSession(s=>({...s, duration:v}));
               }} 
               keyboardType="numeric" 
-              style={{borderWidth:1,borderColor:colors.border,borderRadius:8,padding:8,marginBottom:8}} 
-              placeholder="e.g. 25" 
+              style={{borderWidth:1,borderColor:palette.border,borderRadius:8,padding:8,marginBottom:8, color:palette.text}} 
+              placeholder="e.g. 25"
+              placeholderTextColor={palette.muted}
             />
-            <Text>Notes (optional):</Text>
+            <Text style={{ color: palette.text }}>Notes (optional):</Text>
             <TextInput 
               value={editSession.notes} 
               onChangeText={v=>{
                 console.log('[Input] Edit Session Notes - Changed:', v.length, 'chars');
                 setEditSession(s=>({...s, notes:v}));
               }} 
-              style={{borderWidth:1,borderColor:colors.border,borderRadius:8,padding:8,marginBottom:8}} 
-              placeholder="Notes..." 
+              style={{borderWidth:1,borderColor:palette.border,borderRadius:8,padding:8,marginBottom:8, color:palette.text}} 
+              placeholder="Notes..."
+              placeholderTextColor={palette.muted}
             />
             <View style={{flexDirection:'row', alignItems:'center', marginBottom:12}}>
               <Switch value={editSession.historic} onValueChange={v=>setEditSession(s=>({...s, historic:v}))}/>
-              <Text>  Historic session?</Text>
+              <Text style={{ color: palette.text }}>  Historic session?</Text>
             </View>
             <View style={{flexDirection:'row', gap:16, justifyContent:'flex-end'}}>
               <Button title="Cancel" onPress={()=>setEditSession({ open: false, sessionId: undefined, duration: '', notes: '', historic: false })} disabled={isEditSessionSaving} />
@@ -2593,27 +2588,27 @@ if (route.name === 'Explore' || route.name === 'Search') {
       
       {/* Skip Level Modal */}
       <Modal visible={skipLevelModal.open} transparent animationType="slide">
-        <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'rgba(0,0,0,0.15)' }}>
-          <View style={{ backgroundColor:'white', borderRadius:12, padding:24, width: modalWidth, maxHeight:'80%' }}>
+        <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor: palette.overlays.modalScrim }}>
+          <View style={{ backgroundColor:palette.card, borderRadius:12, padding:24, width: modalWidth, maxHeight:'80%', borderWidth:1, borderColor:palette.border }}>
             {/* Quiz Mode */}
             {skipLevelModal.selectedLevel && skipLevelQuiz.questions.length > 0 ? (
               <ScrollView>
-                <Text style={{fontWeight:'700', fontSize:18, marginBottom:12}}>
+                <Text style={{fontWeight:'700', fontSize:18, marginBottom:12, color: palette.text}}>
                   Level Check: {skipLevelModal.selectedLevel === 'intermediate' ? 'Intermediate' : 'Expert'}
                 </Text>
-                <Text style={{ marginBottom:16, color: colors.muted, fontSize: 13 }}>
+                <Text style={{ marginBottom:16, color: palette.muted, fontSize: 13 }}>
                   Answer 7 out of 10 questions correctly to skip to this level.
                 </Text>
                 {skipLevelQuiz.current < skipLevelQuiz.questions.length ? (
                   <>
-                    <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 8 }}>
+                    <Text style={{ fontSize: 12, color: palette.muted, marginBottom: 8 }}>
                       Question {skipLevelQuiz.current + 1} of {skipLevelQuiz.questions.length}
                     </Text>
                     {(() => {
                       const q = skipLevelQuiz.questions[skipLevelQuiz.current];
                       return (
                         <View>
-                          <Text style={{ fontWeight:'600', marginBottom:12, fontSize:16 }}>{q.stem}</Text>
+                          <Text style={{ fontWeight:'600', marginBottom:12, fontSize:16, color: palette.text }}>{q.stem}</Text>
                           <View style={{ gap: 8 }}>
                             {q.options?.map((opt: any) => (
                               <TouchableOpacity
@@ -2628,11 +2623,11 @@ if (route.name === 'Explore' || route.name === 'Search') {
                                   padding: 12,
                                   borderRadius: 8,
                                   borderWidth: 1,
-                                  borderColor: skipLevelQuiz.answers[skipLevelQuiz.current] === opt.k ? colors.primary : colors.border,
-                                  backgroundColor: skipLevelQuiz.answers[skipLevelQuiz.current] === opt.k ? colors.highlight : colors.card
+                                  borderColor: skipLevelQuiz.answers[skipLevelQuiz.current] === opt.k ? palette.primary : palette.border,
+                                  backgroundColor: skipLevelQuiz.answers[skipLevelQuiz.current] === opt.k ? palette.highlight : palette.card
                                 }}
                               >
-                                <Text style={{ color: skipLevelQuiz.answers[skipLevelQuiz.current] === opt.k ? colors.primary : colors.text }}>
+                                <Text style={{ color: palette.text, fontWeight: skipLevelQuiz.answers[skipLevelQuiz.current] === opt.k ? '700' : '400' }}>
                                   {opt.k}. {opt.text}
                                 </Text>
                               </TouchableOpacity>
@@ -2670,12 +2665,12 @@ if (route.name === 'Explore' || route.name === 'Search') {
             ) : (
               /* Level Selection Mode */
               <>
-                <Text style={{fontWeight:'700', fontSize:18, marginBottom:12}}>
+                <Text style={{fontWeight:'700', fontSize:18, marginBottom:12, color: palette.text}}>
                   Skip to Level
                 </Text>
                 {skipLevelModal.skill && (
                   <>
-                    <Text style={{ marginBottom:16, color: colors.muted }}>
+                    <Text style={{ marginBottom:16, color: palette.muted }}>
                       Already have experience with {skipLevelModal.skill.name}? Set your starting level:
                     </Text>
                     <View style={{ gap: 12, marginBottom: 16 }}>

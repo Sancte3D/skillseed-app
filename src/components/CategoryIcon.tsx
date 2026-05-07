@@ -1,6 +1,7 @@
 import React from 'react';
 import { ViewStyle, StyleProp } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { colors } from '../theme';
 
 interface Props {
   category: string;
@@ -29,7 +30,7 @@ const categoryIconMap: Record<string, string> = {
   'automation': 'settings',
 };
 
-const CategoryIcon = React.memo<Props>(({ category, size = 24, color = '#000', style }) => {
+const CategoryIcon = React.memo<Props>(({ category, size = 24, color = colors.text, style }) => {
   const c = (category || '').toLowerCase();
   const iconName = categoryIconMap[c] || 'folder';
   return <MaterialIcons name={iconName as any} size={size} color={color} style={style} />;
