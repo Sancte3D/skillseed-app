@@ -97,7 +97,17 @@ const Header = ({ title, onBack }: { title: string; onBack?: () => void }) => {
   );
 };
 
-const Button = ({ title, onPress }: { title: string; onPress: () => void }) => {
+const Button = ({
+  title,
+  onPress,
+  disabled = false,
+  loading = false,
+}: {
+  title: string;
+  onPress: () => void;
+  disabled?: boolean;
+  loading?: boolean;
+}) => {
   const scale = React.useRef(new Animated.Value(1)).current;
   const onPressIn = () => {
     Animated.spring(scale, { toValue: 0.96, useNativeDriver: true, friction: 6, tension: 120 }).start();
@@ -106,18 +116,20 @@ const Button = ({ title, onPress }: { title: string; onPress: () => void }) => {
     Animated.spring(scale, { toValue: 1, useNativeDriver: true, friction: 6, tension: 120 }).start();
   };
   const handlePress = () => {
+    if (disabled || loading) return;
     Haptics.selectionAsync();
     onPress();
   };
   return (
-    <Animated.View style={{ transform: [{ scale }] }}>
+    <Animated.View style={{ transform: [{ scale }], opacity: disabled ? 0.5 : 1 }}>
       <TouchableOpacity
         onPressIn={onPressIn}
         onPressOut={onPressOut}
         onPress={handlePress}
+        disabled={disabled || loading}
         style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 16, alignItems: "center" }}
       >
-        <Text style={{ color: colors.text, fontWeight: "600" }}>{title}</Text>
+        <Text style={{ color: colors.text, fontWeight: "600" }}>{loading ? "Loading..." : title}</Text>
       </TouchableOpacity>
     </Animated.View>
   );
@@ -163,7 +175,7 @@ export default function App() {
   const [showSplash, setShowSplash] = useState(false);
   
   // TEST MODE: Während des Testens immer Onboarding zeigen
-  const FORCE_ONBOARDING = true; // Setze auf false für Produktion
+  const FORCE_ONBOARDING = false; // Production default: onboarding once
   
   // Safe route update for useEffect - prevents render-time updates
   const pendingRouteRef = React.useRef<Route | null>(null);
@@ -609,6 +621,10 @@ export default function App() {
   const [editSession, setEditSession] = useState<{ open: boolean; sessionId?: string; duration: string; notes?: string; historic: boolean }>({ open: false, sessionId: undefined, duration: '', notes: '', historic: false });
   const [skipLevelModal, setSkipLevelModal] = useState<{ open: boolean; skill: SkillMaster | null; selectedLevel?: 'intermediate' | 'expert' | null }>({ open: false, skill: null, selectedLevel: null });
   const [skipLevelQuiz, setSkipLevelQuiz] = useState<{ questions: any[]; current: number; answers: Record<number, string>; finished: boolean }>({ questions: [], current: 0, answers: {}, finished: false });
+  const [isTimerActionBusy, setIsTimerActionBusy] = useState(false);
+  const [isManualSessionSaving, setIsManualSessionSaving] = useState(false);
+  const [isEditSessionSaving, setIsEditSessionSaving] = useState(false);
+  const timerActionRef = useRef(false);
 
   // --- Handlers ---
   const onExport = () => {
@@ -769,6 +785,21 @@ export default function App() {
       subs.forEach(s => s && s.remove && s.remove());
     };
   }, [route.name, timerState.running, timerState.start, timerState.skillId, afkModal.visible]);
+
+  // Ensure transient UI state doesn't leak across route changes.
+  useEffect(() => {
+    if (route.name !== 'Timer' && afkModal.visible) {
+      setAfkModal({ visible: false, timeout: null });
+    }
+    if (route.name !== 'SkillDashboard') {
+      setManualSession({ open: false, duration: '', notes: '', historic: false });
+      setEditSession({ open: false, sessionId: undefined, duration: '', notes: '', historic: false });
+      setSkipLevelModal({ open: false, skill: null, selectedLevel: null });
+      setSkipLevelQuiz({ questions: [], current: 0, answers: {}, finished: false });
+      setIsManualSessionSaving(false);
+      setIsEditSessionSaving(false);
+    }
+  }, [route.name, afkModal.visible]);
 
   // At the top level, after all other useState/useEffect calls:
   const [displayTime, setDisplayTime] = useState(0);
@@ -1818,8 +1849,17 @@ if (route.name === 'Explore' || route.name === 'Search') {
   if (route.name === "Assessment") {
     const skill = route.skill || assessmentState.skill;
     if (!skill) {
-      setRoute({ name: 'Explore' });
-      return null;
+      return (
+        <SafeAreaView style={{ flex:1, backgroundColor: colors.background }}>
+          <Header title="Assessment" onBack={()=>setRoute({ name: 'Explore' })} />
+          <View style={{ padding: spacing.m }}>
+            <Card>
+              <Text style={{ color: colors.muted }}>No skill selected. Please choose a skill first.</Text>
+            </Card>
+            <Button title="Back to Explore" onPress={() => setRoute({ name: 'Explore' })} />
+          </View>
+        </SafeAreaView>
+      );
     }
     
     // Initialize assessment state when route changes - use direct check instead of useEffect
@@ -2068,8 +2108,32 @@ if (route.name === 'Explore' || route.name === 'Search') {
     }
     const titleText = sid ? (skills.find(s=>s.skill_id===sid)?.name || humanize(sid)) : 'No skill selected';
 
+    const stopAndPersistTimer = (navigateAfterStop: boolean) => {
+      if (timerActionRef.current) return;
+      timerActionRef.current = true;
+      setIsTimerActionBusy(true);
+      try {
+        const now = Date.now();
+        if (start) {
+          const durMin = Math.max(1, Math.round((now - start)/60000));
+          const sid2 = us?.skill_id || timerState.skillId || route.skillId;
+          if (sid2) store.finishSession(sid2, durMin, false);
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        }
+        const finalSkillId = us?.skill_id || timerState.skillId || route.skillId;
+        setTimerState({ running: false, paused: false, start: null, accumSec: 0, lastActivity: null, skillId: finalSkillId });
+        if (navigateAfterStop && finalSkillId) {
+          navigate({ name:'SkillDashboard', skillId: finalSkillId });
+        }
+      } finally {
+        timerActionRef.current = false;
+        setIsTimerActionBusy(false);
+      }
+    };
+
     // always reference timerState, update only with setTimerState
     const toggle = () => {
+      if (timerActionRef.current) return;
       console.log('[Timer] ===== TOGGLE BUTTON PRESSED =====');
       console.log('[Timer] Current sid:', sid);
       console.log('[Timer] Current running:', running);
@@ -2079,29 +2143,18 @@ if (route.name === 'Explore' || route.name === 'Search') {
         return;
       }
       if (!running) {
+        timerActionRef.current = true;
+        setIsTimerActionBusy(true);
         console.log('[Timer] Starting timer...');
         const now = Date.now();
         const sid2 = us?.skill_id || timerState.skillId || route.skillId;
         console.log('[Timer] Setting timerState to running with skill:', sid2);
         setTimerState({ running: true, paused: false, start: now, accumSec: timerState.accumSec, lastActivity: now, skillId: sid2 });
         Haptics.selectionAsync();
+        timerActionRef.current = false;
+        setIsTimerActionBusy(false);
       } else {
-        console.log('[Timer] Stopping timer...');
-        const now = Date.now();
-        if (start) {
-          const durMin = Math.max(1, Math.round((now - start)/60000));
-          const sid2 = us?.skill_id || timerState.skillId || route.skillId;
-          console.log('[Timer] Finishing session:', durMin, 'minutes for skill:', sid2);
-          if (sid2) store.finishSession(sid2, durMin, false);
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-        }
-        const finalSkillId = us?.skill_id || timerState.skillId || route.skillId;
-        console.log('[Timer] Setting timerState to stopped');
-        setTimerState({ running: false, paused: false, start: null, accumSec: 0, lastActivity: null, skillId: finalSkillId });
-        const sidNext = us?.skill_id || timerState.skillId || route.skillId;
-        console.log('[Timer] Navigating to SkillDashboard with skill:', sidNext);
-        if (sidNext) navigate({ name:'SkillDashboard', skillId: sidNext });
-        else console.log('[Timer] ⚠️ No skillId for navigation after stop!');
+        stopAndPersistTimer(true);
       }
     };
     return (
@@ -2110,7 +2163,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
           if (timerState.running) {
             Alert.alert('Timer Running','Stop the timer before going back?',[
               { text:'Cancel', style:'cancel' },
-              { text:'Stop Timer', onPress:()=>{ toggle(); setRoute({name:'Explore'}); } }
+              { text:'Stop Timer', onPress:()=>{ stopAndPersistTimer(false); setRoute({name:'Explore'}); } }
             ]);
           } else {
             setRoute({name:'Explore'});
@@ -2123,7 +2176,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
               {formatTime(displayTime)}
             </Text>
           </View>
-          <Button title={running ? "Stop" : "Start"} onPress={toggle} />
+          <Button title={running ? "Stop" : "Start"} onPress={toggle} disabled={isTimerActionBusy} loading={isTimerActionBusy} />
           <Button title="Dashboard" onPress={()=>{ const sid = us?.skill_id || timerState.skillId || route.skillId; if (sid) setRoute({ name:"SkillDashboard", skillId: sid }); }} />
         </View>
         <Modal visible={afkModal.visible} transparent animationType="fade">
@@ -2133,7 +2186,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
               <Text style={{color:colors.muted,marginBottom:22}}>No activity detected for 30 minutes.</Text>
               <View style={{flexDirection:'row',gap:16}}>
                 <Button title="Continue" onPress={()=>{lastUserActivityRef.current = Date.now();setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;Haptics.selectionAsync();}}/>
-                <Button title="Stop Timer" onPress={()=>{setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;toggle();}}/>
+                <Button title="Stop Timer" onPress={()=>{setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;stopAndPersistTimer(true);}} disabled={isTimerActionBusy} loading={isTimerActionBusy}/>
               </View>
             </View>
           </View>
@@ -2409,13 +2462,16 @@ if (route.name === 'Explore' || route.name === 'Search') {
                 <Text>  Historic session?</Text>
               </View>
               <View style={{flexDirection:'row', gap:16, justifyContent:'flex-end'}}>
-                <Button title="Cancel" onPress={()=>setManualSession({ open: false, duration: '', notes: '', historic: false })} />
+                <Button title="Cancel" onPress={()=>setManualSession({ open: false, duration: '', notes: '', historic: false })} disabled={isManualSessionSaving} />
                 <Button title="Add" onPress={()=> {
+                  if (isManualSessionSaving) return;
+                  setIsManualSessionSaving(true);
                   const min = parseInt(manualSession.duration);
-                  if (isNaN(min) || min <= 0) { Alert.alert('Please enter a valid duration'); return; }
+                  if (isNaN(min) || min <= 0) { Alert.alert('Please enter a valid duration'); setIsManualSessionSaving(false); return; }
                   store.finishSession(route.skillId, min, false, manualSession.notes || '', manualSession.historic);
                   setManualSession({ open: false, duration: '', notes: '', historic: false });
-                }} />
+                  setIsManualSessionSaving(false);
+                }} disabled={isManualSessionSaving} loading={isManualSessionSaving} />
               </View>
             </View>
           </View>
@@ -2451,15 +2507,18 @@ if (route.name === 'Explore' || route.name === 'Search') {
               <Text>  Historic session?</Text>
             </View>
             <View style={{flexDirection:'row', gap:16, justifyContent:'flex-end'}}>
-              <Button title="Cancel" onPress={()=>setEditSession({ open: false, sessionId: undefined, duration: '', notes: '', historic: false })} />
+              <Button title="Cancel" onPress={()=>setEditSession({ open: false, sessionId: undefined, duration: '', notes: '', historic: false })} disabled={isEditSessionSaving} />
               <Button title="Save" onPress={()=> {
+                if (isEditSessionSaving) return;
+                setIsEditSessionSaving(true);
                 const min = parseInt(editSession.duration);
-                if (!editSession.sessionId) { setEditSession({ open:false, sessionId: undefined, duration:'', notes:'', historic:false }); return; }
-                if (isNaN(min) || min <= 0) { Alert.alert('Please enter a valid duration'); return; }
+                if (!editSession.sessionId) { setEditSession({ open:false, sessionId: undefined, duration:'', notes:'', historic:false }); setIsEditSessionSaving(false); return; }
+                if (isNaN(min) || min <= 0) { Alert.alert('Please enter a valid duration'); setIsEditSessionSaving(false); return; }
                 (store as any).updateSession?.(editSession.sessionId, { duration_min: min, notes: editSession.notes || undefined, is_historic: editSession.historic });
                 setEditSession({ open: false, sessionId: undefined, duration: '', notes: '', historic: false });
                 setRoute({ name:'SkillDashboard', skillId });
-              }} />
+                setIsEditSessionSaving(false);
+              }} disabled={isEditSessionSaving} loading={isEditSessionSaving} />
             </View>
           </View>
         </View>
