@@ -1029,7 +1029,7 @@ export default function App() {
                 style={{ flex:1, borderWidth:1, borderColor: colors.border, borderRadius:10, padding:10, backgroundColor: colors.card }}
                 placeholderTextColor={colors.muted}
               />
-              <Button title="Save" onPress={()=>{/* handled by onSubmitEditing */}} />
+              <Button title="Update Goal" onPress={()=>{/* handled by onSubmitEditing */}} />
             </View>
           </Card>
           <Card>
@@ -1268,7 +1268,7 @@ export default function App() {
               </View>
             )}
           </Card>
-          <Button title="Start Timer" onPress={()=> {
+          <Button title="Begin Session" onPress={()=> {
             // Check if skill has been assessed/tracked
             const existing = store.getUserSkillBySkillId(sk.skill_id);
             if (!existing) {
@@ -1863,7 +1863,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
           {clampedIndex < questions.length-1 ? (
             <Button title="Next" onPress={()=> setGaIndex(i=> Math.min(questions.length-1, i+1))} />
             ) : (
-              <Button title="Finish" onPress={commit} />
+              <Button title="Submit Assessment" onPress={commit} />
             )}
           </View>
         </View>
@@ -2122,7 +2122,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
                 }}
               />
             ) : (
-              <Button title="Finish & Estimate" onPress={onEstimate} />
+              <Button title="Generate Estimate" onPress={onEstimate} />
             )}
           </View>
         </ScrollView>
@@ -2147,7 +2147,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
             <Text style={{ color: colors.muted, marginTop: 6 }}>ETA: {eta1} days at 1h/day • {eta2} days at 2h/day</Text>
           </Card>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Button title="Start timer" onPress={()=>{ const now = Date.now(); setTimerState({ running: true, paused: false, start: now, accumSec: 0, lastActivity: now, skillId: us.skill_id }); transitionSessionFlow('in_progress', 'estimate-start'); Haptics.selectionAsync(); navigate({ name:"Timer", skillId: us.skill_id }); }} />
+            <Button title="Begin Session" onPress={()=>{ const now = Date.now(); setTimerState({ running: true, paused: false, start: now, accumSec: 0, lastActivity: now, skillId: us.skill_id }); transitionSessionFlow('in_progress', 'estimate-start'); Haptics.selectionAsync(); navigate({ name:"Timer", skillId: us.skill_id }); }} />
             <Button title="Go to dashboard" onPress={()=>navigate({ name:"SkillDashboard", skillId: us.skill_id })} />
           </View>
         </View>
@@ -2257,7 +2257,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
               <Text style={{fontWeight:'700',fontSize:18,marginBottom:16}}>Still there?</Text>
               <Text style={{color:colors.muted,marginBottom:22}}>No activity detected for 30 minutes.</Text>
               <View style={{flexDirection:'row',gap:16}}>
-                <Button title="Continue" onPress={()=>{lastUserActivityRef.current = Date.now();setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;Haptics.selectionAsync();}}/>
+                <Button title="Keep Session Active" onPress={()=>{lastUserActivityRef.current = Date.now();setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;Haptics.selectionAsync();}}/>
                 <Button title="Stop Timer" onPress={()=>{setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;stopAndPersistTimer(true);}} disabled={isTimerActionBusy} loading={isTimerActionBusy}/>
               </View>
             </View>
@@ -2586,7 +2586,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
             </View>
             <View style={{flexDirection:'row', gap:16, justifyContent:'flex-end'}}>
               <Button title="Cancel" onPress={()=>setEditSession({ open: false, sessionId: undefined, duration: '', notes: '', historic: false })} disabled={isEditSessionSaving} />
-              <Button title="Save" onPress={()=> {
+              <Button title="Apply Changes" onPress={()=> {
                 if (isEditSessionSaving) return;
                 setIsEditSessionSaving(true);
                 const min = parseInt(editSession.duration);
