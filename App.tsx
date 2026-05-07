@@ -1268,7 +1268,7 @@ export default function App() {
               </View>
             )}
           </Card>
-          <Button title="Begin Session" onPress={()=> {
+          <Button title="Start today's session" onPress={()=> {
             // Check if skill has been assessed/tracked
             const existing = store.getUserSkillBySkillId(sk.skill_id);
             if (!existing) {
@@ -2147,8 +2147,8 @@ if (route.name === 'Explore' || route.name === 'Search') {
             <Text style={{ color: colors.muted, marginTop: 6 }}>ETA: {eta1} days at 1h/day • {eta2} days at 2h/day</Text>
           </Card>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Button title="Begin Session" onPress={()=>{ const now = Date.now(); setTimerState({ running: true, paused: false, start: now, accumSec: 0, lastActivity: now, skillId: us.skill_id }); transitionSessionFlow('in_progress', 'estimate-start'); Haptics.selectionAsync(); navigate({ name:"Timer", skillId: us.skill_id }); }} />
-            <Button title="Go to dashboard" onPress={()=>navigate({ name:"SkillDashboard", skillId: us.skill_id })} />
+            <Button title="Start today's session" onPress={()=>{ const now = Date.now(); setTimerState({ running: true, paused: false, start: now, accumSec: 0, lastActivity: now, skillId: us.skill_id }); transitionSessionFlow('in_progress', 'estimate-start'); Haptics.selectionAsync(); navigate({ name:"Timer", skillId: us.skill_id }); }} />
+            <Button title="View progress" onPress={()=>navigate({ name:"SkillDashboard", skillId: us.skill_id })} />
           </View>
         </View>
       </SafeAreaView>
@@ -2235,7 +2235,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
           if (timerState.running) {
             Alert.alert('Timer Running','Stop the timer before going back?',[
               { text:'Cancel', style:'cancel' },
-              { text:'Stop Timer', onPress:()=>{ stopAndPersistTimer(false); setRoute({name:'Explore'}); } }
+              { text:'Finish session', onPress:()=>{ stopAndPersistTimer(false); setRoute({name:'Explore'}); } }
             ]);
           } else {
             setRoute({name:'Explore'});
@@ -2248,7 +2248,16 @@ if (route.name === 'Explore' || route.name === 'Search') {
               {formatTime(displayTime)}
             </Text>
           </View>
-          <Button title={running ? "Stop" : "Start"} onPress={toggle} disabled={isTimerActionBusy} loading={isTimerActionBusy} />
+          <Button
+            title={
+              running
+                ? (sessionFlowState === 'step_completed' ? "Continue" : "Complete step")
+                : "Start today's session"
+            }
+            onPress={toggle}
+            disabled={isTimerActionBusy}
+            loading={isTimerActionBusy}
+          />
           <Button title="Dashboard" onPress={()=>{ const sid = us?.skill_id || timerState.skillId || route.skillId; if (sid) { transitionSessionFlow('next_recommended', 'timer-dashboard'); setRoute({ name:"SkillDashboard", skillId: sid }); } }} />
         </View>
         <Modal visible={afkModal.visible} transparent animationType="fade">
@@ -2258,7 +2267,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
               <Text style={{color:colors.muted,marginBottom:22}}>No activity detected for 30 minutes.</Text>
               <View style={{flexDirection:'row',gap:16}}>
                 <Button title="Keep Session Active" onPress={()=>{lastUserActivityRef.current = Date.now();setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;Haptics.selectionAsync();}}/>
-                <Button title="Stop Timer" onPress={()=>{setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;stopAndPersistTimer(true);}} disabled={isTimerActionBusy} loading={isTimerActionBusy}/>
+                <Button title="Finish session" onPress={()=>{setAfkModal({ visible: false, timeout: null });const t = afkTimeoutRef.current;if (t != null) clearTimeout(t);afkTimeoutRef.current = null;stopAndPersistTimer(true);}} disabled={isTimerActionBusy} loading={isTimerActionBusy}/>
               </View>
             </View>
           </View>
@@ -2312,7 +2321,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
               <Text style={{marginTop:8}}>{correct} out of {total} correct ({Math.round(percent*100)}%)</Text>
             </Card>
             <Button title="Retry Quiz" onPress={restartQuiz}/>
-            <Button title="Back to Dashboard" onPress={()=>setRoute({name:"SkillDashboard", skillId: quizData.skill_id})} />
+            <Button title="View progress" onPress={()=>setRoute({name:"SkillDashboard", skillId: quizData.skill_id})} />
           </View>
         </SafeAreaView>
       );
@@ -2350,7 +2359,7 @@ if (route.name === 'Explore' || route.name === 'Search') {
               <Text style={{ fontWeight:'700' }}>No data yet</Text>
               <Text style={{ color: colors.muted, marginTop:6 }}>Start a timer from any skill to see your progress here.</Text>
             </Card>
-            <Button title="Go to Home" onPress={()=>setRoute({ name:'Explore' })} />
+            <Button title="Next skill" onPress={()=>setRoute({ name:'Explore' })} />
           </View>
           <TabBar />
         </SafeAreaView>
