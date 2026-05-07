@@ -6,10 +6,10 @@
 // Durations (iOS-Standard)
 export const Motion = {
   duration: {
-    instant: 100,
-    fast: 150,
-    base: 220,
-    slow: 320,
+    instant: 80,
+    fast: 140,
+    base: 240,
+    slow: 380,
     deliberate: 450,
   },
 
@@ -36,11 +36,14 @@ export const Motion = {
       mass: 1,
       overshootClamping: false,
     },
+    smooth: [0.2, 0.8, 0.2, 1] as const,
+    soft: [0.16, 1, 0.3, 1] as const,
+    press: [0.2, 0, 0, 1] as const,
   },
 
   // Scale Values
   scale: {
-    press: 0.98,
+    press: 0.985,
     hover: 1.02,
     emphasis: 1.04,
   },
